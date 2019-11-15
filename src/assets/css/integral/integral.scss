@@ -1,0 +1,219 @@
+/*积分页面*/
+.integral{
+
+}
+.integral-content{
+
+}
+.integral-content-top{
+    width:100%;
+    height: 4.1rem;
+    color:#fff;
+    background:url('assets/images/wodejifen_bg@2x.png') left top no-repeat;
+    background-size: 100% 100%;
+    .integral-title {
+        position: relative;
+        padding: 0.28rem 0 0.2rem 0;
+        .go-back {
+            position: absolute;
+            background: url('assets/images/icon_fanhui@2x.png') center center no-repeat;
+            background-size: 0.18rem 0.32rem;
+            width: 0.5rem;
+            height: 0.5rem;
+            left: 0.1rem;
+            top: 0.2rem;
+        }
+        .title {
+            font-size: 0.34rem;
+            line-height: 0.48rem;
+            text-align: center;
+        }
+    }
+    .integral-msg {
+        padding: 0.6rem 0.5rem;
+        .msg-name {
+            @include df;
+            font-size: 0.4rem;
+            font-weight: bold;
+            line-height: 0.5rem;
+            margin-bottom: 0.15rem;
+            span {
+                margin-right: 0.22rem;
+            }
+        }
+        .integral-text {
+            font-size: 0.26rem;
+            line-height: 0.34rem;
+            display: inline-block;
+            &::after{
+                content: '';
+                display: inline-block;
+                background:url('assets/images/icon_jifenguizexuanze@2x1.png') right center no-repeat;
+                background-size: 0.08rem 0.16rem;
+                width: 0.08rem;
+                height: 0.16rem;
+            }
+        }
+    }
+}
+.integral-content-txt{
+    margin-top: -0.5rem;
+    padding:0 0.3rem;
+    .integral-box{
+        padding:0.36rem 0.32rem;
+        border-radius: 0.12rem;
+        box-shadow:0px 7px 15px 0px rgba(255, 235, 216, 1);
+        .integral-tit{
+            @include df;
+            @include df-ai;
+            @include df-jc-sb;
+            .integral-tit-l{
+                color:#666;
+                font-size: 0.3rem;
+                line-height: 0.42rem;
+            }
+            .integral-tit-r{
+                padding-left:0.3rem;
+                &::before{
+                    content: '';
+                    display: inline-block;
+                    width:0.28rem;
+                    height: 0.26rem;
+                    background:url('assets/images/icon_jifenmingxi@2x.png') left center no-repeat;
+                    background-size: 100% 100%;
+                    vertical-align: middle;
+                }
+            }
+        }
+        .integral-num{
+            font-size: 0.6rem;
+            font-weight: 500;
+            line-height: 0.84rem;
+            color:#333;
+            margin-top:0.06rem;
+        }
+    }
+    .claim-integral{
+        margin-top:0.7rem;
+        .big-btn{
+
+        }
+    }
+}
+
+/*积分明细*/
+.integralDetail{
+    padding-top:0.98rem;
+    .van-tabs__line {
+        background-color: #FF6702;
+    }
+    .msg-list-item{
+        @include df;
+        @include df-ai;
+        @include df-jc-sb;
+        padding:0.38rem;
+        .item-con{
+            padding:0;
+        }
+        .item-price{
+            font-size: 0.36rem;
+            font-weight: 500;
+        }
+    }
+}
+
+/*认领积分*/
+.drawIntegral{
+    padding-top:1rem;
+    .draw-content{
+        .draw-tips{
+            font-size: 0.24rem;
+            line-height: 0.34rem;
+            padding:0.12rem 0.3rem 0.16rem 0.3rem;
+            color:#F38219;
+        }
+        .claim-integral{
+            padding:0.44rem 0.3rem;
+        }
+        .check-integral{
+            @include df;
+            position: absolute;
+            top:1.88rem;
+            left:2.02rem;
+            box-shadow:0rem 0rem 0.08rem 0rem rgba(175, 175, 175, 0.5);
+            border-radius: 0.04rem;
+            color:#666;
+            font-size: 0.24rem;
+            padding:0.18rem 0.16rem;
+            line-height: 0.36rem;
+            &-img{
+                background:url('assets/images/icon_tishi@2x.png') center center no-repeat;
+                background-size: 0.28rem 0.28rem;
+                width:0.28rem;
+                height: 0.36rem;
+                margin-right: 0.12rem;
+            }
+        }
+    }
+    /*认领成功*/
+    .van-dialog{
+        width:6.04rem;
+        height: 8.4rem;
+        border-radius: 0.12rem;
+        .van-dialog__content{
+            height: 100%;
+        }
+        .dialog-bottom {
+            @include fd-c;
+            position: absolute;
+            width:100%;
+            padding:0 0.4rem;
+            bottom: 0;
+            .dialog-btn {
+                height: 1rem;
+                font-size: 0.3rem;
+                font-weight: 400;
+                margin-bottom: 0.3rem;
+                text-align: center;
+                line-height: 1rem;
+                border-radius: 0.04rem;
+            }
+            .dialog-cancel {
+                background-color:#FFE29D;
+                color:#F15A25;
+            }
+            .dialog-confirm {
+                background-color:#F15A25;
+                color:#FFE29D;
+                border:0.02rem solid #FFE29D;
+                margin-bottom: 0.5rem;
+            }
+        }
+    }
+    .dialog-box{
+        background:url('assets/images/renlingjifen_bg@2x.png') left top no-repeat;
+        background-size: 100% auto;
+        width:100%;
+        height: 100%;
+        .dialog-con{
+            position: absolute;
+            padding:0.3rem;
+            width:100%;
+            top:3rem;
+            .van-divider{
+                color:#FFE29D;
+                border-color: #FFE29D;
+                font-size: 0.26rem;
+                margin-bottom: 0.2rem;
+            }
+            .integral-num{
+                color:#FFE29D;
+                font-size: 0.67rem;
+                text-align: center;
+                span{
+                    font-size: 0.26rem;
+                }
+            }
+        }
+    }
+}

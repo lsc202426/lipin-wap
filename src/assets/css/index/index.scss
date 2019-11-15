@@ -1,0 +1,224 @@
+.index {}
+
+.content {
+    .no-data-box{
+        height: 3rem;
+    }
+    /*头部*/
+    .content-top {
+        height: 3.76rem;
+        background: linear-gradient(360deg, rgba(254, 201, 92, 1) 0%, rgba(255, 123, 36, 1) 100%);
+
+        .search-box {
+            @include df;
+            @include df-ai;
+            padding: 0.36rem 0.3rem;
+
+            .search {
+                width: 6.04rem;
+                height: 0.64rem;
+                position: relative;
+
+                .search-bg {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 0.32rem;
+                    opacity: 0.2;
+                }
+
+                form {
+                    position: absolute;
+                    height: 100%;
+                    width: 100%;
+
+                    input {
+                        width: 100%;
+                        padding: 0 0 0 0.96rem;
+                        border: none;
+                        background: none;
+                        color: #fff;
+                        line-height: 0.64rem;
+                        font-size: 0.26rem;
+
+                        &::-webkit-input-placeholder {
+                            color: #fff;
+                        }
+
+                        &::-moz-input-placeholder {
+                            color: #fff;
+                        }
+
+                        &::-ms-input-placeholder {
+                            color: #fff;
+                        }
+                    }
+                }
+
+                .icon-search {
+                    background: url("assets/images/icon_sousuo@2x.png") center center no-repeat;
+                    background-size: contain;
+                    position: absolute;
+                    left: 0.48rem;
+                    top: 0.16rem;
+                    width: 0.32rem;
+                    height: 0.32rem;
+                }
+            }
+
+            .msg {
+                width: 0.42rem;
+                height: 0.42rem;
+                margin-left: 0.34rem;
+                position: relative;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+                .msg-red {
+                    position: absolute;
+                    background-color: #FF0F0F;
+                    width: 0.16rem;
+                    height: 0.16rem;
+                    top: 0;
+                    right: 0;
+                    border-radius: 50%;
+                }
+            }
+            
+        }
+
+        .banner {
+            width: 100%;
+            height: 3.76rem;
+            padding: 0 0.3rem;
+
+            .banner-box {
+                border-radius: 0.12rem;
+                width: 100%;
+                height: 100%;
+                background-color: transparent;
+
+                .van-swipe {
+                    height: 100%;
+                    border-radius: 0.12rem;
+
+                    img {
+                        width: 100%;
+                        height: 3.76rem;
+                    }
+                }
+            }
+        }
+    }
+
+    /*产品内容*/
+    .pro-content {
+        margin-top: 1.36rem;
+
+        .pro-title {
+            text-align: center;
+            img {
+                width: 3.08rem;
+                margin: 0.8rem auto 0.5rem;
+            }
+        }
+
+        .pro-content-box {
+            .pro-title-list {}
+        }
+
+        .van-tabs__wrap {
+            padding: 0 0.15rem;
+            height: 0.76rem;
+        }
+
+        .van-tabs__line {
+            height: 0.04rem;
+            background-color: #FF6702;
+            width: 16% !important;
+        }
+
+        .van-tabs__nav {
+            background: none;
+
+            .van-tab {
+                color: #666;
+                padding: 0 0.2rem;
+                font-size: 0.3rem;
+                flex-basis: auto !important;
+            }
+
+            .van-tab--active {
+                color: #FF6702;
+            }
+        }
+        .van-sticky--fixed{
+            background: #fff;
+        }
+
+        .pro-con-list {
+            padding: 0.2rem;
+        }
+
+        .list-box {
+            @include df;
+            @include fw-w;
+            .list-item {
+                @include fa;
+                flex: inherit;
+                width: 3.34rem;
+                margin: 0.1rem;
+                font-size: 0.26rem;
+                padding: 0 0.16rem;
+                border-radius: 0.08rem;
+
+                .item-img {
+                    @include df;
+                    @include df-ai;
+                    @include df-jc;
+                    width: 100%;
+                    height: 3.3rem;
+                    padding: 0.2rem 0.05rem;
+
+                    img {
+                        max-height: 100%;
+                        max-width: 100%;
+                    }
+                }
+
+                .item-text {
+                    color: #333;
+                    line-height: 0.32rem;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 2;
+                    margin-bottom: 0.38rem;
+                    overflow: hidden;
+                }
+
+                .item-price {
+                    @include df;
+                    @include df-jc-sb;
+                    @include df-ai;
+                    margin-bottom: 0.3rem;
+
+                    .price {
+                        line-height: 0.34rem;
+                    }
+
+                    .icon-add-cart {
+                        background: url('assets/images/icon-tianjia@2x.png') left top no-repeat;
+                        background-size: 100% auto;
+                        width: 0.42rem;
+                        height: 0.42rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//加入购物车小球动画

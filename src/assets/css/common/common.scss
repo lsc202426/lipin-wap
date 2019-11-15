@@ -1,0 +1,167 @@
+/* 路由淡入淡出效果 */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .2s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+/*暂无数据*/
+.noData{
+    text-align: center;
+    position: absolute;
+    top: 45%;
+    width: 100%;
+    .no-data-text {
+        
+    }
+    .at-add{
+        color: #fff;
+        background-color:#F38219;
+        border-radius: 0.04rem;
+        margin:0.4rem auto 0;
+        width:2.5rem;
+        text-align: center;
+        height: 0.7rem;
+        line-height: 0.68rem;
+    }
+}
+
+
+/*底部提示线*/
+#app{
+    .botton-line {
+        color: #979797;
+        padding: 0 1.38rem;
+        font-size: 0.24rem;
+        border-color: #979797;
+    }
+}
+
+/*底部导航*/
+#app{
+    .van-tabbar {
+        height: 1.02rem;
+        border-top:1px solid #ECECEC;
+    }
+
+    .van-tabbar-item__text {
+        font-size: 0.2rem;
+        line-height: 0.28rem;
+    }
+
+    .van-tabbar-item__icon {
+        margin-bottom: 0.06rem;
+        margin-top:0.14rem;
+        img {
+            height: 0.5rem;
+        }
+    }
+}
+/*头部样式*/
+#app{
+    .van-nav-bar {
+        height: 1rem;
+        line-height: 1rem;
+        z-index: 2!important;
+        .van-icon{
+            color:#999;
+            font-size: 0.32rem;
+        }
+        .van-nav-bar__title{
+            font-size: 0.34rem;
+            color:#333;
+        }
+    }
+}
+/*输入框栏样式*/
+.field-item {
+    @include df;
+    @include df-ai;
+    @include df-jc-sb;
+    height: 1rem;
+    padding:0 0.3rem;
+    color:#333;
+    .field-tip {
+        color:#666;
+        min-width: 1.75rem;
+    }
+
+    .field-input {
+        flex:1;
+    }
+
+    .field-tail {
+        @include df;
+        @include df-ai;
+        &-txt{
+            margin-right: 0.2rem;
+        }
+    }
+    .icon-r {
+        background: url('assets/images/icon_xuanze@2x.png') center center no-repeat;
+        background-size: 0.16rem 0.28rem;
+        width: 0.16rem;
+        height: 0.28rem;
+    }
+    .get-code {
+        font-size: 0.24rem;
+        padding: 0.14rem;
+        border: 0.02rem solid #F38219;
+        border-radius: 0.04rem;
+        color: #F38219;
+        min-width: 1.5rem;
+    }
+}
+
+/*滑动导航样式*/
+.containerView-main{
+    .van-tabs__nav--line{
+        padding-bottom: 0;
+    }
+    .van-tabs__line{
+        bottom: 0;
+        background-color:#FF6702;
+    }
+}
+.van-tabs__wrap {
+    &::after {
+        border: none;
+    }
+}
+.van-sticky--fixed{
+    .van-tabs__wrap{
+        &::after{
+            border:none;
+        }
+    }
+}
+
+/*预选积分浮动栏*/
+.primary-box {
+    position: fixed;
+    top:5.26rem;
+    right:0;
+    background:url('assets/images/yuxuangou_jifen@2x.png') center center no-repeat;
+    background-size: 1.62rem 1.68rem;
+    width:1.62rem;
+    height: 1.68rem;
+    text-align: center;
+    .primary-text{
+        position: absolute;
+        bottom: 0.02rem;
+        width:100%;
+        font-size: 0.2rem;
+        font-weight: 400;
+        color:#fff;
+        line-height: 0.28rem;
+        .primary-num{
+            font-size: 0.24rem;
+            font-weight: 500;
+            line-height: 0.34rem;
+        }
+    }
+}

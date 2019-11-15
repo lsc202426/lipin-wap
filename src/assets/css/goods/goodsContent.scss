@@ -1,0 +1,256 @@
+.goodsContent{
+    
+}
+.goods-page{
+    position: relative;
+    .van-tabs{
+        .van-tabs__wrap {
+            height: 1rem;
+            background:rgba(56, 56, 56, 0.11);
+            z-index: 2;
+            &::after{
+                border:none;
+            }
+        }
+        .van-tabs__nav{
+            background:none;
+            padding:0;
+            width:40%;
+            margin:0 auto;
+            .van-tab{
+                padding:0;
+                font-size: 0.3rem;
+                color:#fff;
+                .van-ellipsis{
+                    line-height: 1rem;
+                }
+            }
+            .van-tabs__line{
+                bottom: 0;
+                background-color:#fff;
+            }
+        }
+        .van-tabs__content{
+            height: 7.78rem;
+            margin-top:-1rem;
+            .van-tab__pane,
+            .goods-banner,
+            .van-swipe {
+                height: 100%;
+                img{
+                    flex:1;
+                }
+            }
+            .van-swipe{
+                background:linear-gradient(360deg, rgba(209, 213, 216, 1) 0%, rgba(184, 186, 193, 1) 100%);
+            }
+            .van-swipe-item{
+                @include df;
+                @include df-ai;
+                overflow: hidden;
+            }
+        }
+        .van-swipe__indicators{
+            bottom:0.3rem;
+            .van-swipe__indicator{
+                width:0.26rem;
+                height:0.06rem;
+                background-color:#fff;
+                border-radius: 0.04rem;
+                opacity: 0.38;
+            }
+            .van-swipe__indicator--active{
+                opacity: 1;
+            }
+        }
+    }
+    .goods-back {
+        z-index: 2;
+        background: url('assets/images/icon_fanhui_touming@2x.png') center center no-repeat;
+        background-size: 0.18rem 0.32rem;
+        width: 0.82rem;
+        height: 1rem;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .goods-content{
+        text-align: left;
+        margin-bottom: 1rem;
+        overflow: hidden;
+        .content-box{
+            margin-bottom: 0.2rem;
+            padding:0 0.36rem;
+            overflow: hidden;
+            .content-title{
+                color: #333;
+                font-size: 0.36rem;
+                font-weight: 500;
+                line-height: 0.5rem;
+                margin:0.4rem 0 0.2rem 0;
+            }
+            .content-text{
+                color:#666;
+                font-size: 0.26rem;
+                line-height: 0.36rem;
+                margin-bottom: 0.3rem;
+            }
+            .content-price{
+                font-size: 0.52rem;
+                margin-bottom: 0.4rem;
+                .sign{
+                    font-size: 0.36rem;
+                }
+            }
+        }
+        .goods-parameter{
+            margin-bottom: 0.2rem;
+            .parameter-text{
+                @include df;
+                @include df-ai;
+                position: relative;
+                font-size: 0.26rem;
+                line-height: 0.36rem;
+                padding:0.36rem 0;
+                &::after{
+                    content: '';
+                    display: inline-block;
+                    width:0.16rem;
+                    height: 0.28rem;
+                    position: absolute;
+                    background:url('assets/images/icon_xuanze@2x.png') center right no-repeat;
+                    background-size: 0.16rem 0.28rem;
+                    right: 0.3rem;
+                }
+                .change-tip{
+                    color:#666;
+                    min-width: 1.66rem;
+                    padding:0 0.3rem;
+                    
+                }
+                .parameter-con{
+                    color:#333;
+                    padding-right: 0.5rem;
+                }
+            }
+        }
+        .van-action-sheet{
+            min-height: 8.24rem;
+        }
+        .van-action-sheet__header{
+            &::after{
+                border: none;
+            }
+        }
+        .parameter-box{
+            padding:0.5rem 0.3rem 1rem 0.3rem;
+            font-size: 0.3rem;
+            color: #333;
+            .parameter-item{
+                padding:0.2rem 0 0.52rem 0;
+            }
+            .parameter-title{
+
+            }
+            .parameter-detail{
+                @include df;
+                @include fw-w;
+                span{
+                    width:2.42rem;
+                    height: 0.8rem;
+                    line-height: 0.8rem;
+                    border:0.02rem solid #D2D2D2;
+                    border-radius: 0.04rem;
+                    margin: 0.2rem 0.28rem 0 0;
+                    text-align: center;
+                }
+                .active{
+                    border:0.02rem solid #F38219;
+                }
+            }
+            .buy-box{
+                @include df;
+                @include df-jc-sb;
+                @include df-ai;
+                height: 1.72rem;
+                .buy-num{
+                    border: 0.02rem solid #D2D2D2;
+                    border-radius: 0.04rem;
+                    text-align: center;
+                    input{
+                        background: none;
+                        outline: none;
+                        border: none;
+                        background: none;
+                        border-left:0.02rem solid #D2D2D2;
+                        border-right:0.02rem solid #D2D2D2;
+                        height: 0.68rem;
+                        line-height: 0.68rem;
+                        width: 1.06rem;
+                        text-align: center;
+                    }
+                    span{
+                        width:0.68rem;
+                        display: inline-block;
+                    }
+                    .reduce{
+
+                    }
+                    .add{
+
+                    }
+                }
+            }
+            .add-cart-btn{
+                position: absolute;
+                bottom: 0;
+                left:0;
+                width:100%;
+                color:#fff;
+                text-align: center;
+                line-height: 1rem;
+            }
+        }
+        .van-action-sheet__close {
+            background: url(assets/images/icon_guanbi@2x.png) center center no-repeat;
+            background-size: 0.34rem 0.34rem;
+            width: 0.5rem;
+            height: 0.5rem;
+            top:0.35rem;
+            right: 0.25rem;
+            padding:0;
+            &::before{
+                content:'';
+            }
+        }
+        .van-goods-action{
+            .van-goods-action-icon{
+                width:2rem;
+            }
+            .van-icon-star {
+                color: #F38219;
+                font-size: 0.45rem;
+            }
+            .van-icon-star-o{
+                color:#666;
+                font-size: 0.45rem;
+            }
+            button{
+                height: 1rem;
+                padding:0;
+                margin:0;
+                border-radius: 0;
+                font-size: 0.3rem;
+            }
+        }
+    }
+    .goods-detail{
+        padding-top:1rem;
+        overflow-x: hidden;
+        img{
+            max-width: 100%;
+            display: block;
+            margin:0 auto;
+        }
+    }
+}

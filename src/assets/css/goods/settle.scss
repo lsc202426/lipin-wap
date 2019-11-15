@@ -1,0 +1,193 @@
+.settle{
+    text-align: left;
+}
+.settle-content{
+
+}
+/*头部样式*/
+.settle-top{
+    width:100%;
+    color:#fff;
+    background:linear-gradient(128deg, rgba(250, 150, 57, 1) 0%, rgba(242, 127, 20, 1) 100%);
+    // min-height: 3.22rem;
+    .settle-title{
+        position: relative;
+        padding:0.28rem 0 0.2rem 0;
+        .go-back{
+            position: absolute;
+            background:url('assets/images/icon_fanhui@2x.png') center center no-repeat;
+            background-size: 0.18rem 0.32rem;
+            width:0.5rem;
+            height: 0.5rem;
+            left:0.1rem;
+            top:0.2rem;
+        }
+        .title{
+            font-size: 0.34rem;
+            line-height: 0.48rem;
+            text-align: center;
+        }
+    }
+    .address-msg{
+        padding:0.5rem 0.5rem 0.62rem 0.5rem;
+        position:relative;
+        &::after{
+            content: '';
+            position: absolute;
+            background:url('assets/images/icon_jifenguizexuanze@2x.png') center center no-repeat;
+            background-size: 0.08rem 0.16rem;
+            width:0.08rem;
+            height:0.16rem;
+            right:0.32rem;
+            top:50%;
+            margin-top:-0.08rem;
+        }
+        .msg-name{
+            @include df;
+            font-size: 0.36rem;
+            line-height: 0.5rem;
+            margin-bottom: 0.08rem;
+            span{
+                margin-right: 0.22rem;
+            }
+        }
+        .address-text{
+            font-size: 0.26rem;
+            line-height: 0.34rem;
+        }
+        .address-code{
+            font-size: 0.26rem;
+            line-height: 0.34rem;
+        }
+    }
+}
+/*内容样式*/
+.settle-con-box{
+    margin-top:-0.12rem;
+    .goods-msg{
+        border-radius: 0.12rem 0.12rem 0 0;
+        .goods-item{
+            padding:0.3rem;
+            .goods-item-con{
+                @include df;
+                @include df-ai;
+                .goods-img{
+                    @include df;
+                    @include df-ai;
+                    border: 0.02rem solid #D2D2D2;
+                    width:1.3rem;
+                    height: 1.3rem;
+                    img{
+                        width:100%;
+                    }
+                }
+                .goods-txt{
+                    padding-left:0.36rem;
+                    flex: 1;
+                    .goods-title{
+                        @include df;
+                        @include df-jc-sb;
+                        font-size: 0.3rem;
+                        color:#333;
+                        margin-bottom: 0.16rem;
+                        .title{
+                            max-width: 3.5rem;
+                            white-space:nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+                    .goods-price{
+                        text-align: right;
+                        font-size: 0.3rem;
+                        span{
+                            font-size: 0.24rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .goods-tab{
+        @include df;
+        @include df-jc-sb;
+        @include df-ai;
+        font-size: 0.26rem;
+        color:#666;
+        padding:0.26rem 0.3rem;
+        .price{
+            font-size: 0.3rem;
+            span {
+                font-size: 0.24rem;
+            }
+        }
+        .integral{
+            @include df;
+            color:#FF6702;
+        }
+        .pay-item{
+            @include df;
+            @include df-ai;
+            color:#333;
+            .img-box{
+                @include df;
+                @include df-ai;
+                width:0.62rem;
+                height: 0.62rem;
+                .imgWx{
+                    width:0.5rem;
+                    height: 0.4rem;
+                }
+                .imgZfb{
+                    width:0.46rem;
+                    height: 0.46rem;
+                }
+                .imgYl{
+                    width:0.52rem;
+                    height: 0.32rem;
+                }
+            }
+        }
+    }
+    .goods-tab-i{
+        @include df-jc-fs;
+        input{
+            flex: 1;
+            padding-left:0.2rem;
+        }
+    }
+    .pay-mode{
+        .title{
+            line-height: 0.36rem;
+            padding:0.2rem 0.3rem;
+        }
+    }
+}
+/*底部样式*/
+.settle-bottom{
+    @include df;
+    @include df-ai;
+    @include df-jc-sb;
+    width:100%;
+    height: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    .settle-bottom-text{
+        color:#333;
+        font-size: 0.26rem;
+        padding-left:0.3rem;
+        .price{
+            font-size: 0.3rem;
+            span{
+                font-size: 0.24rem;
+            }
+        }
+    }
+    .payment-btn{
+        color:#fff;
+        text-align: center;
+        width:2.24rem;
+        line-height: 1rem;
+    }
+}

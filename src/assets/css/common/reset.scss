@@ -1,0 +1,288 @@
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+var,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video,
+button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    // font-family: "微软雅黑", "宋体", "华文细黑", arial, sans-serif;
+    font-family: PingFangSC-Medium, sans-serif;
+    vertical-align: baseline;
+    // background: transparent;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary {
+    display: block;
+}
+
+body,
+html {
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+#app {
+    height: 100%; //苹果手机滑动
+    overflow: hidden;
+    background-color: #F5F5F5;
+    .containerView-main {
+        position: relative;
+        height: 100%;
+        padding-bottom: 1.02rem;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+}
+
+
+nav ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+a {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    text-decoration: none;
+}
+
+ins {
+    background-color: #ff9;
+    color: #000;
+    text-decoration: none;
+}
+
+mark {
+    background-color: #ff9;
+    color: #000;
+    font-style: italic;
+    font-weight: bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title],
+dfn[title] {
+    border-bottom: 1px dotted #000;
+    cursor: help;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #cccccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+input,
+select {
+    vertical-align: middle;
+}
+
+input {
+    outline: none;
+    border:none;
+    background:none;
+}
+
+input::-webkit-search-cancel-button {
+    display: none;
+}
+
+input[type=search]::-ms-clear {
+    display: none;
+}
+
+button {
+    border: none;
+    outline: none;
+}
+/*常用样式*/
+.f-bgf{
+    background-color:#fff;
+}
+.f-bdb{
+    border-bottom: 0.02rem solid #E7E7E7;
+}
+.f-bgc1{
+    background-color:#F38219;
+}
+.f-bgc2 {
+    background-color: #FF9234;
+}
+.f-bgc3 {
+    background-color: #BEBEBE;
+}
+.f-mgb{
+    margin-bottom: 0.2rem;
+}
+.price{
+    color:#FF6A00;
+}
+/*右标箭头*/
+.arrow-right{
+    background:url(assets/images/icon_xuanze@2x.png) center center no-repeat;
+    background-size: 0.16rem 0.28rem;
+    display: inline-block;
+    width:0.16rem;
+    height: 0.28rem;
+}
+/*大按钮样式*/
+.big-btn{
+    background-color:#F38219;
+    width:100%;
+    height: 0.96rem;
+    line-height: 0.96rem;
+    color:#fff;
+    text-align: center;
+    font-size: 0.3rem;
+    border-radius: 0.04rem;
+}
+.fixed-btn{
+    position: fixed;
+    width:100%;
+    bottom: 0.74rem;
+}
+
+/*设置placeholder颜色*/
+::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: #999;
+}
+
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #999;
+}
+
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #999;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #999;
+}
+/*复选框按钮选中*/
+.icon-checkbox{
+    background:url('assets/images/icon_weizxuanzhong@2x.png') center top no-repeat;
+    background-size:contain;
+    width:0.36rem;
+    height: 0.36rem;
+}
+.icon-checkbox-active{
+    background:url('assets/images/icon_xuanzhong@2x.png') center top no-repeat;
+    background-size:contain;
+}
+

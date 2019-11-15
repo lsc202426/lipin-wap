@@ -1,0 +1,202 @@
+.searchResult{
+    .van-popup{
+        width:5.8rem;
+        height: 100%;
+    }
+}
+.search-content{
+    font-size: 0.26rem;
+}
+.search-top{
+    &-con{
+        @include df;
+        @include df-ai;
+        padding:0.2rem 0;
+    }
+    &-back{
+        background: url(assets/images/icon_fanhui@2x1.png) center center no-repeat;
+        background-size: 0.18rem 0.32rem;
+        width:0.82rem;
+        height: 0.64rem;
+    }
+    &-i{
+        width:5.44rem;
+        input{
+            outline:none;
+            height: 0.64rem;
+            width:100%;
+            border:0.02rem solid #DBDBDB;
+            border-radius: 0.32rem;
+            padding:0 0 0 0.32rem;
+            font-size: 0.26rem;
+            color:#333;
+            background-color:#FCFCFC;
+        }
+    }
+    &-txt{
+        padding-left: 0.3rem;
+        line-height: 0.32rem;
+        font-size: 0.3rem;
+    }
+    .search-screen{
+        @include df;
+        padding:0.2rem 0;
+        text-align: center;
+        &-i{
+            @include df;
+            @include df-ai;
+            @include df-jc;
+            flex: 1;
+            border-right:0.02rem solid #F0F0F0;
+            &:last-child{
+                border:none;
+            }
+        }
+        .triangle{
+            @include df;
+            @include fd-c;
+            margin-left:0.08rem;
+            span{
+                margin-bottom: 0.05rem;
+            }
+            &-up{
+                width: 0;
+                height: 0;
+                border-left: 0.12rem solid transparent;
+                border-right: 0.12rem solid transparent;
+                border-bottom: 0.08rem solid #999;
+                font-size: 0;
+                line-height: 0;
+                margin-top:0.04rem;
+            }
+            &-down{
+                width: 0;
+                height: 0;
+                border-left: 0.12rem solid transparent;
+                border-right: 0.12rem solid transparent;
+                border-top: 0.08rem solid #999;
+                font-size: 0;
+                line-height: 0;
+            }
+            &-up-active{
+                border-bottom: 0.08rem solid #FF6A00;
+            }
+            &-down-active{
+                border-top: 0.08rem solid #FF6A00;
+            }
+        }
+    }
+}
+.search-list{
+    .pro-con-list {
+        padding: 0.2rem;
+    }
+
+    .list-box {
+        @include df;
+        @include fw-w;
+
+        .list-item {
+            @include fa;
+            width: 3.34rem;
+            margin: 0.1rem;
+            font-size: 0.26rem;
+            padding: 0 0.16rem;
+            border-radius: 0.08rem;
+            flex: inherit;
+            .item-img {
+                @include df;
+                @include df-ai;
+                @include df-jc;
+                width: 100%;
+                height: 3.3rem;
+                padding: 0.2rem 0.05rem;
+
+                img {
+                    max-height: 100%;
+                    max-width: 100%;
+                }
+            }
+
+            .item-text {
+                color: #333;
+                line-height: 0.32rem;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                margin-bottom: 0.38rem;
+                overflow: hidden;
+            }
+
+            .item-price {
+                @include df;
+                @include df-jc-sb;
+                @include df-ai;
+                margin-bottom: 0.3rem;
+
+                .price {
+                    line-height: 0.34rem;
+                }
+
+                .icon-add-cart {
+                    background: url('assets/images/icon-tianjia@2x.png') left top no-repeat;
+                    background-size: 100% auto;
+                    width: 0.42rem;
+                    height: 0.42rem;
+                }
+            }
+        }
+    }
+}
+.popup-box{
+    padding:0.34rem;
+    position: relative;
+    text-align: left;
+    height: 100%;
+    width:100%;
+    .popup-content{
+        margin-bottom: 0.2rem;
+        .content-title{
+            font-size: 0.3rem;
+            color:#333;
+            margin-bottom: 0.22rem;
+            line-height: 0.42rem;
+        }
+        .screen-price{
+            @include df;
+            @include df-ai;
+            @include df-jc-sb;
+            input{
+                outline: none;
+                text-align: center;
+                font-size: 0.3rem;
+                border: 0.02rem solid #D2D2D2;
+                border-radius: 0.04rem;
+                height: 0.8rem;
+                width:2.2rem;
+                line-height: 0.8rem;
+            }
+            .line{
+                width:0.24rem;
+                height: 0.04rem;
+                background-color: #D2D2D2;
+                margin:0 0.22rem;
+            }
+        }
+    }
+    .popup-btn{
+        @include df;
+        width:100%;
+        height: 1rem;
+        position: absolute;
+        bottom: 0;
+        left:0;
+        span{
+            line-height: 1rem;
+            font-size: 0.3rem;
+            color:#fff;
+            flex: 1;
+            text-align: center;
+        }
+    }
+}

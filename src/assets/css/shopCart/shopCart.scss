@@ -1,0 +1,144 @@
+.cart-content{
+
+}
+.cart-list{
+    padding-top:1rem;
+}
+.cart-item{
+    @include df;
+    .van-swipe-cell{
+        width:100%;
+    }
+    .van-button {
+        height: 100%;
+    }
+}
+.cart-item-con{
+    @include df;
+    @include df-ai;
+    border-top:0.02rem solid #ECECEC;
+    padding:0.34rem 0;
+    .icon-checkbox{
+        width: 0.94rem;
+    }
+    .item-con-r{
+        @include df;
+        @include df-ai;
+        flex:1;
+        .item-con-img{
+            @include df;
+            @include df-ai;
+            width:1.7rem;
+            height: 1.7rem;
+            border: 0.02rem solid #D2D2D2;
+            img{
+                width: 100%;
+            }
+        }
+        .item-con-txt{
+            text-align: left;
+            padding:0 0.3rem 0 0.26rem;
+            flex:1;
+            .item-con-title{
+                font-size: 0.3rem;
+                color:#333;
+                max-width: 4rem;
+                white-space:nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-bottom: 0.1rem;
+            }
+            .item-con-specs{
+                max-width: 4rem;
+                white-space:nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-bottom: 0.2rem;
+                span{
+                    display: inline-block;
+                    color:#666;
+                    font-size: 0.26rem;
+                    margin-right: 0.1rem;
+                }
+            }
+            .price-and-num{
+                @include df;
+                @include df-jc-sb;
+                @include df-ai;
+                width:100%;
+                .buy-num {
+                    border: 0.02rem solid #D2D2D2;
+                    border-radius: 0.04rem;
+                    text-align: center;
+                    input {
+                        background: none;
+                        outline: none;
+                        border: none;
+                        background: none;
+                        border-left: 0.02rem solid #D2D2D2;
+                        border-right: 0.02rem solid #D2D2D2;
+                        height: 0.5rem;
+                        line-height: 0.5rem;
+                        width: 0.76rem;
+                        text-align: center;
+                    }
+                    span {
+                        width: 0.5rem;
+                        display: inline-block;
+                    }
+                    .reduce {}
+                    .add {}
+                }
+                .price{
+                    font-size: 0.3rem;
+                    span{
+                        font-size: 0.24rem;
+                    }
+                }
+            }
+        }
+    }
+}
+/*底部结算栏*/
+.settle-box{
+    @include df;
+    @include df-jc-sb;
+    @include df-ai;
+    height: 1rem;
+    width:100%;
+    position: fixed;
+    bottom: 1rem;
+    font-size: 0.26rem;
+    color:#333;
+    .all-check{
+        @include df;
+        padding-left:0.32rem;
+        .icon-checkbox{
+            margin-right: 0.18rem;
+        }
+    }
+    .settle-price-btn{
+        @include df;
+        @include df-ai;
+        .settle-price{
+            span{
+
+            }
+            .price{
+                font-size: 0.3rem;
+                span{
+                    font-size: 0.24rem;
+                }
+            }
+        }
+        .settle-btn{
+            width:2.24rem;
+            height: 1rem;
+            line-height: 1rem;
+            color:#fff;
+            font-size: 0.3rem;
+            margin-left:0.38rem;
+            text-align: center;
+        }
+    }
+}

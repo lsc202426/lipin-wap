@@ -1,0 +1,56 @@
+.news{
+    padding-top:0.98rem;
+    .van-tabs__line{
+        background-color:#FF6702;
+    }
+}
+.msg-list {
+    padding:0.3rem;
+    .msg-list-item{
+        @include df;
+        @include df-ai;
+        border-radius: 0.12rem;
+        margin-bottom: 0.3rem;
+        .item-img{
+            margin:0.32rem 0.26rem 0.34rem 0.28rem;
+            img{
+                width:0.96rem;
+                height: 0.96rem;
+            }
+        }
+        .item-con{
+            flex: 1;
+            padding-right: 0.3rem;
+            .title-and-time{
+                @include df;
+                @include df-jc-sb;
+                @include df-ai;
+                margin-bottom: 0.08rem;
+                .title{
+                    font-size: 0.3rem;
+                    color:#333;
+                    line-height: 0.42rem;
+                    max-width: 3.5rem;
+                    white-space:nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .time{
+                    font-size: 0.24rem;
+                    color:#999;
+                    line-height: 0.34rem;
+                }
+            }
+            .item-con-txt{
+                text-align: left;
+                font-size: 0.26rem;
+                color:#999;
+                line-height: 0.36rem;
+                max-width: 4.5rem;
+                white-space:nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+//reset
+@import '@/assets/css/common/reset.scss';
+//flex
+@import '@/assets/css/common/mixin.scss';
+//common
+@import '@/assets/css/common/common.scss';
+//首页
+@import '@/assets/css/index/index.scss';
+//商品
+@import '@/assets/css/goods/goodsContent.scss';
+//搜索结果
+@import '@/assets/css/search/searchResult.scss';
+//购物车
+@import '@/assets/css/shopCart/shopCart.scss';
+//消息
+@import '@/assets/css/news/news.scss';
+//结算页
+@import '@/assets/css/goods/settle.scss';
+//我的
+@import '@/assets/css/user/user.scss';
+//积分
+@import '@/assets/css/integral/integral.scss';
+//订单
+@import '@/assets/css/order/order.scss';
+//登录、注册
+@import '@/assets/css/login/login.scss';
