@@ -191,3 +191,49 @@
         line-height: 1rem;
     }
 }
+
+/*支付结果*/
+.paySuccess{
+    padding-top:1rem;
+    text-align: center;
+    .pay-content{
+        padding-top:1.46rem;
+        &-bg{
+            margin-bottom: 0.64rem;
+            &-fail
+            img{
+                width:4.26rem;
+            }
+        }
+        &-title{
+            color:#333;
+            font-size: 0.36rem;
+            font-weight: 400;
+            line-height: 0.5rem;
+            margin-bottom: 0.22rem;
+        }
+        &-price{
+            font-size: 0.3rem;
+        }
+        &-btn{
+            @include df;
+            @include df-jc;
+            margin-top:1.34rem;
+            font-size: 0.3rem;
+            div{
+                width:2.8rem;
+                height:0.88rem;
+                line-height: 0.88rem;
+                border-radius: 0.04rem;
+            }
+            .seet-order{
+                color:#fff;
+                margin-right: 0.3rem;
+            }
+            .go-index{
+                color:#F38219;
+                border:0.02rem solid #F38219;
+            }
+        }
+    }
+}

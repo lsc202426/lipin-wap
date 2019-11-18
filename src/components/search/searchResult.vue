@@ -48,7 +48,7 @@
                                 <div class="item-text">{{item.title}}</div>
                                 <div class="item-price">
                                     <span class="price">￥{{item.price}}</span>
-                                    <span @click.stop="addCart(item)" class="icon-add-cart"></span>
+                                    <span class="icon-add-cart"></span>
                                 </div>
                             </div>
                         </div>
@@ -225,11 +225,11 @@ export default {
                 }
             });
         },
-        //加入购物车
-        addCart(item){
-            console.log(item);
-            Toast('加入成功');
-        },
+        // //加入购物车
+        // addCart(item){
+        //     console.log(item);
+        //     Toast('加入成功');
+        // },
         //下拉加载更多
         onLoad() {
             if(this.finished===false){

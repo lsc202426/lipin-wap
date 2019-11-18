@@ -203,6 +203,24 @@ const routes = [
     meta: {
       requireAuth: true
     }
+  },
+  // 支付成功
+  {
+    path: '/paySuccess',
+    name: 'paySuccess',
+    component: () => import('../components/goods/paySuccess.vue'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  // 订单详情
+  {
+    path: '/orderDetail',
+    name: 'orderDetail',
+    component: () => import('../components/order/orderDetail.vue'),
+    meta: {
+      requireAuth: true
+    }
   }
 ]
 

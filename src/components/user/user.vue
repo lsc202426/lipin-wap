@@ -102,7 +102,6 @@ export default {
                 let data=res.data.data;
                 if(data.code===1000){
                     this.data=data.info;
-                    console.log(this.data);
                 }
             })
         },

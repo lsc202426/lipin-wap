@@ -5,7 +5,7 @@
             <div class="integral-content-top">
                 <div class="integral-title">
                     <span class="go-back" @click="goBack"></span>
-                    <div class="title">订单结算</div>
+                    <div class="title">我的积分</div>
                 </div>
                 <div class="integral-msg">
                     <div class="msg-name">
@@ -63,7 +63,9 @@ export default {
         },
         //返回上一页
         goBack(){
-            this.$router.go(-1);
+            this.$router.push({
+                path:'/user'
+            })
         },
         //前往积分明细
         goDetail(){

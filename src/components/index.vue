@@ -67,7 +67,7 @@
                         <div class="item-text">{{item.title}}</div>
                         <div class="item-price">
                           <span class="price">￥{{item.price}}</span>
-                          <span @click.stop="addCart(item)" class="icon-add-cart"></span>
+                          <!-- <span class="icon-add-cart"></span> -->
                         </div>
                       </div>
                     </div>
@@ -94,6 +94,7 @@
   </div>
 </template>
 <script>
+import {clearSession} from '@/utils/index';
 export default {
   data() {
     return {
@@ -121,9 +122,23 @@ export default {
     };
   },
   created() {
+    clearSession();//清楚会话内容
     this.init(this.page); //初始化
     this.getCategory();//获取分类
     this.getMsg();//查询是否有未读消息
+  },
+  mounted() {
+    //禁用浏览器返回
+    (function(){
+        if(window.history && window.history.pushState) {
+            window.onpopstate=function () {
+                    window.history.pushState('forward', null, '');
+                    window.history.forward(1);
+            };
+        }
+        window.history.pushState('forward', null, '');//在IE中必须得有这两行
+        window.history.forward(1);
+    })();
   },
   methods: {
     //初始化获取数据
@@ -198,9 +213,9 @@ export default {
       });
     },
     //加入购物车
-    addCart(item) {
-      this.$toast("加入成功");
-    },
+    // addCart(item) {
+    //   this.$toast("加入成功");
+    // },
     //下拉加载更多
     onLoad() {
         if(this.finished===false){

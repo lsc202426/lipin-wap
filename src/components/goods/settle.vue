@@ -8,31 +8,34 @@
                     <div class="title">订单结算</div>
                 </div>
                 <div class="address-msg" @click="goAddress">
-                    <div class="msg-name">
-                        <span>名字</span>
-                        <span>13800138000</span>
+                    <div v-if="Object.keys(address).length != 0">
+                        <div class="msg-name">
+                            <span>{{address.name}}</span>
+                            <span>{{address.cellphone}}</span>
+                        </div>
+                        <div class="address-text">
+                            {{address.address}}
+                        </div>
+                        <!-- <div class="address-code">510000</div> -->
                     </div>
-                    <div class="address-text">
-                        广州市 海珠区 滨江街道 怡乐路奇乐园21号302
-                    </div>
-                    <!-- <div class="address-code">510000</div> -->
+                    <div v-else>请添加收货地址</div>
                 </div>
             </div>
             <!--内容部分-->
             <div class="settle-con-box">
                 <div class="goods-msg f-bgf f-mgb">
-                    <div class="goods-item f-bdb">
+                    <div class="goods-item f-bdb" v-for="(item,index) in goodsList" :key="index">
                         <div class="goods-item-con">
                             <div class="goods-img">
-                                <img :src="img" alt="">
+                                <img v-lazy="$config.api.public_domain+item.cover" alt="">
                             </div>
                             <div class="goods-txt">
                                 <div class="goods-title">
-                                    <div class="title">小米电视4A 70英寸</div>
-                                    <div class="num">x1</div>
+                                    <div class="title">{{item.title}}</div>
+                                    <div class="num">x{{item.num}}</div>
                                 </div>
                                 <div class="goods-price price">
-                                    <span>￥</span>3799
+                                    <span>￥</span>{{item.price}}
                                 </div>
                             </div>
                         </div>
@@ -40,7 +43,7 @@
                     <div class="goods-tab f-bdb">
                         <div>商品价格：</div>
                         <div class="price">
-                            <span>￥</span>3799
+                            <span>￥</span>{{total}}
                         </div>
                     </div>
                     <div class="goods-tab">
@@ -51,14 +54,14 @@
                 <!--备注-->
                 <div class="goods-tab goods-tab-i f-mgb f-bgf">
                     <div>备注：</div>
-                    <input type="text" placeholder="请填写订单备注">
+                    <input v-model="remark" type="text" placeholder="请填写订单备注">
                 </div>
                 <!--可用积分与需支付金额-->
-                <div class="goods-tab f-bdb f-bgf">
+                <div class="goods-tab f-bdb f-bgf" @click="changeIntCheck">
                     <div>可用积分：</div>
                     <div class="integral">
                         <span>{{integral}}（1积分=1元）</span>
-                        <span @click="changeIntCheck" class="icon-checkbox" :class="{'icon-checkbox-active':isIntegral}"></span>
+                        <span class="icon-checkbox" :class="{'icon-checkbox-active':isIntegral}"></span>
                     </div>
                 </div>
                 <div class="goods-tab f-bgf f-mgb">
@@ -104,10 +107,10 @@
                 <div class="settle-bottom-text">
                     <span>共2件，应付金额：</span>
                     <span class="price">
-                        <span>￥</span>7398
+                        <span>￥</span>{{needToPay}}
                     </span>
                 </div>
-                <div class="payment-btn f-bgc1">去付款</div>
+                <div class="payment-btn f-bgc1" @click="goPay">去付款</div>
             </div>
         </div>
     </div>
@@ -117,21 +120,81 @@ export default {
     name:'settle',
     data() {
         return {
-            img:require("@/assets/images/05.png"),//商品图片
             imgWx:require("@/assets/images/icon_weixin@2x.png"),//商品图片
             imgZfbx:require("@/assets/images/icon_zhifubao@2x.png"),//商品图片
             imgYl:require("@/assets/images/icon_yinlian@2x.png"),//商品图片
-            total:7399,//支付总额
-            integral:4000,//可用积分
+            total:0,//支付总额
+            integral:0,//可用积分
             isIntegral:true,//是否使用积分
             needToPay:0,//需支付总额
             payType:0,//默认选中支付方式，0：微信；1：支付宝；2：银联
+            goodsList:[],//商品列表
+            address:{},//地址信息
+            source:'',//来源地址
+            remark:'',//备注
         }
     },
     created () {
-        this.computedTotal();
+        this.init();//初始化
     },
     methods: {
+        //初始化获取数据
+        init(){
+            //判断来源
+            if(sessionStorage.beforPath){
+                //如果是从商品购买页面过来
+                if(sessionStorage.beforPath=='goodsContent'){
+                    this.source='buy';
+                //如果是从购物车过来
+                }else if(sessionStorage.beforPath=='shopCart'){
+                    this.source='cart';
+                //如果是从订单过来
+                }else if(sessionStorage.beforPath=='order'||sessionStorage.beforPath=='orderDetail'){
+                    this.source='order';
+                }
+            }else{
+                //如果没有存路径，返回首页去
+                this.$router.push({
+                    path:'/'
+                })
+                return;
+            }
+            if(this.$route.query.id){//这个id就是buy_id
+                let buy_id=this.$route.query.id;
+                this.$axios.post('/v1/goods/settlement',{
+                    buy_id:buy_id,
+                    source:this.source
+                }).then((res)=>{
+                    let data=res.data.data;
+                    if(data.code===1000){
+                        this.goodsList=data.goods_list;//商品列表
+                        this.total=data.count_price;//总价
+                        this.integral=data.integral;//可用积分
+                        if(sessionStorage.address){
+                            this.address=JSON.parse(sessionStorage.address);
+                        }else{
+                            if(data.address){
+                                this.address=data.address;
+                            }
+                        }
+                        //计算价格
+                        this.computedTotal();
+                    }else if(data.code===1001){
+                        setTimeout(() => {
+                            this.$router.push({
+                                path:'/'
+                            })
+                        }, 2000);
+                    }
+                })
+            }else{
+                //如果没有id，返回首页去
+                this.$router.push({
+                    path:'/'
+                })
+                return;
+            }
+        },
         //计算需支付金额
         computedTotal(){
             //计算需支付总额
@@ -143,13 +206,31 @@ export default {
         },
         //返回上一页
         goBack() {
-            this.$router.go(-1);
+            // this.$router.go(-1);
+            this.$router.push({
+                path:'/'
+            })
         },
         //前往选择地址
         goAddress(){
-            this.$router.push({
-                path:'/myAddress'
-            })
+            //判断是否有地址
+            if(Object.keys(this.address).length === 0){
+                //如果没有地址，直接跳转到添加地址页面
+                this.$router.push({
+                    path:'/addSite',
+                    query:{
+                        id:this.$route.query.id
+                    }
+                })
+            }else{
+                //如果有地址，跳往地址列表选择
+                this.$router.push({
+                    path:'/myAddress',
+                    query:{
+                        id:this.$route.query.id
+                    }
+                })
+            }
         },
         //是否使用积分
         changeIntCheck(){
@@ -163,6 +244,79 @@ export default {
         //选择支付方式
         checkPayType(i){
             this.payType=i;
+        },
+        //去支付
+        goPay(){
+            //判断是否有地址
+            if(Object.keys(this.address).length === 0){
+                this.$toast('请添加收货地址');
+                return;
+            }
+            let buy_id=this.$route.query.id;//购买id
+            let goods_ids=[];//商品id[{id:'123',num:'5'}]
+            let is_integral=this.isIntegral?1:0;//是否使用积分支付 0：否 1：是
+            let payment='';//支付方式
+            //获取结算方式
+            if(this.payType==0&&this.needToPay>0){
+                payment='weixin';
+            }else if(this.payType==1&&this.needToPay>0){
+                payment='alipay';
+            }else if(this.payType==2&&this.needToPay>0){
+                payment='unionpay';
+            }
+            this.goodsList.forEach((item,index) => {
+                goods_ids.push(item.id);
+            });
+            this.$axios.post('/v1/pay/create',{
+                source:this.source,
+                goods_ids:goods_ids.join(','),
+                buy_id:buy_id,
+                address_id:this.address.id,
+                remark:this.remark,
+                is_integral:is_integral,
+                payment:payment
+            }).then((res)=>{
+                this.$toast.loading({
+                    message:'正在支付中...',
+                    forbidClick: true,
+                    loadingType: 'spinner'
+                })
+                let data=res.data.data;
+                if(data.code===1000){
+                    console.log(data);
+                    //微信支付
+                    if(payment=='weixin'){
+                        let el = document.createElement('a');
+                        document.body.appendChild(el);
+                        el.href =data.mweb_url;
+                        setTimeout(function() {
+                            el.click();
+                            document.body.removeChild(el);
+                        }, 50);
+                    //支付宝支付
+                    }else if(payment=='alipay'){
+                        const div = document.createElement('divform');
+                        div.innerHTML = data.pay_info;
+                        document.body.appendChild(div);
+                        // document.forms[0].acceptCharset = "GBK";
+                        //保持与支付宝默认编码格式一致，如果不一致将会出现：调试错误，请回到请求来源地，重新发起请求，错误代码 invalid-signature 错误原因: 验签出错，建议检查签名字符串或签名私钥与应用公钥是否匹配
+                        document.forms[0].submit();
+                    }else if(payment=='unionpay'){
+                        const div = document.createElement('divform');
+                        div.innerHTML = data.pay_info;
+                        document.body.appendChild(div);
+                        // document.forms[0].acceptCharset = "GBK";
+                        //保持与支付宝默认编码格式一致，如果不一致将会出现：调试错误，请回到请求来源地，重新发起请求，错误代码 invalid-signature 错误原因: 验签出错，建议检查签名字符串或签名私钥与应用公钥是否匹配
+                        document.forms[0].submit();
+                    }
+                    setTimeout(() => {
+                        this.$router.push({
+                            path:'/paySuccess',
+                            query:data.order_id
+                        })
+                    }, 2000);
+                }
+            })
         }
     },
 }

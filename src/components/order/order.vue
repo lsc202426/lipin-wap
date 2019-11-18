@@ -23,46 +23,49 @@
                     error-text="请求失败，点击重新加载"
                   >
                     <div class="msg-list">
-                        <div class="order-item f-bgf" v-for="(list,index) in lists" :key="index">
+                        <div class="order-item f-bgf" @click="goDetail(list.id)" v-for="(list,index) in lists" :key="index">
                             <div class="order-item-top">
                                 <div class="order-time">
-                                    {{list.time}}
+                                    {{list.created}}
                                 </div>
-                                <div class="order-state price">
-                                    {{list.state}}
+                                <div class="order-state price" v-if="list.pay_status=='待支付'">
+                                    {{list.pay_status}}
+                                </div>
+                                <div class="order-state price" v-else>
+                                    {{list.status}}
                                 </div>
                             </div>
-                            <div class="order-item-pro" v-for="(order,index) in list.product" :key="index">
+                            <div class="order-item-pro" v-for="(order,index) in list.order_product" :key="index">
                                 <div class="order-img">
-                                    <img v-lazy="order.img" alt="">
+                                    <img v-lazy="$config.api.public_domain+order.cover" alt="">
                                 </div>
                                 <div class="order-txt">
                                     <div class="order-title">
-                                        <div class="title">{{order.title}}</div>
-                                        <div class="num"><span>￥</span>{{order.price}}</div>
+                                        <div class="title">{{order.product_name}}</div>
+                                        <div class="num"><span>￥</span>{{order.totle}}</div>
                                     </div>
                                     <div class="order-specs">
-                                        <div class="specs">{{order.specs}}</div>
-                                        <div class="num">{{order.num}}</div>
+                                        <div class="specs">{{order.spec}}</div>
+                                        <div class="num">x {{order.product_count}}</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="order-item-total">
-                                共{{list.sum}}件商品 合计：￥<span>{{list.total}}</span>
+                                共{{list.goods_num}}件商品 合计：￥<span>{{list.totle}}</span>
                             </div>
                             <div class="order-item-btn">
-                                <div class="order-btn order-btn-gay">查看物流</div>
-                                <div class="order-btn order-btn-colour">去付款</div>
-                                <div class="order-btn order-btn-colour">确认收货</div>
+                                <div v-if="list.pay_status=='支付成功'&&(list.status=='已发货'||list.status=='已完成')" class="order-btn order-btn-gay" @click.stop="goLogistics(list.id)">查看物流</div>
+                                <div v-if="list.pay_status=='待支付'" class="order-btn order-btn-colour" @click.stop="goPay(list.id)">去付款</div>
+                                <div v-if="list.pay_status=='支付成功'&&list.status=='已发货'" class="order-btn order-btn-colour" @click.stop="confirmReceipt(list.id)">确认收货</div>
                             </div>
                         </div>
-                        <van-divider dashed class="botton-line" v-if="lists.length>0">
-                            没有更多了
-                        </van-divider>
                         <!--暂无数据-->
                         <no-data v-if="lists.length<=0"></no-data>
                     </div>
                 </van-list>
+                <van-divider dashed class="botton-line" v-if="finished&&lists&&lists.length>0">
+                    没有更多了
+                </van-divider> 
             </van-tab>
         </van-tabs>
     </div>
@@ -81,74 +84,7 @@ export default {
             finished: false, //数据加载完毕
             error:false,//若列表数据加载失败，将error设置成true即可显示错误提示，用户点击错误提示后会重新触发 load 事件
             page: 1, //页码
-            lists:[
-                {
-                    time:'2017-05-23 22:16:58',
-                    state:'已出库',
-                    total:7899,
-                    sum:2,
-                    product:[
-                        {
-                            title:'小米电视4A 70英寸',
-                            specs:'黑色',
-                            price:3799,
-                            num:1,
-                            img:require("@/assets/images/05.png"),
-                        },
-                        {
-                            title:'小米电视4A 70英寸',
-                            specs:'黑色',
-                            price:3799,
-                            num:1,
-                            img:require("@/assets/images/05.png"),
-                        }
-                    ]
-                },
-                {
-                    time:'2017-05-23 22:16:58',
-                    state:'已出库',
-                    total:7899,
-                    sum:2,
-                    product:[
-                        {
-                            title:'小米电视4A 70英寸',
-                            specs:'黑色',
-                            price:3799,
-                            num:1,
-                            img:require("@/assets/images/05.png"),
-                        },
-                        {
-                            title:'小米电视4A 70英寸',
-                            specs:'黑色',
-                            price:3799,
-                            num:1,
-                            img:require("@/assets/images/05.png"),
-                        }
-                    ]
-                },
-                {
-                    time:'2017-05-23 22:16:58',
-                    state:'已出库',
-                    total:7899,
-                    sum:2,
-                    product:[
-                        {
-                            title:'小米电视4A 70英寸',
-                            specs:'黑色',
-                            price:3799,
-                            num:1,
-                            img:require("@/assets/images/05.png"),
-                        },
-                        {
-                            title:'小米电视4A 70英寸',
-                            specs:'黑色',
-                            price:3799,
-                            num:1,
-                            img:require("@/assets/images/05.png"),
-                        }
-                    ]
-                },
-            ],
+            lists:[],
             active:this.$route.query.state||0,//选中项
         }
     },
@@ -168,26 +104,26 @@ export default {
     methods: {
         //初始化获取数据
         init(page){
-            // this.$axios.post(`v1/goods/list?page=${page}`,{
-            //     category_id:this.proId,//分类id
-            // }).then(res => {
-            //     let data = res.data.data;
-            //     if (data.code === 1000) {
-            //     if (page <= 1) {
-            //         this.listItem = data.list;
-            //     } else {
-            //         this.listItem.push.apply(this.listItem, data.list);
-            //     }
-            //     //加载状态结束
-            //     this.loading = false;
-            //     //数据全部加载完成
-            //     if (this.listItem.length==data.totalCount) {
-            //         this.finished = true;
-            //     }
-            //     }else{
-            //         this.error=true;
-            //     }
-            // });
+            this.$axios.post(`/v1/home/orderList?page=${page}`,{
+                status:this.active,//订单状态
+            }).then(res => {
+                let data = res.data.data;
+                if (data.code === 1000) {
+                    if (page <= 1) {
+                        this.lists = data.list;
+                    } else {
+                        this.lists.push.apply(this.lists, data.list);
+                    }
+                    //加载状态结束
+                    this.loading = false;
+                    //数据全部加载完成
+                    if (this.lists.length==data.totalCount) {
+                        this.finished = true;
+                    }
+                }else{
+                    this.error=true;
+                }
+            });
         },
         //状态栏点击
         onClick(name, title) {//name是索引，title是标题
@@ -207,6 +143,37 @@ export default {
                 path:'/shopCart'
             })
         },
+        //前往订单详情
+        goDetail(id){
+            this.$router.push({
+                path:'/orderDetail',
+                query:{
+                    id:id
+                }
+            })
+        },
+        //前往查看物流
+        goLogistics(id){
+            this.$router.push({
+                path:'/logistics',
+                query:{
+                    id:id
+                }
+            })
+        },
+        //去付款
+        goPay(id){
+            this.$router.push({
+                path:'/settle',
+                query:{
+                    id:id
+                }
+            })
+        },
+        //确认收货
+        confirmReceipt(){
+            // console.log('确认收货啦')
+        },
         //下拉加载更多
         onLoad() {
             if(this.finished===false){
@@ -218,7 +185,7 @@ export default {
                     this.init(this.page);
                 }, 1500);
             }
-        }
+        },
     },
 }
 </script>

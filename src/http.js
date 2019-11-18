@@ -29,11 +29,19 @@ axios.interceptors.request.use(
       // token: sessionStorage.token
     }
     config.data = Qs.stringify(config.data)
-    Toast.loading({
-      message: '加载中...',
-      forbidClick: true,
-      loadingType: 'spinner'
-    })
+    if (router.currentRoute.name === 'settle') {
+      Toast.loading({
+        message: '正在支付中...',
+        forbidClick: true,
+        loadingType: 'spinner'
+      })
+    } else {
+      Toast.loading({
+        message: '加载中...',
+        forbidClick: true,
+        loadingType: 'spinner'
+      })
+    }
     return config
   },
   error => {

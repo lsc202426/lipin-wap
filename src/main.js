@@ -24,6 +24,16 @@ Vue.use(Lazyload, {
   lazyComponent: true
 })
 
+// 定义全局过滤器
+// 金额过滤(保留两位小数)
+Vue.filter('numToFloat', function (value) {
+  return parseFloat(value).toFixed(2)
+})
+// 金额过滤(整数)
+Vue.filter('numToInt', function (value) {
+  return parseInt(value)
+})
+
 new Vue({
   router,
   store,

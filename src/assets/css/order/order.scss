@@ -14,6 +14,10 @@
             height: 100%;
         }
     }
+    /*没有数据*/
+    .noData {
+        padding: 3rem 0;
+    }
 }
 .msg-list{
     .order-item{
@@ -60,6 +64,10 @@
                     margin-bottom: 0.1rem;
                     .title{
                         font-weight: 400;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        overflow: hidden;
                     }
                     .num{
                         font-weight: 500;
@@ -211,6 +219,176 @@
         padding:0.23rem 0;
         &::after{
             border:none;
+        }
+    }
+}
+
+/*订单详情*/
+.orderDetail{
+    font-size: 0.26rem;
+    color:#333;
+    padding-bottom: 1rem;
+}
+.order-detail-content{
+    .order-detail-title{
+        font-size: 0.48rem;
+        font-weight: 500;
+        line-height: 0.66rem;
+        padding:0.7rem 0.62rem;
+    }
+    .detail-address{
+        @include df;
+        @include df-ai;
+        padding:0.3rem 0.32rem;
+        &-img{
+            @include df;
+            @include df-ai;
+            width:0.58rem;
+            margin-right: 0.34rem;
+            img{
+                width:100%;
+            }
+        }
+        &-txt{
+            flex: 1;
+            line-height: 0.32rem;
+            .txt-name{
+                @include df;
+                margin-bottom: 0.08rem;
+                .name{
+                    font-size: 0.3rem;
+                    font-weight: 500;
+                    margin-right: 0.22rem;
+                }
+                .phone{
+                    color:#666;
+                }
+            }
+            .txt-address{
+
+            }
+        }
+    }
+    .detail-goods{
+        padding:0 0.32rem;
+        &-title{
+            font-size: 0.3rem;
+            color:#333;
+            font-weight: 500;
+            line-height: 0.42rem;
+            padding:0.32rem 0;
+        }
+        &-item{
+            @include df;
+            margin-bottom: 0.24rem;
+            .item-img-box{
+                @include df;
+                @include df-ai;
+                width:1.7rem;
+                height: 1.7rem;
+                border:0.02rem solid #D2D2D2;
+                margin-right: 0.36rem;
+                img{
+                    width:100%;
+                }
+            }
+            .item-con-box{
+                flex: 1;
+                padding-top:0.1rem;
+                .item-con-title{
+                    @include df;
+                    @include df-ai;
+                    @include df-jc-sb;
+                    font-size: 0.3rem;
+                    color:#333;
+                    margin-bottom: 0.06rem;
+                    .title{
+                        font-weight: 400;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        overflow: hidden;
+                    }
+                    .con-price{
+                        font-weight: 500;
+                        span{
+                            font: 0.24rem;
+                        }
+                    }
+                }
+                .item-con-type{
+                    @include df;
+                    @include df-ai;
+                    @include df-jc-sb;
+                    font-size: 0.24rem;
+                    color:#999;
+                }
+            }
+        }
+        &-rules{
+            @include df;
+            @include df-ai;
+            @include df-jc-sb;
+            color:#666;
+            line-height: 0.36rem;
+            margin-bottom: 0.1rem;
+        }
+        &-total{
+            @include df;
+            @include df-jc-fe;
+            line-height: 0.88rem;
+            font-size: 0.24rem;
+            .total-num{
+                font-weight: 500;
+                font-size:0.3rem;
+                span{
+                    font-size: 0.24rem;
+                }
+            }
+        }
+        .f-bdb{
+            padding-bottom: 0.18rem;
+        }
+    }
+    .detail-msg{
+        padding:0.32rem 0.3rem;
+        &-title{
+            line-height: 0.42rem;
+            font-size: 0.3rem;
+            font-weight: 500;
+            margin-bottom: 0.28rem;
+        }
+        &-item{
+            color:#666;
+            line-height: 0.36rem;
+            margin-bottom: 0.12rem;
+            span{
+                &:first-child{
+                    padding-right: 0.4rem;
+                }
+            }
+        }
+    }
+    .detail-bottom{
+        @include df;
+        @include df-jc-fe;
+        @include df-ai;
+        position: fixed;
+        bottom: 0;
+        left:0;
+        width: 100%;
+        height: 1rem;
+        .detail-bottom-btn{
+            width:1.64rem;
+            height: 0.6rem;
+            line-height: 0.6rem;
+            border:0.02rem solid #E2E2E2;
+            border-radius: 0.04rem;
+            margin-right: 0.28rem;
+            text-align: center;
+            &.price{
+                border:0.02rem solid #FF6702;
+            }
         }
     }
 }

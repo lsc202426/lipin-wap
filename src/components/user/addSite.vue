@@ -136,9 +136,21 @@ export default {
                         forbidClick:true
                     });
                     setTimeout(() => {
-                        this.$router.push({
-                            path:'/myAddress'
-                        })
+                        //判断是否从结算页面直接过来的
+                        if(this.$route.query.id){
+                            //如果是，直接回到结算页面
+                            this.$router.push({
+                                path:'/settle',
+                                query:{
+                                    id:this.$route.query.id
+                                }
+                            })
+                        }else{
+                            //如果不是，直接前往地址列表
+                            this.$router.push({
+                                path:'/myAddress'
+                            })
+                        }
                     }, 2000);
                 }
             })

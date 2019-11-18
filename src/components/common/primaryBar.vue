@@ -24,12 +24,12 @@ export default {
         inactive: require("@/assets/images/icon_shouye_weixuanzhong@2x.png")
       },
       icon1: {
-        active: require("@/assets/images/icon_gouwuche_xuanle@2x.png"),
-        inactive: require("@/assets/images/icon_gouwuche_weixuan@2x.png")
+        active: require("@/assets/images/icon_qingdan@2x1.png"),
+        inactive: require("@/assets/images/icon_qingdan@2x.png")
       },
       icon2: {
-        active: require("@/assets/images/icon_wo_xuanle@2x.png"),
-        inactive: require("@/assets/images/icon_wo_weixuan@2x.png")
+        active: require("@/assets/images/icon_tuichu@2x1.png"),
+        inactive: require("@/assets/images/icon_tuichu@2x.png")
       }
     };
   },

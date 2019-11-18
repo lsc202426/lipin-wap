@@ -35,7 +35,7 @@
                 <div class="icon-checkbox" :class="{'icon-checkbox-active':allCheck}"></div>
                 <div>全选</div>
             </div>
-            <div class="edit-column-r f-bgc1">
+            <div class="edit-column-r f-bgc1" @click="deletePro">
                 删除
             </div>
         </div>
@@ -55,6 +55,7 @@ export default {
                     specs:'黑色',
                     price:3799,
                     check:false,
+                    id:1
                 },
                 {
                     img:require("@/assets/images/icon_wuliuxiaoxi@2x.png"),
@@ -62,10 +63,12 @@ export default {
                     specs:'黑色11',
                     price:3799,
                     check:false,
+                    id:2
                 },
             ],
             show:false,//是否显示底部编辑栏
             allCheck:false,//是否全选
+            deleteList:[],
         }
     },
     created () {
@@ -102,6 +105,7 @@ export default {
         //是否全选
         isAllCheck(){
             this.allCheck=!this.allCheck;
+            this.deleteList=[];//清空
             if(this.allCheck){
                 this.lists.forEach((item,index)=>{
                     item.check=true;
@@ -137,6 +141,28 @@ export default {
                 console.log('放弃取消')
             })
         },
+        //删除
+        deletePro(){
+            this.deleteList=[];
+            this.lists.forEach((item,index)=>{
+                if(item.check){
+                    this.deleteList.push(item.id);
+                }
+            })
+            if(this.deleteList.length<=0){
+                this.$toast('请选择要删除的商品');
+                return;
+            }
+            this.$dialog.confirm({
+                title:'提示',
+                message:'是否删除'
+            }).then(()=>{
+                console.log('确定');
+            }).catch(()=>{
+                console.log('取消')
+            })
+            console.log(this.deleteList);
+        }
     },
 }
 </script>

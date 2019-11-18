@@ -95,7 +95,19 @@ export default {
         },
         //选择地址
         selectSite(list){
-            
+            sessionStorage.address=JSON.stringify(list);//选择地址之后存储地址信息
+            //判断是否是从结算页面过来
+            if(this.$route.query.id){
+                //如果是，跳转回结算页面
+                this.$router.push({
+                    path:'/settle',
+                    query:{
+                        id:this.$route.query.id
+                    }
+                })
+            }else{
+                //如果不是，预留后面做地址编辑
+            }
         }
     },
 }

@@ -26,15 +26,15 @@
                             <div class="parameter-text f-bgf" @click="showLayer">
                                 <span class="change-tip">选择参数</span>
                                 <div class="parameter-con">
-                                    小米电视 4k 55英寸 银灰色 55英寸 x 1
+                                    <span v-show="spec_txt">{{spec_txt}} x {{num}}</span>
                                 </div>
                             </div>
                             <van-action-sheet v-model="show" title=" ">
                                 <div class="parameter-box">
-                                    <div class="parameter-item f-bdb" v-for="(list,index) in lists" :key="index">
-                                        <div class="parameter-title">{{list.title}}</div>
+                                    <div class="parameter-item f-bdb">
+                                        <div class="parameter-title">{{spec.sp_name}}</div>
                                         <div class="parameter-detail">
-                                            <span @click="changePar(list,index)" :class="{active:list.default==index}" v-for="(item,index) in list.type" :key="index">{{item.name}}</span>
+                                            <span @click="changePar(item,index,)" :class="{'active':spec.default==index}" v-for="(item,index) in spec.value" :key="item.id">{{item.sp_value_name}}</span>
                                         </div>
                                     </div>
                                     <div class="buy-box f-bdb">
@@ -45,7 +45,12 @@
                                             <span class="add" @click="addNum">+</span>
                                         </div>
                                     </div>
-                                    <div @click="addCart" class="add-cart-btn f-bgc1">加入购物车</div>
+                                    <div class="goods-btn-box">
+                                        <div @click.stop="define" v-if="showType==0" class="f-bgc1">确定</div>
+                                        <div @click.stop="addCart" v-if="showType==1" class="f-bgc2">加入购物车</div>
+                                        <div @click.stop="orderNow" v-if="showType==2" class="f-bgc1">立即购买</div>
+                                    </div>
+                                    
                                 </div>
                             </van-action-sheet>
                         </div>
@@ -75,32 +80,10 @@ export default {
             num:1,//加入购物车数量
             isCollection:false,//是否收藏
             data:{},//获取的数据信息
-            lists:[//供选择参数列表
-                {
-                    title:'颜色',
-                    default:0,
-                    type:[
-                        {
-                            name:'黑色',
-                        },
-                        {
-                            name:'银辉色'
-                        }
-                    ]
-                },
-                {
-                    title:'大小',
-                    default:1,
-                    type:[
-                        {
-                            name:'大码'
-                        },
-                        {
-                            name:'细小码'
-                        }
-                    ]
-                },
-            ]
+            spec:{},//参数内容
+            spec_id:'',//规格值id
+            spec_txt:'',//规格值名字
+            showType:0,
         }
     },
     watch: {
@@ -126,8 +109,17 @@ export default {
                 }).then((res)=>{
                     let data=res.data.data;
                     if(data.code===1000){
-                        console.log(data);
                         this.data=data.info;
+                        this.data.spec.default=-1;
+                        if(this.data.spec){
+                            this.spec=this.data.spec;
+                        }
+                        //如果只有一个规格参数，默认选中
+                        if(this.spec.value&&this.spec.value.length==1){
+                            this.spec.default=0;
+                            this.spec_id=this.spec.value[0].id;//规格值id
+                            this.spec_txt=this.spec.value[0].sp_value_name;//规格值名字
+                        }
                     }
                 })
             }else{
@@ -143,15 +135,19 @@ export default {
         },
         //商品详情切换
         changeList(name,title){
-            console.log(name,title);
+            //console.log(name,title);
         },
         //弹出参数选择框
         showLayer(){
+            this.showType=0;
             this.show=true;
         },
         //修改商品参数
-        changePar(list,i){
-            list.default=i;
+        changePar(item,i){
+            this.spec.default=i;
+            this.spec_id=item.id;//规格值id
+            this.spec_txt=item.sp_value_name;//规格值名字
+            this.$forceUpdate();
         },
         //减少商品数量
         reduceNum(){
@@ -176,14 +172,67 @@ export default {
         },
         //加入购物车
         addCart(){
-            this.show=false;
-            this.$toast('加入成功');
+            this.showType=1;
+            if(!this.spec_txt){
+                if(this.show){
+                    this.$toast('请选择参数');
+                }
+                this.show=true;
+            }else{
+                this.$axios.post('/v1/goods/addCart',{
+                    goods_guid:this.$route.query.id,
+                    num:this.num,
+                    spec_id:this.spec_id
+                }).then((res)=>{
+                    let data=res.data.data;
+                    if(data.code===1000){
+                        this.show=false;
+                        this.$toast({
+                            message:'加入成功',
+                            forbidClick:true
+                        });
+                    }
+                })
+                
+            }
         },
         //立即购买
         orderNow(){
-            this.$router.push({
-                path:'/settle'
-            })
+            this.showType=2;
+            if(!this.spec_txt){
+                if(this.show){
+                    this.$toast('请选择参数');
+                }
+                this.show=true;
+            }else{
+                this.$axios.post('/v1/goods/buy',{
+                    goods_guid:this.$route.query.id,
+                    num:this.num,
+                    spec_id:this.spec_id
+                }).then((res)=>{
+                    let data=res.data.data;
+                    if(data.code===1000){
+                        sessionStorage.beforPath='goodsContent';
+                        this.$router.push({
+                            path:'/settle',
+                            query:{
+                                id:data.buy_id
+                            }
+                        })
+                    }
+                })
+            }
+        },
+        //确定，隐藏弹出框
+        define(){
+            if(!this.spec_txt){
+                if(this.show){
+                    this.$toast('请选择参数');
+                }
+                this.show=true;
+            }else{
+                this.show=false;
+            }
         }
     },
 }

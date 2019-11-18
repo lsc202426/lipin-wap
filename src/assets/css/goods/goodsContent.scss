@@ -31,14 +31,16 @@
             }
         }
         .van-tabs__content{
-            height: 7.78rem;
+            // height: 7.78rem;
             margin-top:-1rem;
             .van-tab__pane,
             .goods-banner,
             .van-swipe {
+                min-height: 5rem;
                 height: 100%;
                 img{
                     flex:1;
+                    width:100%;
                 }
             }
             .van-swipe{
@@ -201,7 +203,8 @@
                     }
                 }
             }
-            .add-cart-btn{
+            .goods-btn-box{
+                @include df;
                 position: absolute;
                 bottom: 0;
                 left:0;
@@ -209,6 +212,9 @@
                 color:#fff;
                 text-align: center;
                 line-height: 1rem;
+                div{
+                    flex:1;
+                }
             }
         }
         .van-action-sheet__close {
