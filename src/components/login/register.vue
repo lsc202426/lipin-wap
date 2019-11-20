@@ -21,7 +21,7 @@
                     </div>
                     <div class="login-form-item f-bdb">
                         <img class="icon-password" v-lazy="iconPass" alt="">
-                        <input type="password" v-model.trim="password" placeholder="请输入密码">
+                        <input type="password" v-model.trim="password" placeholder="请输入8位数英文和数字组合密码">
                     </div>
                     <div class="big-btn" @click="register">注册</div>
                 </div>
@@ -68,6 +68,7 @@ export default {
         register(){
             let textTips="";
             let regPhone = /^1(3|4|5|6|7|8|9)\d{9}$/;
+            let regPass=/^(?=.*[A-Za-z])(?=.*\d)[^]{8}$/;
             if(!this.phone){
                 textTips="请填写手机号码";
             }else if(!regPhone.test(this.phone)){
@@ -76,6 +77,8 @@ export default {
                 textTips="请填写验证码";
             }else if(!this.password){
                 textTips="请填写密码";
+            }else if(!regPass.test(this.password)){
+                textTips="请输入8位数英文和数字组合密码";
             }
             if(textTips){
                 this.$toast(textTips);
