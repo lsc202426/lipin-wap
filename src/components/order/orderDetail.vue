@@ -7,42 +7,45 @@
                     <span class="go-back" @click.stop="goBack"></span>
                     <div class="title">订单详情</div>
                 </div>
-                <div class="order-detail-title">
-                    {{title}}
+                <div class="order-detail-title" v-if="orderInfo.pay_status=='待支付'">
+                    {{orderInfo.pay_status}}
+                </div>
+                <div class="order-detail-title" v-else>
+                    {{orderInfo.status}}
                 </div>
             </div>
             <!--地址信息-->
-            <div class="detail-address f-bgf f-mgb">
+            <div class="detail-address f-bgf f-mgb" v-if="addressInfo">
                 <div class="detail-address-img">
                     <img :src="img" alt="">
                 </div>
                 <div class="detail-address-txt">
                     <div class="txt-name">
-                        <span class="name">蕾娜</span>
-                        <span class="phone">13800138000</span>
+                        <span class="name">{{addressInfo.name}}</span>
+                        <span class="phone">{{addressInfo.cellphone}}</span>
                     </div>
                     <div class="txt-address">
-                        广东 广州市 海珠区 滨江街道 怡乐路 奇乐园21号802
+                        {{addressInfo.address}}
                     </div>
                 </div>
             </div>
             <!--商品信息-->
             <div class="detail-goods f-mgb f-bgf">
                 <div class="detail-goods-title">商品信息</div>
-                <div class="detail-goods-item">
+                <div class="detail-goods-item" v-for="(item,index) in orderInfo.order_product" :key="index">
                     <div class="item-img-box">
-                        <img v-lazy="img" alt="">
+                        <img v-lazy="$config.api.public_domain+item.cover" alt="">
                     </div>
                     <div class="item-con-box">
                         <div class="item-con-title">
-                            <div class="title">小米电视4A 70英寸</div>
+                            <div class="title">{{item.product_name}}</div>
                             <div class="con-price">
-                                <span>￥</span>3799
+                                <span>￥</span>{{item.totle}}
                             </div>
                         </div>
                         <div class="item-con-type">
-                            <div>黑色</div>
-                            <div>x 1</div>
+                            <div>{{item.spec}}</div>
+                            <div>x {{item.product_count}}</div>
                         </div>
                     </div>
                 </div>
@@ -53,15 +56,15 @@
                     </div>
                     <div class="detail-goods-rules">
                         <span>积分支付</span>
-                        <span>5098</span>
+                        <span>{{orderInfo.integral}}</span>
                     </div>
                     <div class="detail-goods-rules">
                         <span>实付款（含运费）</span>
-                        <span>￥14.82</span>
+                        <span>￥{{orderInfo.realsum}}</span>
                     </div>
                 </div>
                 <div class="detail-goods-total">
-                    合计：<span class="total-num"><span>￥</span>7899</span>
+                    合计：<span class="total-num"><span>￥</span>{{orderInfo.totle}}</span>
                 </div>
             </div>
             <!--订单信息-->
@@ -69,17 +72,18 @@
                 <div class="detail-msg-title">订单信息</div>
                 <div class="detail-msg-item">
                     <span>订单编号</span>
-                    <span>63816468246246264624626</span>
+                    <span>{{orderInfo.number}}</span>
                 </div>
                 <div class="detail-msg-item">
                     <span>创建时间</span>
-                    <span>2017-09-10 14:23:56</span>
+                    <span>{{orderInfo.created}}</span>
                 </div>
             </div>
             <!--底部按钮-->
             <div class="detail-bottom f-bgf">
-                <div class="detail-bottom-btn">查看物流</div>
-                <div class="detail-bottom-btn price">确认收货</div>
+                <div v-if="orderInfo.pay_status=='支付成功'&&(orderInfo.status=='已发货'||orderInfo.status=='已完成')" class="detail-bottom-btn" @click.stop="goLogistics(orderInfo.id)">查看物流</div>
+                <div v-if="orderInfo.pay_status=='待支付'" class="detail-bottom-btn price" @click.stop="goPay(orderInfo.id)">去付款</div>
+                <div v-if="orderInfo.pay_status=='支付成功'&&orderInfo.status=='已发货'" class="detail-bottom-btn price" @click.stop="confirmReceipt(orderInfo.id)">确认收货</div>
             </div>
         </div>
     </div>
@@ -89,19 +93,55 @@ export default {
     name:'orderDetail',
     data() {
         return {
-            title:'卖家已发货',
             img:require('@/assets/images/icon_kuaidixinxi1@2x.png'),
+            addressInfo:{},//地址信息
+            orderInfo:{},//订单信息
         }
     },
     created () {
-        
+        this.init();//初始化
     },
     methods: {
+        //返回订单列表
         goBack() {
             this.$router.push({
                 path:'/order'
             })
-        }
+        },
+        //初始化获取数据
+        init(){
+            this.$axios.post('/v1/home/orderDetail',{
+                order_id:this.$route.query.id
+            }).then((res)=>{
+                let data=res.data.data;
+                if(data.code===1000){
+                    this.addressInfo=data.address_info;
+                    this.orderInfo=data.order_info;
+                }
+            })
+        },
+        //前往查看物流
+        goLogistics(id){
+            this.$router.push({
+                path:'/logistics',
+                query:{
+                    id:id
+                }
+            })
+        },
+        //去付款
+        goPay(id){
+            this.$router.push({
+                path:'/settle',
+                query:{
+                    id:id
+                }
+            })
+        },
+        //确认收货
+        confirmReceipt(){
+            // console.log('确认收货啦')
+        },
     },
 }
 </script>

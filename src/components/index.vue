@@ -119,6 +119,7 @@ export default {
           }
       ],//导航内容
       hasMsg:false,//是否有未读消息
+      isStaff:false,//是否是商务
     };
   },
   created() {

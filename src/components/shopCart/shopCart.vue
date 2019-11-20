@@ -71,6 +71,8 @@
         <!--底部导航-->
         <tab-bar></tab-bar>
         <!-- <primary-bar></primary-bar> -->
+        <!--预选积分-->
+        <!-- <primary-box></primary-box> -->
     </div>
 </template>
 <script>

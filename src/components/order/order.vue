@@ -172,7 +172,7 @@ export default {
         },
         //确认收货
         confirmReceipt(){
-            // console.log('确认收货啦')
+            //console.log('确认收货啦')
         },
         //下拉加载更多
         onLoad() {
