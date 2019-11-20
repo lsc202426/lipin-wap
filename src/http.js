@@ -6,7 +6,7 @@ import router from './router/index.js'
 
 if (process.env.NODE_ENV === 'development') {
   // 设置默认本地axios提交url
-  axios.defaults.baseURL = config.api.public_domain
+  axios.defaults.baseURL = config.api.public_domain_line
 } else {
   // 设置默认线上axios提交url
   axios.defaults.baseURL = config.api.public_domain_line
