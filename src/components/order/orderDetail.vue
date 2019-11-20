@@ -131,6 +131,7 @@ export default {
         },
         //去付款
         goPay(id){
+            sessionStorage.beforPath='orderDetail';
             this.$router.push({
                 path:'/settle',
                 query:{

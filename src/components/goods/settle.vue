@@ -259,6 +259,8 @@ export default {
             //获取结算方式
             if(this.payType==0&&this.needToPay>0){
                 payment='weixin';
+                this.$toast('此功能正在开发，请选择其他支付方式');
+                return;
             }else if(this.payType==1&&this.needToPay>0){
                 payment='alipay';
             }else if(this.payType==2&&this.needToPay>0){

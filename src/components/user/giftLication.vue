@@ -18,7 +18,7 @@
             </div>
             <div class="field-item f-bgf f-bdb">
                 <div class="field-tip">手机：</div>
-                <input class="field-input" v-model.trim="phone" placeholder="请填写联系人手机" type="tel">
+                <input class="field-input" v-model.trim="phone" placeholder="请填写联系人手机号" type="tel">
             </div>
             <div class="field-item f-bgf f-bdb">
                 <div class="field-tip">注册的点商标：</div>
@@ -68,9 +68,46 @@ export default {
         },
         //提交
         onSubmint(){
-            this.$router.push({
-                path:'/'
+            let textTips="";
+            let regPhone = /^1(3|4|5|6|7|8|9)\d{9}$/;
+            if(!this.name){
+                textTips="请填写客户名称";
+            }else if(!this.link){
+                textTips="请填写联系人";
+            }else if(!this.phone){
+                textTips="请填写联系人手机号";
+            }else if(!regPhone.test(this.phone)){
+                textTips="请填写正确的手机号码";
+            }else if(!this.dsbName){
+                textTips="请填写注册的点商标";
+            }else if(!this.dsbPrice){
+                textTips="请填写点商标注册金额";
+            }
+            if(textTips){
+                this.$toast(textTips);
+                return;
+            }
+            this.$axios.post('/v1/home/saveCustomer',{
+                contact:this.name,
+                contact_name:this.link,
+                mobile_phone:this.phone,
+                domain:this.dsbName,
+                amount:this.dsbPrice,
+            }).then((res)=>{
+                let data=res.data.data;
+                if(data.code===1000){
+                    this.$toast({
+                        message:data.msg,
+                        forbidClick: true,
+                    })
+                    setTimeout(() => {
+                        this.$router.push({
+                            path:'/'
+                        })
+                    }, 2000);
+                }
             })
+            
         }
     },
 }

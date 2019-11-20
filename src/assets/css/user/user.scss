@@ -414,6 +414,12 @@
 
 /*预选购礼品*/
 .giftList{
+    .gift-list-content{
+        position: relative;
+        // .noData{
+        //     left:0;
+        // }
+    }
     .msg-list-box {
         border-radius: 0.12rem;
         .order-item{

@@ -1,9 +1,13 @@
 <template>
-    <div class="shopCart">
+    <div class="shopCart" v-if="showPage">
         <!--头部-->
-        <nav-bar :title="title" :border=border :leftArrow=leftArrow></nav-bar>
+        <nav-bar
+            :title="title"
+            :border="border"
+            :leftArrow="leftArrow"
+        ></nav-bar>
         <!--内容-->
-        <div class="cart-content" v-if="dataList&&dataList.length>0">
+        <div class="cart-content" v-if="dataList && dataList.length > 0">
             <div class="cart-list">
                 <van-list
                     v-model="loading"
@@ -13,25 +17,62 @@
                     :error.sync="error"
                     error-text="请求失败，点击重新加载"
                 >
-                    <div class="cart-item f-bgf" v-for="(list,index) in dataList" :key="index">
-                        <van-swipe-cell :on-close="onClose" :name=index>
+                    <div
+                        class="cart-item f-bgf"
+                        v-for="(list, index) in dataList"
+                        :key="index"
+                    >
+                        <van-swipe-cell :on-close="onClose" :name="index">
                             <div class="cart-item-con">
-                                <div class="icon-checkbox" :class="{'icon-checkbox-active':list.check}" @click="inCheckbox(list)"></div>
+                                <div
+                                    class="icon-checkbox"
+                                    :class="{
+                                        'icon-checkbox-active': list.check
+                                    }"
+                                    @click="inCheckbox(list)"
+                                ></div>
                                 <div class="item-con-r">
                                     <div class="item-con-img">
-                                        <img v-lazy="$config.api.public_domain+list.cover" alt="">
+                                        <img
+                                            v-lazy="
+                                                $config.api.public_domain +
+                                                    list.cover
+                                            "
+                                            alt
+                                        />
                                     </div>
                                     <div class="item-con-txt">
-                                        <div class="item-con-title">{{list.title}}</div>
+                                        <div class="item-con-title">
+                                            {{ list.title }}
+                                        </div>
                                         <div class="item-con-specs">
-                                            <span>{{list.sp_value_name}}</span>
+                                            <span>{{
+                                                list.sp_value_name
+                                            }}</span>
                                         </div>
                                         <div class="price-and-num">
-                                            <div class="price"><span>￥</span>{{list.price}}</div>
+                                            <div class="price">
+                                                <span>￥</span>
+                                                {{ list.price }}
+                                            </div>
                                             <div class="buy-num">
-                                                <span class="reduce" @click.stop="reduceNum(list)">-</span>
-                                                <input type="number" @keyup="computTotal" v-model.number="list.num">
-                                                <span class="add" @click.stop="addNum(list)">+</span>
+                                                <span
+                                                    class="reduce"
+                                                    @click.stop="
+                                                        reduceNum(list)
+                                                    "
+                                                    >-</span
+                                                >
+                                                <input
+                                                    type="number"
+                                                    @keyup="computTotal"
+                                                    v-model.number="list.num"
+                                                />
+                                                <span
+                                                    class="add"
+                                                    @click.stop="addNum(list)"
+                                                    >+</span
+                                                >
                                             </div>
                                         </div>
                                     </div>
@@ -41,223 +82,268 @@
                                 <van-button square type="danger" text="删除" />
                             </template>
                         </van-swipe-cell>
-                    </div> 
+                    </div>
                 </van-list>
-                <van-divider dashed class="botton-line" v-if="finished&&dataList&&dataList.length>0">
-                    没有更多了
-                </van-divider> 
+                <van-divider
+                    dashed
+                    class="botton-line"
+                    v-if="finished && dataList && dataList.length > 0"
+                    >没有更多了</van-divider
+                >
             </div>
         </div>
         <!--暂无数据-->
         <no-data v-else></no-data>
         <!--底部结算栏-->
-        <div class="settle-box f-bgf">
+        <div class="settle-box f-bgf" v-if="dataList && dataList.length > 0">
             <div class="all-check" @click.stop="allChecked">
-                <div class="icon-checkbox" :class="{'icon-checkbox-active':allCheck}"></div>  
+                <div
+                    class="icon-checkbox"
+                    :class="{ 'icon-checkbox-active': allCheck }"
+                ></div>
                 <div>全选</div>
             </div>
             <div class="settle-price-btn">
                 <div class="settle-price">
                     <span>合计：</span>
                     <span class="price">
-                        <span>￥</span>{{total}}
+                        <span>￥</span>
+                        {{ total }}
                     </span>
                 </div>
-                <div class="settle-btn f-bgc1" @click="goSettle">
-                    {{btnTxt}}
+                <div v-if="isStaff" class="settle-btn f-bgc1" @click="goSettle">
+                    提交审核
+                </div>
+                <div v-else class="settle-btn f-bgc1" @click="goSettle">
+                    结算
                 </div>
             </div>
         </div>
-        <!--底部导航-->
-        <tab-bar></tab-bar>
-        <!-- <primary-bar></primary-bar> -->
+        <!--底部-->
+        <primary-bar v-if="isStaff"></primary-bar>
+        <tab-bar v-else></tab-bar>
         <!--预选积分-->
-        <!-- <primary-box></primary-box> -->
+        <primary-box :primary=primary v-if="isStaff"></primary-box>
     </div>
 </template>
 <script>
 // import { Dialog,Toast } from 'vant';
 export default {
-    name:'shopCart',
-    data(){
-        return{
-            title:'购物车',
-            leftArrow:false,
-            border:false,
+    name: "shopCart",
+    data() {
+        return {
+            title: "购物车",
+            leftArrow: false,
+            border: false,
             loading: false, //是否触发加载
             finished: false, //数据加载完毕
-            error:false,//若列表数据加载失败，将error设置成true即可显示错误提示，用户点击错误提示后会重新触发 load 事件
+            error: false, //若列表数据加载失败，将error设置成true即可显示错误提示，用户点击错误提示后会重新触发 load 事件
             page: 1, //页码
-            allCheck:false,//是否全选
-            dataList:[],//列表内容
-            total:0,//合计价格
-            goods:[],//结算商品列表
-            btnTxt:'结算',//按钮名称
-        }
+            allCheck: false, //是否全选
+            dataList: [], //列表内容
+            total: 0, //合计价格
+            goods: [], //结算商品列表
+            isStaff: false, //是否是商务
+            primary:0,//预选积分
+            showPage:false,//是否显示页面
+        };
     },
     created() {
-        this.init(this.page);//初始化
+        this.init(this.page); //初始化
     },
     watch: {
-        allCheck:function(val){
-
-        },
-        dataList:function(val){
+        allCheck: function(val) {},
+        dataList: function(val) {
             // this.computTotal();//计算价格
             // this.$forceUpdate();//强制渲染
         }
     },
     methods: {
         //初始化获取购物车数据信息
-        init(page){
-            this.$axios.post(`/v1/goods/cart?page=${page}`).then((res)=>{
-                let data=res.data.data;
-                if(data.code===1000){
+        init(page) {
+            this.$axios.post(`/v1/goods/cart?page=${page}`).then(res => {
+                let data = res.data.data;
+                if (data.code === 1000) {
+                    this.isStaff=data.is_primary;
+                    if(this.isStaff){
+                        this.title='预选清单'
+                    }
+                    this.primary=data.integral;
                     if (page <= 1) {
-                        this.dataList=data.list;
-                    }else{
+                        this.dataList = data.list;
+                    } else {
                         this.dataList.push.apply(this.dataList, data.list);
                     }
                     //加载状态结束
                     this.loading = false;
                     //数据全部加载完成
-                    if (this.dataList.length==data.totalCount) {
+                    if (this.dataList.length == data.totalCount) {
                         this.finished = true;
                     }
-                    this.allCheck=false;
-                    this.dataList.forEach((item,index)=>{
-                        item.check=false;
-                    })
-                }else{
-                    this.error=true;
+                    this.allCheck = false;
+                    this.dataList.forEach((item, index) => {
+                        item.check = false;
+                    });
+                    this.showPage=true;
+                } else {
+                    this.error = true;
                 }
-            })
+            });
         },
         // clickPosition 表示关闭时点击的位置
-        onClose(clickPosition, instance,detail) {
+        onClose(clickPosition, instance, detail) {
             switch (clickPosition) {
-                case 'left':
-                case 'cell':
-                case 'outside':
-                instance.close();
-                break;
-                case 'right':
-                this.$dialog.confirm({
-                    message: '确定删除吗？'
-                }).then(() => {
-                    console.log(detail);
+                case "left":
+                case "cell":
+                case "outside":
                     instance.close();
-                }).catch(()=>{
-                    instance.close();
-                });
-                break;
+                    break;
+                case "right":
+                    this.$dialog
+                        .confirm({
+                            message: "确定删除吗？"
+                        })
+                        .then(() => {
+                            console.log(detail);
+                            instance.close();
+                        })
+                        .catch(() => {
+                            instance.close();
+                        });
+                    break;
             }
         },
         //减少商品数量
-        reduceNum(list){
-            list.num=parseInt(list.num);
-            if(list.num>1){
-                list.num-=1;
-            }else{
-                list.num=1;
+        reduceNum(list) {
+            list.num = parseInt(list.num);
+            if (list.num > 1) {
+                list.num -= 1;
+            } else {
+                list.num = 1;
             }
-            this.computTotal();//计算价格
+            this.computTotal(); //计算价格
             //this.$forceUpdate();
         },
         //添加商品数量
-        addNum(list){
-            list.num=parseInt(list.num);
-            list.num+=1;
-            this.computTotal();//计算价格
+        addNum(list) {
+            list.num = parseInt(list.num);
+            list.num += 1;
+            this.computTotal(); //计算价格
             //this.$forceUpdate();
         },
         //选中商品
-        inCheckbox(list){
-            list.check=!list.check;
+        inCheckbox(list) {
+            list.check = !list.check;
             //判断是否全选
-            let allcheck=this.dataList.every((item,index)=>{
-                return item.check==true;
-            })
-            if(allcheck){
-                this.allCheck=true;
-            }else{
-                this.allCheck=false;
+            let allcheck = this.dataList.every((item, index) => {
+                return item.check == true;
+            });
+            if (allcheck) {
+                this.allCheck = true;
+            } else {
+                this.allCheck = false;
             }
-            this.computTotal();//计算价格
-            this.$forceUpdate();//强制渲染
+            this.computTotal(); //计算价格
+            this.$forceUpdate(); //强制渲染
         },
         //结算
-        goSettle(){
+        goSettle() {
             //判断产品选择情况
-            this.dataList.forEach((item,index)=>{
-                if(item.check){
-                    let obj={
-                        guid:'',
-                        num:''
-                    }
-                    obj.guid=item.guid,
-                    obj.num=item.num
+            this.dataList.forEach((item, index) => {
+                if (item.check) {
+                    let obj = {
+                        guid: "",
+                        num: ""
+                    };
+                    (obj.guid = item.guid), (obj.num = item.num);
                     this.goods.push(obj);
                 }
-            })
+            });
             //如果咩有选择商品
-            if(this.goods.length<=0){
-                this.$toast('请选择商品');
+            if (this.goods.length <= 0) {
+                this.$toast("请选择商品");
                 return;
             }
-            //提交结算，获取buy_id
-            this.$axios.post('/v1/goods/cartPay',{
-                goods:this.goods
-            }).then((res)=>{
-                let data=res.data.data;
-                if(data.code===1000){
-                    sessionStorage.beforPath='shopCart';
-                    this.$router.push({
-                        path:'/settle',
-                        query:{
-                            id:data.buy_id
-                        }
+            //如果是商务
+            if(this.isStaff){
+                //提交审核
+                this.$axios
+                    .post("/v1/pay/audit", {
+                        source:'cart',
+                        goods: this.goods
                     })
-                }
-            })
+                    .then(res => {
+                        let data = res.data.data;
+                        if (data.code === 1000) {
+                            sessionStorage.beforPath = "shopCart";
+                            this.$toast({
+                                message:data.msg,
+                                forbidClick: true
+                            })
+                            setTimeout(() => {
+                                this.$router.push({
+                                    path: "/giftList",
+                                });
+                            }, 2000);
+                        }
+                    });
+            }else{
+                //提交结算，获取buy_id
+                this.$axios
+                    .post("/v1/goods/cartPay", {
+                        goods: this.goods
+                    })
+                    .then(res => {
+                        let data = res.data.data;
+                        if (data.code === 1000) {
+                            sessionStorage.beforPath = "shopCart";
+                            this.$router.push({
+                                path: "/settle",
+                                query: {
+                                    id: data.buy_id
+                                }
+                            });
+                        }
+                    });
+            }
         },
         //全选
-        allChecked(){
-            this.allCheck=!this.allCheck;
-            this.total=0;
-            if(this.allCheck){
-                this.dataList.forEach((item,index)=>{
-                    item.check=true;
-                    this.total+=parseFloat(item.price*item.num);
-                })
-            }else{
-                this.dataList.forEach((item,index)=>{
-                    item.check=false;
-                })
-                this.total=0;
+        allChecked() {
+            this.allCheck = !this.allCheck;
+            this.total = 0;
+            if (this.allCheck) {
+                this.dataList.forEach((item, index) => {
+                    item.check = true;
+                    this.total += parseFloat(item.price * item.num);
+                });
+            } else {
+                this.dataList.forEach((item, index) => {
+                    item.check = false;
+                });
+                this.total = 0;
             }
         },
         //计算价格
-        computTotal(){
-            this.total=0;
-            this.dataList.forEach((item,index)=>{
-                if(item.check==true){
-                    this.total+=parseFloat(item.price*item.num);
+        computTotal() {
+            this.total = 0;
+            this.dataList.forEach((item, index) => {
+                if (item.check == true) {
+                    this.total += parseFloat(item.price * item.num);
                 }
-            })
+            });
         },
         //下拉加载更多
         onLoad() {
-            if(this.finished===false){
-                this.loading=true;
+            if (this.finished === false) {
+                this.loading = true;
                 setTimeout(() => {
-                    if(!this.error){
+                    if (!this.error) {
                         this.page += 1;
                     }
                     this.init(this.page);
                 }, 1500);
             }
         }
-    },
-}
+    }
+};
 </script>

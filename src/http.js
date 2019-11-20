@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'development') {
   axios.defaults.baseURL = config.api.public_domain
 } else {
   // 设置默认线上axios提交url
-  axios.defaults.baseURL = config.api.public_domain
+  axios.defaults.baseURL = config.api.public_domain_line
 }
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 // 请求拦截

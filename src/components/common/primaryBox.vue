@@ -10,7 +10,6 @@
 export default {
     props: {
         primary: {
-            type: Number,
             default: 0
         },
     },

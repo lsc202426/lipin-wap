@@ -114,6 +114,7 @@ html {
         height: 100%;
         padding-bottom: 1.02rem;
         overflow-y: auto;
+        overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
     }
@@ -284,5 +285,9 @@ button {
 .icon-checkbox-active{
     background:url('assets/images/icon_xuanzhong@2x.png') center top no-repeat;
     background-size:contain;
+}
+/*v-cloak防止页面闪烁*/
+[v-cloak] {
+    display: none;
 }
 

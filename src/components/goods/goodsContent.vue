@@ -23,10 +23,20 @@
                             </div>
                         </div>
                         <div class="goods-parameter">
-                            <div class="parameter-text f-bgf" @click="showLayer">
+                            <div class="parameter-text f-bgf" @click="showLayer" v-if="spec.value&&spec.value.length>0">
                                 <span class="change-tip">选择参数</span>
                                 <div class="parameter-con">
                                     <span v-show="spec_txt">{{spec_txt}} x {{num}}</span>
+                                </div>
+                            </div>
+                            <div class="parameter-box parameter-box-n f-bgf" v-else>
+                                <div class="buy-box f-bgf">
+                                    <div>购买数量</div>
+                                    <div class="buy-num">
+                                        <span class="reduce" @click="reduceNum">-</span>
+                                        <input type="number" v-model.number="num">
+                                        <span class="add" @click="addNum">+</span>
+                                    </div>
                                 </div>
                             </div>
                             <van-action-sheet v-model="show" title=" ">
@@ -47,18 +57,17 @@
                                     </div>
                                     <div class="goods-btn-box">
                                         <div @click.stop="define" v-if="showType==0" class="f-bgc1">确定</div>
-                                        <div @click.stop="addCart" v-if="showType==1" class="f-bgc2">加入购物车</div>
-                                        <div @click.stop="orderNow" v-if="showType==2" class="f-bgc1">立即购买</div>
+                                        <div @click.stop="addCart" v-if="showType==1" class="f-bgc2">{{addCartTxt}}</div>
+                                        <div @click.stop="orderNow" v-if="showType==2" class="f-bgc1">{{orderNowTxt}}</div>
                                     </div>
-                                    
                                 </div>
                             </van-action-sheet>
                         </div>
                         <van-goods-action>
                             <van-goods-action-icon @click="inStar" v-if="isCollection" icon="star" text="已收藏" />
                             <van-goods-action-icon @click="inStar" v-else icon="star-o" text="收藏" />
-                            <van-goods-action-button @click.stop="addCart" color="#FF9234" type="warning" text="加入购物车" />
-                            <van-goods-action-button @click.stop="orderNow" color="#F38219" type="danger" text="立即购买" />
+                            <van-goods-action-button @click.stop="addCart" color="#FF9234" type="warning" :text=addCartTxt />
+                            <van-goods-action-button @click.stop="orderNow" color="#F38219" type="danger" :text=orderNowTxt />
                         </van-goods-action>
                     </div>
                 </van-tab>
@@ -84,6 +93,8 @@ export default {
             spec_id:'',//规格值id
             spec_txt:'',//规格值名字
             showType:0,
+            addCartTxt:'加入购物车',
+            orderNowTxt:'立即购买',
         }
     },
     watch: {
@@ -119,6 +130,11 @@ export default {
                             this.spec.default=0;
                             this.spec_id=this.spec.value[0].id;//规格值id
                             this.spec_txt=this.spec.value[0].sp_value_name;//规格值名字
+                        }
+                        //如果是商务，改变按钮名称
+                        if(this.data.is_primary){
+                            this.addCartTxt='加入预选清单';
+                            this.orderNowTxt='提交审核';
                         }
                     }
                 })
@@ -173,13 +189,22 @@ export default {
         //加入购物车
         addCart(){
             this.showType=1;
-            if(!this.spec_txt){
-                if(this.show){
-                    this.$toast('请选择参数');
+            if(this.spec.value&&this.spec.value.length>0){
+                if(!this.spec_txt){
+                    if(this.show){
+                        this.$toast('请选择参数');
+                    }
+                    this.show=true;
+                }else{
+                    this.addCartSub();
                 }
-                this.show=true;
             }else{
-                this.$axios.post('/v1/goods/addCart',{
+                this.addCartSub();
+            }
+        },
+        //加入购物车提交
+        addCartSub(){
+            this.$axios.post('/v1/goods/addCart',{
                     goods_guid:this.$route.query.id,
                     num:this.num,
                     spec_id:this.spec_id
@@ -193,17 +218,52 @@ export default {
                         });
                     }
                 })
-                
-            }
         },
         //立即购买
         orderNow(){
             this.showType=2;
-            if(!this.spec_txt){
-                if(this.show){
-                    this.$toast('请选择参数');
+            if(this.spec.value&&this.spec.value.length>0){
+                if(!this.spec_txt){
+                    if(this.show){
+                        this.$toast('请选择参数');
+                    }
+                    this.show=true;
+                }else{
+                    this.orderNowSub();
                 }
-                this.show=true;
+            }else{
+                this.orderNowSub();
+            }
+        },
+        //立即购买提交
+        orderNowSub(){
+            //判断是否商务提交
+            if(this.data.is_primary){
+                let goods=[
+                    {
+                        guid:this.$route.query.id,
+                        spec_id:this.spec_id,
+                        num:this.num
+                    }
+                ]
+                this.$axios.post('/v1/pay/audit',{
+                    source:'buy',
+                    goods:goods
+                }).then((res)=>{
+                    let data=res.data.data;
+                    if(data.code===1000){
+                        sessionStorage.beforPath='goodsContent';
+                        this.$toast({
+                            message:data.msg,
+                            forbidClick: true
+                        })
+                        setTimeout(() => {
+                            this.$router.push({
+                                path:'/giftList'
+                            })
+                        }, 2000);
+                    }
+                })
             }else{
                 this.$axios.post('/v1/goods/buy',{
                     goods_guid:this.$route.query.id,
@@ -222,6 +282,7 @@ export default {
                     }
                 })
             }
+            
         },
         //确定，隐藏弹出框
         define(){
