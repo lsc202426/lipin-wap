@@ -28,7 +28,7 @@ axios.interceptors.request.use(
       ...config.data
       // token: sessionStorage.token
     }
-    config.data = Qs.stringify(config.data)
+    // config.data = Qs.stringify(config.data)
     if (router.currentRoute.name === 'settle') {
       Toast.loading({
         message: '正在支付中...',

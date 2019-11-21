@@ -21,7 +21,7 @@
                     </div>
                     <div class="login-form-item f-bdb">
                         <img class="icon-password" v-lazy="iconPass" alt="">
-                        <input type="password" v-model.trim="password" placeholder="请输入8位数英文和数字组合密码">
+                        <input type="password" v-model.trim="password" placeholder="请输入8到16位英文和数字密码">
                     </div>
                     <div class="big-btn" @click="register">注册</div>
                     <div class="go-index price" @click="goIndex">返回首页</div>
@@ -79,7 +79,7 @@ export default {
             }else if(!this.password){
                 textTips="请填写密码";
             }else if(!regPass.test(this.password)){
-                textTips="请输入8位数英文和数字组合密码";
+                textTips="请输入8到16位英文和数字密码";
             }
             if(textTips){
                 this.$toast(textTips);
