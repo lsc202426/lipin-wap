@@ -5,14 +5,14 @@
                 <div class="search-top-con">
                     <div class="search-top-back" @click="goBack"></div>
                     <div class="search-top-i">
-                        <form action="/" @submit.prevent="onSubmit">
+                        <form action="/" @submit.prevent="onSubmit(1)">
                             <input type="search" 
                             v-on:keyup.native.enter="search"
                             v-model="search_txt"
                             placeholder="搜索礼品名称">
                         </form>
                     </div>
-                    <div class="search-top-txt price" @click.stop="onSubmit">搜索</div>
+                    <div class="search-top-txt price" @click.stop="onSubmit(1)">搜索</div>
                 </div>
                 <div class="search-screen">
                     <span class="search-screen-i" @click="priceSort">价格
@@ -48,11 +48,11 @@
                                 <div class="item-text">{{item.title}}</div>
                                 <div class="item-price">
                                     <span class="price">￥{{item.price}}</span>
-                                    <span class="icon-add-cart"></span>
+                                    <!-- <span class="icon-add-cart"></span> -->
                                 </div>
                             </div>
                         </div>
-                        <van-divider dashed class="botton-line" v-if="finished">
+                        <van-divider dashed class="botton-line" v-if="finished && listItem && listItem.length > 0">
                             到底了
                         </van-divider>
                     </van-list>
@@ -148,7 +148,7 @@ export default {
                 }
             }
             this.$axios.post(`/v1/goods/list?page=${page}`,{
-                name:'',
+                name:name,
                 sort_price:sort_price,
                 sort_num:sort_num,
                 start_price:start_price,
@@ -202,16 +202,19 @@ export default {
         reset(){
             this.minPrice='';
             this.maxPrice='';
-            this.show=false;//隐藏弹窗
-            this.onSubmit(this.page);
+            //this.show=false;//隐藏弹窗
+            //this.onSubmit(this.page);
         },
         //确定
         define(){
-            if(this.maxPrice<this.minPrice){
-                Toast('最高价必须大于最低价');
-                return;
+            if(this.maxPrice>0){
+                if(this.maxPrice<this.minPrice){
+                    Toast('最高价必须大于最低价');
+                    return;
+                }
             }
-            this.finished=false;
+            
+            //this.finished=false;
             this.show=false;//隐藏弹窗
             this.page=1;//重新赋值获取页码
             this.onSubmit(this.page);

@@ -16,7 +16,7 @@
                                 placeholder="搜索礼品名称"
                             />
                         </form>
-                        <div class="icon-search"></div>
+                        <div class="icon-search" @click.stop="onSubmit"></div>
                     </div>
                     <div class="msg">
                         <img src="../assets/images/icon_xiaoxi_wu@2x.png" alt />
