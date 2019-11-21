@@ -42,7 +42,7 @@ export default {
         }
     },
     created () {
-        clearSession(); //清除会话内容
+        sessionStorage.clear();
     },
     mounted() {
         //禁用浏览器返回
