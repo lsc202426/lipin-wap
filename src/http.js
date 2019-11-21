@@ -51,7 +51,7 @@ axios.interceptors.request.use(
 // 响应拦截
 axios.interceptors.response.use(
   res => {
-    alert(res)
+    alert(JSON.stringify(res))
     // 影藏loading
     Toast.clear()
     if (res.data.status_code === 401 && res.data.data.code === 0) {
@@ -71,7 +71,7 @@ axios.interceptors.response.use(
     return res
   },
   error => {
-    alert(error)
+    alert(JSON.stringify(error))
     Toast.loading({
       message: error.errmsg ? error.errmsg : '请稍后刷新重试',
       forbidClick: true,
