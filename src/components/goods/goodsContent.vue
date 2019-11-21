@@ -115,7 +115,7 @@ export default {
         init() {
             if(this.$route.query.id){
                 let id=this.$route.query.id;
-                this.$axios.post('/v1/goods/detail',{
+                this.$axios.post(`/v1/goods/detail?token=${sessionStorage.token}`,{
                     guid:id
                 }).then((res)=>{
                     let data=res.data.data;
@@ -185,7 +185,7 @@ export default {
             this.isCollection=!this.isCollection;
             let id=this.$route.query.id;
             if(this.isCollection){
-                this.$axios.post('/v1/home/addCollect',{
+                this.$axios.post(`/v1/home/addCollect?token=${sessionStorage.token}`,{
                     goods_guid:id
                 }).then((res)=>{
                     let data=res.data.data;
@@ -196,13 +196,13 @@ export default {
                         });
                         setTimeout(() => {
                             this.init();
-                        }, 2000);
+                        }, 1000);
                     }
                 })
             }else{
                 let ids=[];
                 ids.push(this.data.collect_id);
-                this.$axios.post('/v1/home/delCollect',{
+                this.$axios.post(`/v1/home/delCollect?token=${sessionStorage.token}`,{
                     ids:ids
                 }).then((res)=>{
                     let data=res.data.data;
@@ -213,7 +213,7 @@ export default {
                         });
                         setTimeout(() => {
                             this.init();
-                        }, 2000);
+                        }, 1000);
                     }
                 })
             }
@@ -236,7 +236,7 @@ export default {
         },
         //加入购物车提交
         addCartSub(){
-            this.$axios.post('/v1/goods/addCart',{
+            this.$axios.post(`/v1/goods/addCart?token=${sessionStorage.token}`,{
                     goods_guid:this.$route.query.id,
                     num:this.num,
                     spec_id:this.spec_id
@@ -278,7 +278,7 @@ export default {
                         num:this.num
                     }
                 ]
-                this.$axios.post('/v1/pay/audit',{
+                this.$axios.post(`/v1/pay/audit?token=${sessionStorage.token}`,{
                     source:'buy',
                     goods:goods
                 }).then((res)=>{
@@ -297,7 +297,7 @@ export default {
                     }
                 })
             }else{
-                this.$axios.post('/v1/goods/buy',{
+                this.$axios.post(`/v1/goods/buy?token=${sessionStorage.token}`,{
                     goods_guid:this.$route.query.id,
                     num:this.num,
                     spec_id:this.spec_id

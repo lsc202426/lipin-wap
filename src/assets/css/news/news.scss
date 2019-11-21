@@ -12,7 +12,17 @@
         border-radius: 0.12rem;
         margin-bottom: 0.3rem;
         .item-img{
+            position: relative;
             margin:0.32rem 0.26rem 0.34rem 0.28rem;
+            &-read{
+                position: absolute;
+                width: 0.16rem;
+                height: 0.16rem;
+                background-color:#FF0F0F;
+                border-radius: 50%;
+                top:0.05rem;
+                left: 0.05rem;
+            }
             img{
                 width:0.96rem;
                 height: 0.96rem;

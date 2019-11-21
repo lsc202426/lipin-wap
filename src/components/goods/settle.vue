@@ -170,7 +170,7 @@ export default {
             }
             if(this.$route.query.id){//这个id就是buy_id
                 let buy_id=this.$route.query.id;
-                this.$axios.post('/v1/goods/settlement',{
+                this.$axios.post(`/v1/goods/settlement?token=${sessionStorage.token}`,{
                     buy_id:buy_id,
                     source:this.source
                 }).then((res)=>{
@@ -279,7 +279,7 @@ export default {
             this.goodsList.forEach((item,index) => {
                 goods_ids.push(item.id);
             });
-            this.$axios.post('/v1/pay/create',{
+            this.$axios.post(`/v1/pay/create?token=${sessionStorage.token}`,{
                 source:this.source,
                 goods_ids:goods_ids.join(','),
                 buy_id:buy_id,

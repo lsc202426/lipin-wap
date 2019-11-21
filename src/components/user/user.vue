@@ -18,7 +18,7 @@
                             <img :src="headImg" alt="">
                         </div>
                         <div class="user-msg-name">
-                            <div class="name">{{data.username}}</div>
+                            <!-- <div class="name">{{data.username}}</div> -->
                             <div class="phone">{{data.mobile_phone}}</div>
                         </div>
                     </div>
@@ -102,7 +102,7 @@ export default {
     methods: {
         //获取初始数据
         init(){
-            this.$axios.post('/v1/home/info').then((res)=>{
+            this.$axios.post(`/v1/home/info?token=${sessionStorage.token}`).then((res)=>{
                 let data=res.data.data;
                 if(data.code===1000){
                     this.data=data.info;
@@ -150,7 +150,7 @@ export default {
         },
         //退出登陆
         signOut(){
-            this.$axios.post('/v1/home/loginOut').then((res)=>{
+            this.$axios.post(`/v1/home/loginOut?token=${sessionStorage.token}`).then((res)=>{
                 let data=res.data.data;
                 if(data.code===1000){
                     this.$toast({

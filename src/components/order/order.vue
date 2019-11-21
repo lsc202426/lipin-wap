@@ -104,7 +104,7 @@ export default {
     methods: {
         //初始化获取数据
         init(page){
-            this.$axios.post(`/v1/home/orderList?page=${page}`,{
+            this.$axios.post(`/v1/home/orderList?page=${page}&token=${sessionStorage.token}`,{
                 status:this.active,//订单状态
             }).then(res => {
                 let data = res.data.data;
@@ -177,7 +177,7 @@ export default {
         },
         //确认收货
         confirmReceipt(id){
-            this.$axios.post('/v1/home/confirmTake',{
+            this.$axios.post(`/v1/home/confirmTake?token=${sessionStorage.token}`,{
                 order_id:id
             }).then((res)=>{
                 let data=res.data.data;

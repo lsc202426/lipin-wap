@@ -147,7 +147,7 @@ export default {
                     sort_price='';
                 }
             }
-            this.$axios.post(`/v1/goods/list?page=${page}`,{
+            this.$axios.post(`/v1/goods/list?page=${page}&token=${sessionStorage.token}`,{
                 name:name,
                 sort_price:sort_price,
                 sort_num:sort_num,

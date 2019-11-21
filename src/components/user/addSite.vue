@@ -122,7 +122,7 @@ export default {
                 return;
             }
             let address=this.subAddress+this.addressDetail;
-            this.$axios.post('/v1/home/saveAddress',{
+            this.$axios.post(`/v1/home/saveAddress?token=${sessionStorage.token}`,{
                 name:this.name,
                 gender:this.genderMark,
                 cellphone:this.phone,

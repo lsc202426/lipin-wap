@@ -1,7 +1,7 @@
 <template>
     <div class="collect">
         <!--头部-->
-        <nav-bar title="我的收藏" :border=border :leftArrow=leftArrow></nav-bar>
+        <nav-bar title="我的收藏" url="/user" :border=border :leftArrow=leftArrow></nav-bar>
         <!--编辑按钮-->
         <div class="collect-edit" @click="editCollect">{{editTxt}}</div>
         <!--内容-->
@@ -15,7 +15,7 @@
                 error-text="请求失败，点击重新加载"
             >
                 <div class="collect-list f-bgf" v-if="lists&&lists.length>0">
-                    <div @click.stop="goDetail" class="collect-item f-bdb" v-for="(list,index) in lists" :key="index">
+                    <div @click.stop="goDetail(list.goods_id)" class="collect-item f-bdb" v-for="(list,index) in lists" :key="index">
                         <div @click.stop="isCheck(list)" class="icon-checkbox" :class="{'icon-checkbox-active':list.check}" v-show="show"></div>
                         <div class="collect-item-img">
                             <img v-lazy="$config.api.public_domain + list.cover" alt="">
@@ -73,12 +73,25 @@ export default {
     watch: {
         allCheck:function(val){
 
+        },
+        lists:function(val){
+            if(val.length<=0){
+                this.show=false;
+                this.editTxt='编辑';
+            }
+        },
+        show:function(val){
+            if(val){
+                this.editTxt='取消';
+            }else{
+                this.editTxt='编辑';
+            }
         }
     },
     methods: {
         //初始化获取收藏列表
         init(page){
-            this.$axios.post(`/v1/home/collectList?page=${page}`).then(res => {
+            this.$axios.post(`/v1/home/collectList?page=${page}&token=${sessionStorage.token}`).then(res => {
                 let data = res.data.data;
                 if (data.code === 1000) {
                     if (page <= 1) {
@@ -109,22 +122,22 @@ export default {
             })
         },
         //查看详情
-        goDetail(){
+        goDetail(id){
             this.$router.push({
-                path:'/goodsContent'
+                path:'/goodsContent',
+                query:{
+                    id:id
+                }
             })
         },
         //编辑
         editCollect(){
             this.show=!this.show;
             if(!this.show){
-                this.editTxt='编辑';
                 this.allCheck=false;
                 this.lists.forEach((item,index)=>{
                     item.check=false;
                 })
-            }else{
-                this.editTxt='取消';
             }
         },
         //是否全选
@@ -153,6 +166,7 @@ export default {
             }else{
                 this.allCheck=false;
             }
+            this.$forceUpdate();
         },
         //取消收藏
         cancelCollect(id){
@@ -161,8 +175,8 @@ export default {
                 message:'是否取消收藏'
             }).then(()=>{
                 let ids=[];
-                ids.push(this.data.collect_id);
-                this.$axios.post('/v1/home/delCollect',{
+                ids.push(id);
+                this.$axios.post(`/v1/home/delCollect?token=${sessionStorage.token}`,{
                     ids:ids
                 }).then((res)=>{
                     let data=res.data.data;
@@ -199,7 +213,7 @@ export default {
                 title:'提示',
                 message:'是否删除'
             }).then(()=>{
-                this.$axios.post('/v1/home/delCollect',{
+                this.$axios.post(`/v1/home/delCollect?token=${sessionStorage.token}`,{
                     ids:ids
                 }).then((res)=>{
                     let data=res.data.data;
@@ -209,6 +223,7 @@ export default {
                             forbidClick: true
                         });
                         setTimeout(() => {
+                            this.show=false;
                             this.page=1;//重新赋值获取页码
                             this.finished=true;
                             this.loading = false;

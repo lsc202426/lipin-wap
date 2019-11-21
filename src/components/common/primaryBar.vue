@@ -54,7 +54,7 @@ export default {
         changeActive() {
             if (this.active === 2) {
                 //退出预览
-                this.$axios.post('/v1/home/dellPreview').then((res)=>{
+                this.$axios.post(`/v1/home/dellPreview?token=${sessionStorage.token}`).then((res)=>{
                     let data=res.data.data;
                     if(data.code===1000){
                         this.$toast('退出成功');

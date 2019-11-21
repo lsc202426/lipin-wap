@@ -1,13 +1,13 @@
 <template>
     <div class="setting">
         <!--头部-->
-        <nav-bar title="设置" :border=border :leftArrow=leftArrow></nav-bar>
+        <nav-bar title="设置" url="/user" :border=border :leftArrow=leftArrow></nav-bar>
         <!--内容-->
         <div class="setting-content containerView-main">
             <div class="field-item f-bgf f-bdb">
                 <div class="field-tip">账户ID</div>
                 <div class="field-tail">
-                    6892136264164
+                    {{data.id}}
                 </div>
             </div>
             <div class="field-item f-bgf f-bdb f-mgb">
@@ -18,7 +18,7 @@
                     <div class="icon-r"></div>
                 </div>
             </div>
-            <input accept="image/*" @change="toBase64($event)" class="change-head" type="file">
+            <!-- <input accept="image/*" @change="toBase64($event)" class="change-head" type="file"> -->
             <!-- <div class="field-item f-bgf f-bdb f-mgb">
                 <div class="field-tip">实名信息</div>
                 <div class="field-tail">
@@ -29,7 +29,7 @@
             <div class="field-item f-bgf f-bdb" @click="changePhone">
                 <div class="field-tip">修改手机号</div>
                 <div class="field-tail">
-                    <div class="field-tail-txt">13711323876</div>
+                    <div class="field-tail-txt">{{data.mobile_phone}}</div>
                     <div class="icon-r"></div>
                 </div>
             </div>
@@ -50,12 +50,22 @@ export default {
             border: true,
             leftArrow: true,
             images:'',
+            data:{},//页面数据
         }
     },
     created () {
-        
+        this.init();//初始化
     },
     methods: {
+        //初始化获取设置数据
+        init(){
+            this.$axios.post(`/v1/home/setting?token=${sessionStorage.token}`).then((res)=>{
+                let data=res.data.data;
+                if(data.code===1000){
+                    this.data=data.info;
+                }
+            })
+        },
         //修改手机号
         changePhone(){
             this.$router.push({

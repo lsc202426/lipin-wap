@@ -73,7 +73,7 @@ export default {
                 this.$toast(textTips);
                 return;
             }
-            this.$axios.post('/user/login',{
+            this.$axios.post(`/user/login?token=${sessionStorage.token}`,{
                 username:this.phone,
                 password:this.password,
             }).then((res)=>{

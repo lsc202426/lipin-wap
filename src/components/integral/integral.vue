@@ -54,7 +54,7 @@ export default {
     methods: {
         //获取初始数据
         init(){
-            this.$axios.post('/v1/home/integral').then((res)=>{
+            this.$axios.post(`/v1/home/integral?token=${sessionStorage.token}`).then((res)=>{
                 let data=res.data.data;
                 if(data.code===1000){
                     this.integral=data.integral;

@@ -12,6 +12,7 @@ if (process.env.NODE_ENV === 'development') {
   axios.defaults.baseURL = config.api.public_domain_line
 }
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+// axios.defaults.headers.post['Content-Type'] = 'text/html;charset=utf-8'
 // 请求拦截
 axios.interceptors.request.use(
   config => {
@@ -20,15 +21,15 @@ axios.interceptors.request.use(
       // eslint-disable-next-line no-self-assign
       config.data = config.data
     }
-    if (sessionStorage.token) {
-      config.headers.token = sessionStorage.token
-    }
+    // if (sessionStorage.token) {
+    //   config.headers.token = sessionStorage.token
+    // }
 
     config.data = {
       ...config.data
       // token: sessionStorage.token
     }
-    // config.data = Qs.stringify(config.data)
+    config.data = Qs.stringify(config.data)
     if (router.currentRoute.name === 'settle') {
       Toast.loading({
         message: '正在支付中...',
@@ -51,7 +52,7 @@ axios.interceptors.request.use(
 // 响应拦截
 axios.interceptors.response.use(
   res => {
-    alert(JSON.stringify(res))
+    // alert(JSON.stringify(res))
     // 影藏loading
     Toast.clear()
     if (res.data.status_code === 401 && res.data.data.code === 0) {
@@ -71,7 +72,7 @@ axios.interceptors.response.use(
     return res
   },
   error => {
-    alert(JSON.stringify(error))
+    // alert(JSON.stringify(error))
     Toast.loading({
       message: error.errmsg ? error.errmsg : '请稍后刷新重试',
       forbidClick: true,

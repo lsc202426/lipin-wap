@@ -53,7 +53,7 @@ export default {
         init() {
             if(this.$route.query.id){
                 let id=this.$route.query.id;
-                this.$axios.post('/v1/pay/getSuccess',{
+                this.$axios.post(`/v1/pay/getSuccess?token=${sessionStorage.token}`,{
                     transaction_id:id
                 }).then((res)=>{
                     let data=res.data.data;

@@ -56,7 +56,7 @@ export default {
     methods: {
         //初始化获取地址数据
         init(page){
-            this.$axios.post(`/v1/home/myAddress?page=${page}`).then((res)=>{
+            this.$axios.post(`/v1/home/myAddress?page=${page}&token=${sessionStorage.token}`).then((res)=>{
                 let data=res.data.data;
                 if (data.code === 1000) {
                     if (page <= 1) {

@@ -87,7 +87,7 @@ export default {
                 this.$toast(textTips);
                 return;
             }
-            this.$axios.post('/v1/home/saveCustomer',{
+            this.$axios.post(`/v1/home/saveCustomer?token=${sessionStorage.token}`,{
                 contact:this.name,
                 contact_name:this.link,
                 mobile_phone:this.phone,

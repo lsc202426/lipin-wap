@@ -78,7 +78,7 @@ export default {
         },
         //获取初始数据
         init(i,page){
-            this.$axios.post(`/v1/home/integralDetail?page=${page}`,{
+            this.$axios.post(`/v1/home/integralDetail?page=${page}&token=${sessionStorage.token}`,{
                 type:i
             }).then((res)=>{
                 let data=res.data.data;
@@ -104,7 +104,6 @@ export default {
         //下拉加载更多
         onLoad() {
             if(this.finished===false){
-                console.log(2)
                 this.loading=true;
                 setTimeout(() => {
                     if(!this.error){

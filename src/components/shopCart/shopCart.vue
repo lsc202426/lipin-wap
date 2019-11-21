@@ -162,7 +162,7 @@ export default {
     methods: {
         //初始化获取购物车数据信息
         init(page) {
-            this.$axios.post(`/v1/goods/cart?page=${page}`).then(res => {
+            this.$axios.post(`/v1/goods/cart?page=${page}&token=${sessionStorage.token}`).then(res => {
                 let data = res.data.data;
                 if (data.code === 1000) {
                     this.isStaff=data.is_primary;
@@ -209,7 +209,7 @@ export default {
                         })
                         .then(() => {
                             this.delList.push(detail.name);
-                            this.$axios.post('/v1/goods/delCart',{
+                            this.$axios.post(`/v1/goods/delCart?token=${sessionStorage.token}`,{
                                 ids:this.delList
                             }).then((res)=>{
                                 let data=res.data.data;
@@ -289,7 +289,7 @@ export default {
             if(this.isStaff){
                 //提交审核
                 this.$axios
-                    .post("/v1/pay/audit", {
+                    .post(`/v1/pay/audit?token=${sessionStorage.token}`, {
                         source:'cart',
                         goods: this.goods
                     })
@@ -311,7 +311,7 @@ export default {
             }else{
                 //提交结算，获取buy_id
                 this.$axios
-                    .post("/v1/goods/cartPay", {
+                    .post(`/v1/goods/cartPay?token=${sessionStorage.token}`, {
                         goods: this.goods
                     })
                     .then(res => {

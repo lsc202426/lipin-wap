@@ -85,7 +85,7 @@ export default {
                 this.$toast(textTips);
                 return;
             }
-            this.$axios.post('/user/register',{
+            this.$axios.post(`/user/register?token=${sessionStorage.token}`,{
                 mobile_phone:this.phone,
                 password:this.password,
                 code:this.code
@@ -97,8 +97,10 @@ export default {
                         forbidClick:true
                     });
                     setTimeout(() => {
-                        this.$router.push('/login');
-                    }, 2500);
+                        this.$router.push({
+                            path:'/login'
+                        });
+                    }, 2000);
                 }
             })
         },
@@ -116,13 +118,16 @@ export default {
                     this.$toast(textTips);
                     return;
                 }
-                this.$axios.post('/site/sendSms',{
+                this.$axios.post(`/site/sendSms?token=${sessionStorage.token}`,{
                     mobile_phone:this.phone,
                     type:1
                 }).then((res)=>{
                     let data=res.data.data;
                     if(data.code===1000){
-                        this.$toast('获取成功');
+                        this.$toast({
+                            message:data.msg?data.msg:'获取成功',
+                            forbidClick:true
+                        });
                         //获取验证码倒计时
                         this.isCodeIng = true;
                         let time = 60;

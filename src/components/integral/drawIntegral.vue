@@ -89,7 +89,7 @@ export default {
                 this.$toast(textTips);
                 return;
             }
-            this.$axios.post('/v1/home/claimIntegral',{
+            this.$axios.post(`/v1/home/claimIntegral?token=${sessionStorage.token}`,{
                 domain_name:this.name,
                 mobile_phone:this.phone,
                 code:this.code
@@ -108,7 +108,7 @@ export default {
                 this.$toast('请填写点商标名称');
                 return;
             }
-            this.$axios.post('/v1/home/checkClaimIntegral',{
+            this.$axios.post(`/v1/home/checkClaimIntegral?token=${sessionStorage.token}`,{
                 domain_name:this.name
             }).then((res)=>{
                 let data=res.data.data;
@@ -133,7 +133,7 @@ export default {
                     this.$toast('请填写正确的手机号码');
                     return;
                 }
-                this.$axios.post('/site/sendSms',{
+                this.$axios.post(`/site/sendSms?token=${sessionStorage.token}`,{
                     mobile_phone:this.phone,
                     type:2
                 }).then((res)=>{

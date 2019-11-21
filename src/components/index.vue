@@ -178,12 +178,13 @@ export default {
         //初始化获取数据
         async init(page) {
             this.$axios
-                .post(`v1/goods/list?page=${page}`, {
+                .post(`v1/goods/list?page=${page}&token=${sessionStorage.token}`, {
                     category_id: this.proId //分类id
                 })
                 .then(res => {
                     let data = res.data.data;
                     if (data.code === 1000) {
+                        this.showPage=true;
                         if (page <= 1) {
                             this.listItem = data.list;
                         } else {
@@ -197,7 +198,6 @@ export default {
                         }else{
                             this.finished = false;
                         }
-                        this.showPage=true;
                     } else {
                         this.error = true;
                     }
@@ -214,7 +214,7 @@ export default {
         // },
         //查询是否有未读消息、商品分类、预选积分
         getMsg() {
-            this.$axios.post("/v1/home/dataInfo").then(res => {
+            this.$axios.post(`/v1/home/dataInfo?token=${sessionStorage.token}`).then(res => {
                 let data = res.data.data;
                 if (data.code === 1000) {
                     this.navBar.push.apply(this.navBar, data.category_array);//商品分类

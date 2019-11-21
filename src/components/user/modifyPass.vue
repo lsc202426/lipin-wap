@@ -18,10 +18,10 @@
                     <input class="field-input" v-model.trim="newPass2" type="password" placeholder="请再次填写新密码">
                 </div>
             </div>
-        </div>
-        <!--确认按钮-->
-        <div class="modify-btn">
-            <div class="big-btn" @click.stop="onSubmint">确定</div>
+            <!--确认按钮-->
+            <div class="modify-btn">
+                <div class="big-btn" @click.stop="onSubmint">确定</div>
+            </div>
         </div>
     </div>
 </template>
@@ -35,7 +35,6 @@ export default {
             oldPass:'',//旧密码
             newPass1:'',//新密码
             newPass2:'',//确认密码
-            codeTxt:'获取验证码',
         }
     },
     created () {
@@ -44,7 +43,41 @@ export default {
     methods: {
         //确定提交
         onSubmint() {
-            
+            let textTips="";
+            let regPass=/^(?=.*[A-Za-z])(?=.*\d)[^]{8,16}$/;
+            if(!this.oldPass){
+                textTips="请填写密码";
+            }else if(!this.newPass1){
+                textTips="请填写新密码";
+            }else if(!this.newPass2){
+                textTips="请再次填写新密码";
+            }else if(this.newPass1!==this.newPass2){
+                textTips="两次数据的新密码不一致";
+            }else if(!regPass.test(this.newPass1)||!regPass.test(this.newPass2)){
+                textTips="请输入8到16位英文和数字密码";
+            }
+            if(textTips){
+                this.$toast(textTips);
+                return;
+            }
+            this.$axios.post(`/v1/home/editPassword?token=${sessionStorage.token}`,{
+                opassword:this.oldPass,
+                npassword:this.newPass1,
+                npassword2:this.newPass2
+            }).then((res)=>{
+                let data=res.data.data;
+                if(data.code===1000){
+                    this.$toast({
+                        message:data.msg?data.msg:'修改成功,请重新登录',
+                        forbidClick:true
+                    });
+                    setTimeout(() => {
+                        this.$router.push({
+                            path:'/login'
+                        });
+                    }, 2000);
+                }
+            })
         }
     },
 }
