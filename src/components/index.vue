@@ -1,5 +1,5 @@
 <template>
-    <div class="index" v-if="showPage">
+    <div class="index">
         <!--内容-->
         <div class="content containerView-main">
             <!--头部-->
@@ -184,7 +184,7 @@ export default {
                 .then(res => {
                     let data = res.data.data;
                     if (data.code === 1000) {
-                        this.showPage=true;
+                        //this.showPage=true;
                         if (page <= 1) {
                             this.listItem = data.list;
                         } else {

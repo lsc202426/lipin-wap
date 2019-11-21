@@ -165,6 +165,7 @@ export default {
             this.$axios.post(`/v1/goods/cart?page=${page}&token=${sessionStorage.token}`).then(res => {
                 let data = res.data.data;
                 if (data.code === 1000) {
+                    this.showPage=true;
                     this.isStaff=data.is_primary;
                     if(this.isStaff){
                         this.title='预选清单'
@@ -187,7 +188,6 @@ export default {
                     this.dataList.forEach((item, index) => {
                         item.check = false;
                     });
-                    this.showPage=true;
                 } else {
                     this.error = true;
                 }
