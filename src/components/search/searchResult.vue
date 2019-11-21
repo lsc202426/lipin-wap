@@ -1,6 +1,6 @@
 <template>
     <div class="searchResult">
-        <div class="search-content">
+        <div class="search-content containerView-main">
             <div class="search-top f-bgf">
                 <div class="search-top-con">
                     <div class="search-top-back" @click="goBack"></div>
@@ -166,6 +166,8 @@ export default {
                     //数据全部加载完成
                     if (this.listItem.length==data.totalCount) {
                         this.finished = true;
+                    }else{
+                        this.finished=false;
                     }
                 }else{
                     this.error=true;
@@ -183,6 +185,8 @@ export default {
             this.sort=!this.sort;
             this.sort_num=false;//控制每次筛选只能一个条件
             this.page=1;//重新赋值获取页码
+            this.finished=true;
+            this.loading=false;
             this.onSubmit(this.page);
         },
         //销量排序
@@ -192,6 +196,8 @@ export default {
             this.sort=!this.sort;
             this.sort_price=false;//控制每次筛选只能一个条件
             this.page=1;//重新赋值获取页码
+            this.finished=true;
+            this.loading=false;
             this.onSubmit(this.page);
         },
         //高级筛选
@@ -213,10 +219,10 @@ export default {
                     return;
                 }
             }
-            
-            //this.finished=false;
             this.show=false;//隐藏弹窗
             this.page=1;//重新赋值获取页码
+            this.finished=true;
+            this.loading=false;
             this.onSubmit(this.page);
         },
         //前往商品详情

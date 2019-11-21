@@ -3,7 +3,7 @@
         <!--头部-->
         <nav-bar title="礼品申请" :url="url" :border=border :leftArrow=leftArrow></nav-bar>
         <!--内容-->
-        <div class="giftLication-content">
+        <div class="giftLication-content containerView-main">
             <div class="field-item f-bgf f-bdb">
                 <div class="field-tip">代理商：</div>
                 <input class="field-input" value="广东互易网络知识产权有限公司" disabled type="text">

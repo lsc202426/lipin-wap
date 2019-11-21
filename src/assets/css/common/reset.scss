@@ -109,6 +109,9 @@ html {
     height: 100%; //苹果手机滑动
     overflow: hidden;
     background-color: #F5F5F5;
+    .page-content{
+        height: 100%;
+    }
     .containerView-main {
         position: relative;
         height: 100%;

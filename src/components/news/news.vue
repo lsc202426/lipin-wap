@@ -9,7 +9,7 @@
         swipeable
         >
             <van-tab :title="item" v-for="(item,index) in navTitle" :key="index">
-                <div class="msg-list">
+                <div class="msg-list containerView-main">
                     <div class="msg-list-item f-bgf" v-for="(list,index) in lists" :key="index">
                         <div class="item-img">
                             <img v-lazy="logisticsImg" v-if="active==0" alt="">

@@ -7,7 +7,7 @@
             :leftArrow="leftArrow"
         ></nav-bar>
         <!--内容-->
-        <div class="cart-content" v-if="dataList && dataList.length > 0">
+        <div class="cart-content containerView-main" v-if="dataList && dataList.length > 0">
             <div class="cart-list">
                 <van-list
                     v-model="loading"
@@ -22,7 +22,7 @@
                         v-for="(list, index) in dataList"
                         :key="index"
                     >
-                        <van-swipe-cell :on-close="onClose" :name="index">
+                        <van-swipe-cell :on-close="onClose" :name="list.guid">
                             <div class="cart-item-con">
                                 <div
                                     class="icon-checkbox"
@@ -146,6 +146,7 @@ export default {
             isStaff: false, //是否是商务
             primary:0,//预选积分
             showPage:false,//是否显示页面
+            delList:[],//删除的商品
         };
     },
     created() {
@@ -179,6 +180,8 @@ export default {
                     //数据全部加载完成
                     if (this.dataList.length == data.totalCount) {
                         this.finished = true;
+                    }else{
+                        this.finished=false;
                     }
                     this.allCheck = false;
                     this.dataList.forEach((item, index) => {
@@ -192,6 +195,7 @@ export default {
         },
         // clickPosition 表示关闭时点击的位置
         onClose(clickPosition, instance, detail) {
+            this.delList=[];
             switch (clickPosition) {
                 case "left":
                 case "cell":
@@ -204,7 +208,24 @@ export default {
                             message: "确定删除吗？"
                         })
                         .then(() => {
-                            console.log(detail);
+                            this.delList.push(detail.name);
+                            this.$axios.post('/v1/goods/delCart',{
+                                ids:this.delList
+                            }).then((res)=>{
+                                let data=res.data.data;
+                                if(data.code===1000){
+                                    this.$toast({
+                                        message:'删除成功',
+                                        forbidClick:true
+                                    })
+                                    setTimeout(() => {
+                                        this.page=1;
+                                        this.finished=true;
+                                        this.loading=false;
+                                        this.init(this.page);
+                                    }, 1500);
+                                }
+                            })
                             instance.close();
                         })
                         .catch(() => {

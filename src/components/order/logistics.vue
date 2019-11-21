@@ -2,7 +2,7 @@
     <div class="logistics">
         <!--头部-->
         <nav-bar title="查看物流" :border=border :leftArrow=leftArrow></nav-bar>
-        <div class="logistics-content">
+        <div class="logistics-content containerView-main">
             <!--订单信息-->
             <div class="logistics-order f-mgb f-bgf">
                 <div class="logistics-order-img">

@@ -37,10 +37,7 @@ const routes = [
   {
     path: '/goodsContent',
     name: 'goodsContent',
-    component: () => import('../components/goods/goodsContent.vue'),
-    meta: {
-      requireAuth: true
-    }
+    component: () => import('../components/goods/goodsContent.vue')
   },
   // 搜索结果
   {

@@ -1,6 +1,6 @@
 <template>
     <div class="orderDetail">
-        <div class="order-detail-content">
+        <div class="order-detail-content containerView-main">
             <!--头部-->
             <div class="settle-top">
                 <div class="settle-title">
@@ -79,12 +79,12 @@
                     <span>{{orderInfo.created}}</span>
                 </div>
             </div>
-            <!--底部按钮-->
-            <div class="detail-bottom f-bgf">
-                <div v-if="orderInfo.pay_status=='支付成功'&&(orderInfo.status=='已发货'||orderInfo.status=='已完成')" class="detail-bottom-btn" @click.stop="goLogistics(orderInfo.id)">查看物流</div>
-                <div v-if="orderInfo.pay_status=='待支付'" class="detail-bottom-btn price" @click.stop="goPay(orderInfo.id)">去付款</div>
-                <div v-if="orderInfo.pay_status=='支付成功'&&orderInfo.status=='已发货'" class="detail-bottom-btn price" @click.stop="confirmReceipt(orderInfo.id)">确认收货</div>
-            </div>
+        </div>
+        <!--底部按钮-->
+        <div class="detail-bottom f-bgf">
+            <div v-if="orderInfo.pay_status=='支付成功'&&(orderInfo.status=='已发货'||orderInfo.status=='已完成')" class="detail-bottom-btn" @click.stop="goLogistics(orderInfo.id)">查看物流</div>
+            <div v-if="orderInfo.pay_status=='待支付'" class="detail-bottom-btn price" @click.stop="goPay(orderInfo.id)">去付款</div>
+            <div v-if="orderInfo.pay_status=='支付成功'&&orderInfo.status=='已发货'" class="detail-bottom-btn price" @click.stop="confirmReceipt(orderInfo.id)">确认收货</div>
         </div>
     </div>
 </template>
@@ -140,8 +140,21 @@ export default {
             })
         },
         //确认收货
-        confirmReceipt(){
-            // console.log('确认收货啦')
+        confirmReceipt(id){
+            this.$axios.post('/v1/home/confirmTake',{
+                order_id:id
+            }).then((res)=>{
+                let data=res.data.data;
+                if(data.code===1000){
+                    this.$toast({
+                        message:'确认收货成功',
+                        forbidClick:true
+                    });
+                    setTimeout(() => {
+                        this.init();
+                    }, 2000);
+                }
+            })
         },
     },
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="goodsContent">
-        <div class="goods-page">
+        <div class="goods-page containerView-main">
             <van-tabs @click="changeList">
                 <div class="goods-back" @click.stop="goBack"></div>
                 <van-tab title="商品">
@@ -122,6 +122,9 @@ export default {
                     if(data.code===1000){
                         this.data=data.info;
                         this.data.spec.default=-1;
+                        if(this.data.collect_id&&this.data.collect_id!=''){
+                            this.isCollection=true;
+                        }
                         if(this.data.spec){
                             this.spec=this.data.spec;
                         }
@@ -180,10 +183,39 @@ export default {
         //收藏
         inStar(){
             this.isCollection=!this.isCollection;
+            let id=this.$route.query.id;
             if(this.isCollection){
-                this.$toast('已收藏');
+                this.$axios.post('/v1/home/addCollect',{
+                    goods_guid:id
+                }).then((res)=>{
+                    let data=res.data.data;
+                    if(data.code===1000){
+                        this.$toast({
+                            message:'已收藏',
+                            forbidClick: true
+                        });
+                        setTimeout(() => {
+                            this.init();
+                        }, 2000);
+                    }
+                })
             }else{
-                this.$toast('取消收藏');
+                let ids=[];
+                ids.push(this.data.collect_id);
+                this.$axios.post('/v1/home/delCollect',{
+                    ids:ids
+                }).then((res)=>{
+                    let data=res.data.data;
+                    if(data.code===1000){
+                        this.$toast({
+                            message:'取消收藏',
+                            forbidClick: true
+                        });
+                        setTimeout(() => {
+                            this.init();
+                        }, 2000);
+                    }
+                })
             }
         },
         //加入购物车

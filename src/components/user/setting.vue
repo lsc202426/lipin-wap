@@ -3,7 +3,7 @@
         <!--头部-->
         <nav-bar title="设置" :border=border :leftArrow=leftArrow></nav-bar>
         <!--内容-->
-        <div class="setting-content">
+        <div class="setting-content containerView-main">
             <div class="field-item f-bgf f-bdb">
                 <div class="field-tip">账户ID</div>
                 <div class="field-tail">

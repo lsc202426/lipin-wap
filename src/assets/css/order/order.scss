@@ -17,6 +17,7 @@
     /*没有数据*/
     .noData {
         padding: 3rem 0;
+        left:0;
     }
 }
 .msg-list{
@@ -228,6 +229,30 @@
     font-size: 0.26rem;
     color:#333;
     padding-bottom: 1rem;
+    .detail-bottom {
+        @include df;
+        @include df-jc-fe;
+        @include df-ai;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1rem;
+
+        .detail-bottom-btn {
+            width: 1.64rem;
+            height: 0.6rem;
+            line-height: 0.6rem;
+            border: 0.02rem solid #E2E2E2;
+            border-radius: 0.04rem;
+            margin-right: 0.28rem;
+            text-align: center;
+
+            &.price {
+                border: 0.02rem solid #FF6702;
+            }
+        }
+    }
 }
 .order-detail-content{
     .order-detail-title{
@@ -366,28 +391,6 @@
                 &:first-child{
                     padding-right: 0.4rem;
                 }
-            }
-        }
-    }
-    .detail-bottom{
-        @include df;
-        @include df-jc-fe;
-        @include df-ai;
-        position: fixed;
-        bottom: 0;
-        left:0;
-        width: 100%;
-        height: 1rem;
-        .detail-bottom-btn{
-            width:1.64rem;
-            height: 0.6rem;
-            line-height: 0.6rem;
-            border:0.02rem solid #E2E2E2;
-            border-radius: 0.04rem;
-            margin-right: 0.28rem;
-            text-align: center;
-            &.price{
-                border:0.02rem solid #FF6702;
             }
         }
     }

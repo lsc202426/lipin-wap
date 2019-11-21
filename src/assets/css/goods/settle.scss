@@ -200,7 +200,11 @@
         padding-top:1.46rem;
         &-bg{
             margin-bottom: 0.64rem;
-            &-fail
+            &-fail{
+                img{
+                    width:3.18rem;
+                }
+            }
             img{
                 width:4.26rem;
             }

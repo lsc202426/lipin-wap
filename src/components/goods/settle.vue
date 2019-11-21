@@ -1,6 +1,6 @@
 <template>
     <div class="settle">
-        <div class="settle-content">
+        <div class="settle-content containerView-main">
             <!--头部内容-->
             <div class="settle-top">
                 <div class="settle-title">
@@ -102,16 +102,16 @@
                     </div>
                 </div>
             </div>
-            <!--底部栏目-->
-            <div class="settle-bottom f-bgf">
-                <div class="settle-bottom-text">
-                    <span>共2件，应付金额：</span>
-                    <span class="price">
-                        <span>￥</span>{{needToPay}}
-                    </span>
-                </div>
-                <div class="payment-btn f-bgc1" @click="goPay">去付款</div>
+        </div>
+        <!--底部栏目-->
+        <div class="settle-bottom f-bgf">
+            <div class="settle-bottom-text">
+                <span>共{{count}}件，应付金额：</span>
+                <span class="price">
+                    <span>￥</span>{{needToPay}}
+                </span>
             </div>
+            <div class="payment-btn f-bgc1" @click="goPay">去付款</div>
         </div>
     </div>
 </template>
@@ -132,6 +132,7 @@ export default {
             address:{},//地址信息
             source:'',//来源地址
             remark:'',//备注
+            count:0,//总共多少件商品
         }
     },
     created () {
@@ -141,7 +142,15 @@ export default {
         //初始化获取数据
         init(){
             //判断来源
-            if(sessionStorage.beforPath){
+            if(localStorage.orderId){//如果是支付返回回来
+                this.$router.push({
+                    path:'/paySuccess',
+                    query:{
+                        id:localStorage.orderId
+                    }
+                })
+                return;
+            }else if(sessionStorage.beforPath){
                 //如果是从商品购买页面过来
                 if(sessionStorage.beforPath=='goodsContent'){
                     this.source='buy';
@@ -170,6 +179,7 @@ export default {
                         this.goodsList=data.goods_list;//商品列表
                         this.total=data.count_price;//总价
                         this.integral=data.integral;//可用积分
+                        this.count=data.count;//总共多少件商品
                         if(sessionStorage.address){
                             this.address=JSON.parse(sessionStorage.address);
                         }else{
@@ -285,7 +295,7 @@ export default {
                 })
                 let data=res.data.data;
                 if(data.code===1000){
-                    console.log(data);
+                    localStorage.orderId=data.transaction_id;
                     //微信支付
                     if(payment=='weixin'){
                         let el = document.createElement('a');
@@ -314,7 +324,9 @@ export default {
                     setTimeout(() => {
                         this.$router.push({
                             path:'/paySuccess',
-                            query:data.order_id
+                            query:{
+                                id:data.transaction_id
+                            }
                         })
                     }, 2000);
                 }

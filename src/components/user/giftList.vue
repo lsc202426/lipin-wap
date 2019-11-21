@@ -1,8 +1,9 @@
 <template>
     <div class="order giftList">
-        <div class="gift-list-content">
-            <!--头部-->
-            <nav-bar title="预选购礼品" :border=border :leftArrow=leftArrow></nav-bar>
+        <!--头部-->
+        <nav-bar title="预选购礼品" :border=border :leftArrow=leftArrow></nav-bar>
+        <div class="gift-list-content containerView-main">
+            
             <!--头部右上角按钮-->
             <!-- <div class="title-right">
                 <div class="icon-shopcart" @click="goShopCart"></div>
@@ -102,7 +103,7 @@ export default {
     methods: {
         //初始化获取列表数据
         init(page){
-            this.$axios.post('/v1/home/applyOrderList',{
+            this.$axios.post(`/v1/home/applyOrderList${page}`,{
                 status:this.status
             }).then((res)=>{
                 let data=res.data.data;
@@ -117,6 +118,8 @@ export default {
                     //数据全部加载完成
                     if (this.lists.length==data.totalCount) {
                         this.finished = true;
+                    }else{
+                        this.finished=false;
                     }
                 }else{
                     this.error=true;

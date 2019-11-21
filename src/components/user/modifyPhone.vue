@@ -3,7 +3,7 @@
         <!--头部-->
         <nav-bar title="修改手机号" :border=border :leftArrow=leftArrow></nav-bar>
         <!--内容部分-->
-        <div class="modify-phone-content">
+        <div class="modify-phone-content containerView-main">
             <div class="field-item f-bgf f-bdb">
                 <div class="field-tip">手机号：</div>
                 <input class="field-input" v-model.trim="phone" type="text" placeholder="请填写新手机号">

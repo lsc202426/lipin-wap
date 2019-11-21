@@ -1,6 +1,6 @@
 <template>
     <div class="login register">
-        <div class="login-content">
+        <div class="login-content containerView-main">
             <div class="login-top">
                 <div class="login-top-msg">
                     <p>欢迎来到</p>
@@ -24,6 +24,7 @@
                         <input type="password" v-model.trim="password" placeholder="请输入8位数英文和数字组合密码">
                     </div>
                     <div class="big-btn" @click="register">注册</div>
+                    <div class="go-index price" @click="goIndex">返回首页</div>
                 </div>
             </div>
             <div class="operation-box">
@@ -68,7 +69,7 @@ export default {
         register(){
             let textTips="";
             let regPhone = /^1(3|4|5|6|7|8|9)\d{9}$/;
-            let regPass=/^(?=.*[A-Za-z])(?=.*\d)[^]{8}$/;
+            let regPass=/^(?=.*[A-Za-z])(?=.*\d)[^]{8,16}$/;
             if(!this.phone){
                 textTips="请填写手机号码";
             }else if(!regPhone.test(this.phone)){
@@ -137,6 +138,12 @@ export default {
                     }
                 })
             }
+        },
+        //返回首页
+        goIndex(){
+            this.$router.push({
+                path:'/'
+            })
         }
     },
 

@@ -1,6 +1,6 @@
 <template>
     <div class="login forgetPass">
-        <div class="login-content">
+        <div class="login-content containerView-main">
             <div class="login-top">
                 <div class="login-top-msg">
                     <p>欢迎来到</p>

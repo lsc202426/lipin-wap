@@ -3,7 +3,7 @@
         <!--头部-->
         <nav-bar title="我的地址" :border=border :leftArrow=leftArrow></nav-bar>
         <!--内容-->
-        <div class="address-content">
+        <div class="address-content containerView-main">
             <div class="address-list" v-if="lists&&lists.length>0">
                 <van-list
                     v-model="loading"
@@ -69,6 +69,8 @@ export default {
                     //数据全部加载完成
                     if (this.lists.length==data.totalCount) {
                         this.finished = true;
+                    }else{
+                        this.finished=false;
                     }
                 }else{
                     this.error=true;

@@ -3,7 +3,7 @@
         <!--头部-->
         <nav-bar title="修改手机号" :border=border :leftArrow=leftArrow></nav-bar>
         <!--内容部分-->
-        <div class="modify-phone-content">
+        <div class="modify-phone-content containerView-main">
             <div class="modify-pass-list f-bgf">
                 <div class="field-item f-bdb">
                     <div class="field-tip">旧密码：</div>

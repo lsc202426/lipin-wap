@@ -1,6 +1,6 @@
 <template>
     <div class="integral">
-        <div class="integral-content">
+        <div class="integral-content containerView-main">
             <!--头部-->
             <div class="integral-content-top">
                 <div class="integral-title">

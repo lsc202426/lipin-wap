@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <div class="login-content">
+        <div class="login-content containerView-main">
             <div class="login-top">
                 <div class="login-top-msg">
                     <p>欢迎来到</p>
@@ -19,6 +19,7 @@
                         <input type="password" v-model.trim="password" placeholder="请输入密码">
                     </div>
                     <div class="big-btn" @click="login">登录</div>
+                    <div class="go-index price" @click="goIndex">返回首页</div>
                 </div>
             </div>
             <div class="operation-box">
@@ -29,6 +30,7 @@
     </div>
 </template>
 <script>
+import { clearSession } from "@/utils/index";
 export default {
     name:'login',
     data() {
@@ -40,7 +42,20 @@ export default {
         }
     },
     created () {
-        
+        clearSession(); //清除会话内容
+    },
+    mounted() {
+        //禁用浏览器返回
+        (function() {
+            if (window.history && window.history.pushState) {
+                window.onpopstate = function() {
+                    window.history.pushState("forward", null, "");
+                    window.history.forward(1);
+                };
+            }
+            window.history.pushState("forward", null, ""); //在IE中必须得有这两行
+            window.history.forward(1);
+        })();
     },
     methods: {
         //登录
@@ -93,6 +108,12 @@ export default {
         register(){
             this.$router.push({
                 path:'/register',
+            })
+        },
+        //返回首页
+        goIndex(){
+            this.$router.push({
+                path:'/'
             })
         }
     },

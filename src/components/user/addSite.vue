@@ -3,7 +3,7 @@
         <!--头部-->
         <nav-bar title="新增地址" :border=border :leftArrow=leftArrow></nav-bar>
         <!--内容-->
-        <div class="addSite-content">
+        <div class="addSite-content containerView-main">
             <div class="field-item f-bgf f-bdb">
                 <div class="field-tip">联系人：</div>
                 <input class="field-input" v-model.trim="name" type="text" placeholder="请填写姓名">

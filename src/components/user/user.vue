@@ -1,6 +1,6 @@
 <template>
     <div class="user">
-        <div class="user-content">
+        <div class="user-content containerView-main">
             <!--头部-->
             <div class="user-top">
                 <div class="user-top-set">
@@ -74,6 +74,10 @@
                     <div class="arrow-right"></div>
                 </div>
             </div>
+            <!--退出登陆按钮-->
+            <div class="sign-out" @click.stop="signOut">
+                <div class="big-btn">退出登录</div>
+            </div>
         </div>
         <!--底部导航-->
         <tab-bar></tab-bar>
@@ -142,6 +146,23 @@ export default {
         goGiftLication(){
             this.$router.push({
                 path:'/giftLication',
+            })
+        },
+        //退出登陆
+        signOut(){
+            this.$axios.post('/v1/home/loginOut').then((res)=>{
+                let data=res.data.data;
+                if(data.code===1000){
+                    this.$toast({
+                        message:'退出登录成功',
+                        forbidClick:true
+                    })
+                    setTimeout(() => {
+                        this.$router.push({
+                            path:'/login'
+                        })
+                    }, 2000);
+                }
             })
         }
     },

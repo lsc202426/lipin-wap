@@ -1,7 +1,7 @@
 <template>
     <div class="index" v-if="showPage">
         <!--内容-->
-        <div class="content">
+        <div class="content containerView-main">
             <!--头部-->
             <div class="content-top">
                 <!--搜索-->
@@ -18,7 +18,7 @@
                         </form>
                         <div class="icon-search" @click.stop="onSubmit"></div>
                     </div>
-                    <div class="msg">
+                    <div class="msg" @click.stop="goNews">
                         <img src="../assets/images/icon_xiaoxi_wu@2x.png" alt />
                         <div v-if="hasMsg" class="msg-red"></div>
                     </div>
@@ -146,7 +146,7 @@ export default {
             navBar: [
                 {
                     id: 0,
-                    title: "精品推荐"
+                    title: "精品推荐4"
                 }
             ], //导航内容
             hasMsg: false, //是否有未读消息
@@ -157,9 +157,9 @@ export default {
     },
     created() {
         clearSession(); //清除会话内容
+        this.getMsg(); //获取分类、未读消息、预选积分
         this.init(this.page); //初始化
         //this.getCategory(); //获取分类
-        this.getMsg(); //获取分类、未读消息、预选积分
     },
     mounted() {
         //禁用浏览器返回
@@ -176,7 +176,7 @@ export default {
     },
     methods: {
         //初始化获取数据
-        init(page) {
+        async init(page) {
             this.$axios
                 .post(`v1/goods/list?page=${page}`, {
                     category_id: this.proId //分类id
@@ -194,6 +194,8 @@ export default {
                         //数据全部加载完成
                         if (this.listItem.length == data.totalCount) {
                             this.finished = true;
+                        }else{
+                            this.finished = false;
                         }
                         this.showPage=true;
                     } else {
@@ -211,19 +213,17 @@ export default {
         //     });
         // },
         //查询是否有未读消息、商品分类、预选积分
-        async getMsg() {
-            if (sessionStorage.token) {
-                this.$axios.post("/v1/home/dataInfo").then(res => {
-                    let data = res.data.data;
-                    if (data.code === 1000) {
-                        this.navBar.push.apply(this.navBar, data.category_array);//商品分类
-                        this.hasMsg = data.unread_msg;//是否有未读信息
-                        this.isStaff=data.is_primary;//是否是商务
-                        this.primary=data.integral;//预选积分
-                        this.images=data.ad;//轮播
-                    }
-                });
-            }
+        getMsg() {
+            this.$axios.post("/v1/home/dataInfo").then(res => {
+                let data = res.data.data;
+                if (data.code === 1000) {
+                    this.navBar.push.apply(this.navBar, data.category_array);//商品分类
+                    this.hasMsg = data.unread_msg;//是否有未读信息
+                    this.isStaff=data.is_primary;//是否是商务
+                    this.primary=data.integral;//预选积分
+                    this.images=data.ad;//轮播
+                }
+            });
         },
         search() {},
         //搜索
@@ -248,6 +248,8 @@ export default {
                 }
             }
             this.page = 1; //重新赋值获取页码
+            this.finished=true;
+            this.loading = false;
             this.init(this.page);
         },
         //前往商品详情
@@ -258,6 +260,12 @@ export default {
                     id: item.guid
                 }
             });
+        },
+        //前往消息页面
+        goNews(){
+            this.$router.push({
+                path:'/news'
+            })
         },
         //加入购物车
         // addCart(item) {

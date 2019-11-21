@@ -1,5 +1,5 @@
 <template>
-    <div class="order">
+    <div class="order containerView-main">
         <!--头部-->
         <nav-bar title="我的订单" url="/user" :border=border :leftArrow=leftArrow></nav-bar>
         <!--头部右上角按钮-->
@@ -119,6 +119,8 @@ export default {
                     //数据全部加载完成
                     if (this.lists.length==data.totalCount) {
                         this.finished = true;
+                    }else{
+                        this.finished=false;
                     }
                 }else{
                     this.error=true;
@@ -135,6 +137,8 @@ export default {
                 }
             })
             this.page=1;//重新赋值获取页码
+            this.finished=true;
+            this.loading = false;
             this.init(this.page);
         },
         //前往购物车
@@ -172,12 +176,30 @@ export default {
             })
         },
         //确认收货
-        confirmReceipt(){
+        confirmReceipt(id){
+            this.$axios.post('/v1/home/confirmTake',{
+                order_id:id
+            }).then((res)=>{
+                let data=res.data.data;
+                if(data.code===1000){
+                    this.$toast({
+                        message:'确认收货成功',
+                        forbidClick:true
+                    });
+                    setTimeout(() => {
+                        this.page=1;
+                        this.finished=true;
+                        this.loading=false;
+                        this.init(this.page);
+                    }, 2000);
+                }
+            })
             //console.log('确认收货啦')
         },
         //下拉加载更多
         onLoad() {
             if(this.finished===false){
+                console.log(this.lists);
                 this.loading=true;
                 setTimeout(() => {
                     if(!this.error){

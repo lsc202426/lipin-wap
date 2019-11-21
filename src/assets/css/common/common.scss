@@ -48,6 +48,9 @@
         height: 1.02rem;
         border-top:1px solid #ECECEC;
     }
+    .van-tabbar-item{
+        padding:0.06rem 0;
+    }
 
     .van-tabbar-item__text {
         font-size: 0.2rem;
@@ -56,7 +59,7 @@
 
     .van-tabbar-item__icon {
         margin-bottom: 0.06rem;
-        margin-top:0.14rem;
+        margin-top:0.06rem;
         img {
             height: 0.5rem;
         }
@@ -89,6 +92,7 @@
     .field-tip {
         color:#666;
         min-width: 1.75rem;
+        white-space: nowrap;
     }
 
     .field-input {
@@ -98,6 +102,7 @@
     .field-tail {
         @include df;
         @include df-ai;
+        white-space: nowrap;
         &-txt{
             margin-right: 0.2rem;
         }
