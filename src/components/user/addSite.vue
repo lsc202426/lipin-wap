@@ -34,10 +34,10 @@
                     <span @click="changeMark(item.name)" :class="{'active':item.name==mark}" v-for="(item,index) in marks" :key="index">{{item.name}}</span>
                 </div>
             </div>
-        </div>
-        <!--确定按钮-->
-        <div class="addSite-btn">
-            <div class="big-btn" @click="onSubmit">确定</div>
+            <!--确定按钮-->
+            <div class="addSite-btn">
+                <div class="big-btn" @click="onSubmit">确定</div>
+            </div>
         </div>
         <!--地址弹出层-->
         <van-popup v-model="show" position="bottom">
