@@ -19,7 +19,7 @@
                         <div class="icon-search" @click.stop="onSubmit"></div>
                     </div>
                     <div class="msg" @click.stop="goNews">
-                        <img src="../assets/images/icon_xiaoxi_wu@2x.png" alt />
+                        <img :src="msgBg" alt />
                         <div v-if="hasMsg" class="msg-red"></div>
                     </div>
                 </div>
@@ -137,6 +137,7 @@ export default {
             search_txt: "", //搜索内容
             images: [],//轮播图片
             proTitle: require("@/assets/images/youxuanlipin@2x.png"),
+            msgBg:require("@/assets/images/icon_xiaoxi_wu@2x.png"),
             loading: false, //是否触发加载
             finished: false, //数据加载完毕
             error: false, //若列表数据加载失败，将error设置成true即可显示错误提示，用户点击错误提示后会重新触发 load 事件
@@ -146,7 +147,7 @@ export default {
             navBar: [
                 {
                     id: 0,
-                    title: "精品推荐4"
+                    title: "精品推荐"
                 }
             ], //导航内容
             hasMsg: false, //是否有未读消息

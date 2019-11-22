@@ -46,10 +46,10 @@
                             <span>￥</span>{{total}}
                         </div>
                     </div>
-                    <div class="goods-tab">
+                    <!-- <div class="goods-tab">
                         <div>配送费用：</div>
                         <div>包邮</div>
-                    </div>
+                    </div> -->
                 </div>
                 <!--备注-->
                 <div class="goods-tab goods-tab-i f-mgb f-bgf">
@@ -216,10 +216,29 @@ export default {
         },
         //返回上一页
         goBack() {
-            // this.$router.go(-1);
-            this.$router.push({
-                path:'/'
-            })
+            if(sessionStorage.beforPath){
+                if(sessionStorage.beforPath=='order'){
+                    this.$router.push({
+                        path:'/order'
+                    })
+                }else if(sessionStorage.beforPath=='orderDetail'){
+                    this.$router.push({
+                        path:`/orderDetail?id=${this.$route.query.id}`
+                    })
+                }else if(sessionStorage.beforPath=='shopCart'){
+                    this.$router.push({
+                        path:'/shopCart'
+                    })
+                }else{
+                    this.$router.push({
+                        path:'/'
+                    })
+                }
+            }else{
+                this.$router.push({
+                    path:'/'
+                })
+            }
         },
         //前往选择地址
         goAddress(){

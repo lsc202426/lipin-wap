@@ -50,16 +50,16 @@
                     </div>
                 </div>
                 <div class="f-bdb">
-                    <div class="detail-goods-rules">
+                    <!-- <div class="detail-goods-rules">
                         <span>运费</span>
                         <span>￥0.00</span>
-                    </div>
+                    </div> -->
                     <div class="detail-goods-rules">
                         <span>积分支付</span>
                         <span>{{orderInfo.integral}}</span>
                     </div>
                     <div class="detail-goods-rules">
-                        <span>实付款（含运费）</span>
+                        <span>实付款</span>
                         <span>￥{{orderInfo.realsum}}</span>
                     </div>
                 </div>

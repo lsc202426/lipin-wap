@@ -199,7 +199,6 @@ export default {
         //下拉加载更多
         onLoad() {
             if(this.finished===false){
-                console.log(this.lists);
                 this.loading=true;
                 setTimeout(() => {
                     if(!this.error){

@@ -11,7 +11,7 @@
             </div>
             <div v-if="isCheckInt" class="check-integral f-bgf">
                 <span class="check-integral-img" @click="closeCheckTips"></span>
-                <span>该名称已认领积分，请重试</span>
+                <span>{{msgTxt}}</span>
             </div>
             <div class="draw-tips">请填写注册点商标预留的经办人手机</div>
             <div class="field-item f-bgf f-bdb">
@@ -63,6 +63,7 @@ export default {
             show:false,//认领成功弹层
             integral:0,//积分数量
             isCheckInt:false,//是否已经人领过积分
+            msgTxt:'',//信息提示
         }
     },
     created () {
@@ -115,6 +116,7 @@ export default {
                 if(data.code===1000){
                     this.isCheckInt=false;
                 }else{
+                    this.msgTxt=data.msg;
                     this.isCheckInt=true;
                 }
             })

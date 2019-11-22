@@ -1,7 +1,7 @@
 <template>
     <div class="myAddress">
         <!--头部-->
-        <nav-bar title="我的地址" :border=border :leftArrow=leftArrow></nav-bar>
+        <nav-bar title="我的地址" :url="url" :border=border :leftArrow=leftArrow></nav-bar>
         <!--内容-->
         <div class="address-content containerView-main">
             <div class="address-list" v-if="lists&&lists.length>0">
@@ -48,6 +48,7 @@ export default {
             finished: false, //数据加载完毕
             error:false,//若列表数据加载失败，将error设置成true即可显示错误提示，用户点击错误提示后会重新触发 load 事件
             page: 1, //页码
+            url:`/settle?id=${this.$route.query.id}`,
         }
     },
     created () {

@@ -103,7 +103,7 @@ export default {
     methods: {
         //初始化获取列表数据
         init(page){
-            this.$axios.post(`/v1/home/applyOrderList${page}&token=${sessionStorage.token}`,{
+            this.$axios.post(`/v1/home/applyOrderList?page=${page}&token=${sessionStorage.token}`,{
                 status:this.status
             }).then((res)=>{
                 let data=res.data.data;
