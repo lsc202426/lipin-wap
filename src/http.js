@@ -30,11 +30,19 @@ axios.interceptors.request.use(
       // token: sessionStorage.token
     }
     config.data = Qs.stringify(config.data)
-    Toast.loading({
-      message: '加载中...',
-      forbidClick: true,
-      loadingType: 'spinner'
-    })
+    if (router.currentRoute.name === 'paySuccess') {
+      Toast.loading({
+        message: '正在查询支付结果...',
+        forbidClick: true,
+        loadingType: 'spinner'
+      })
+    } else {
+      Toast.loading({
+        message: '加载中...',
+        forbidClick: true,
+        loadingType: 'spinner'
+      })
+    }
     return config
   },
   error => {
@@ -46,7 +54,9 @@ axios.interceptors.response.use(
   res => {
     // alert(JSON.stringify(res))
     // 影藏loading
-    Toast.clear()
+    if (router.currentRoute.name !== 'paySuccess') {
+      Toast.clear()
+    }
     if (res.data.status_code === 401 && res.data.data.code === 0) {
       Toast('登录过期，请重新登录')
       sessionStorage.clear()

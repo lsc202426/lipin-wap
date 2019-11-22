@@ -101,6 +101,19 @@ export default {
     created () {
         this.init();//初始化
     },
+    mounted() {
+        //禁用浏览器返回
+        (function(){
+            if(window.history && window.history.pushState) {
+                window.onpopstate=function () {
+                        window.history.pushState('forward', null, '');
+                        window.history.forward(1);
+                };
+            }
+            window.history.pushState('forward', null, '');//在IE中必须得有这两行
+            window.history.forward(1);
+        })();
+    },
     methods: {
         //返回订单列表
         goBack() {

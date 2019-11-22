@@ -52,26 +52,30 @@ export default {
         //初始化获取支付结果
         init() {
             if(this.$route.query.id){
-                let id=this.$route.query.id;
-                this.$axios.post(`/v1/pay/getSuccess?token=${sessionStorage.token}`,{
-                    transaction_id:id
-                }).then((res)=>{
-                    this.$toast.loading({
-                        message:'正在查询支付结果...',
-                        forbidClick: true,
-                        loadingType: 'spinner'
-                    })
-                    setTimeout(() => {
-                        let data=res.data.data;
-                        this.payTxt=data.status;
-                        this.price=data.price;
-                        if(this.payTxt=='支付成功'||this.payTxt=='待支付'){
-                            this.payBgImg=require("@/assets/images/paySuccess_bg.png");
-                        }else{
-                            this.payBgImg=require("@/assets/images/pay_fail.png");
-                        }
-                    }, 2000);
+                this.$toast.loading({
+                    message: '正在查询支付结果...',
+                    forbidClick: true,
+                    loadingType: 'spinner',
+                    duration:0
                 })
+                setTimeout(() => {
+                    let id=this.$route.query.id;
+                    this.$axios.post(`/v1/pay/getSuccess?token=${sessionStorage.token}`,{
+                        transaction_id:id
+                    }).then((res)=>{
+                        this.$toast.clear();
+                        let data=res.data.data;
+                        if(data.code===1000){
+                            this.payTxt=data.status;
+                            this.price=data.price;
+                            if(this.payTxt=='支付成功'||this.payTxt=='待支付'){
+                                this.payBgImg=require("@/assets/images/paySuccess_bg.png");
+                            }else{
+                                this.payBgImg=require("@/assets/images/pay_fail.png");
+                            }
+                        }
+                    })
+                }, 3000);
             }
         },
         //查看订单
