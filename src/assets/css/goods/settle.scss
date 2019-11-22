@@ -98,11 +98,17 @@
                         }
                     }
                     .goods-price{
-                        text-align: right;
                         font-size: 0.3rem;
                         span{
                             font-size: 0.24rem;
                         }
+                    }
+                    &-spce{
+                        @include df;
+                        @include df-jc-sb;
+                        @include df-ai;
+                        font-size: 0.24rem;
+                        color:#999;
                     }
                 }
             }

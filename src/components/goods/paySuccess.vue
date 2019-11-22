@@ -27,7 +27,7 @@ export default {
             border:true,
             leftArrow:false,
             payBgImg:require("@/assets/images/paySuccess_bg.png"),
-            payTxt:'支付成功',//订单支付结果
+            payTxt:'',//订单支付结果
             price:0,
         }
     },

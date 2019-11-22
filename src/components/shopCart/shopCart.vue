@@ -276,7 +276,8 @@ export default {
                         guid: "",
                         num: ""
                     };
-                    (obj.guid = item.guid), (obj.num = item.num);
+                    obj.guid = item.cart_guid; 
+                    obj.num = item.num;
                     this.goods.push(obj);
                 }
             });

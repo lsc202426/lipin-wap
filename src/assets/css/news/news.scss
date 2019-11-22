@@ -64,3 +64,19 @@
         }
     }
 }
+
+/*消息详情*/
+.newsDetail{
+    padding-top:1rem;
+    .news-detail-content{
+        padding:0.32rem;
+        h2{
+            text-align: center;
+        }
+        .time{
+            font-size: 0.24rem;
+            color:#999;
+            margin:0.2rem 0;
+        }
+    }
+}

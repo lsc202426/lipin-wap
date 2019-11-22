@@ -218,6 +218,15 @@ const routes = [
     meta: {
       requireAuth: true
     }
+  },
+  // 消息详情
+  {
+    path: '/newsDetail',
+    name: 'newsDetail',
+    component: () => import('../components/news/newsDetail.vue'),
+    meta: {
+      requireAuth: true
+    }
   }
 ]
 

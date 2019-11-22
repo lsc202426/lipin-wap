@@ -24,7 +24,10 @@
                                 <div class="order-time">
                                     {{list.number}}
                                 </div>
-                                <div class="order-state price" v-if="list.pay_status=='待支付'">
+                                <div class="order-state price" v-if="list.pay_status=='待支付'&&list.status=='待审核'">
+                                    {{list.status}}
+                                </div>
+                                <div class="order-state price" v-else-if="list.pay_status=='待支付'">
                                     {{list.pay_status}}
                                 </div>
                                 <div class="order-state price" v-else>

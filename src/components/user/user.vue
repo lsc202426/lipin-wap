@@ -85,6 +85,7 @@
     </div>
 </template>
 <script>
+import { clearSession } from "@/utils/index";
 export default {
     name:'user',
     data(){
@@ -97,6 +98,7 @@ export default {
         }
     },
     created() {
+        clearSession(); //清除会话内容
         this.init();//初始化获取数据
     },
     methods: {
@@ -117,6 +119,7 @@ export default {
         },
         //前往消息
         goMsg(){
+            sessionStorage.beforPath='user';
             this.$router.push({
                 path:'/news',
             });

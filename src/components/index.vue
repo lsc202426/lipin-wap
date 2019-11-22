@@ -264,6 +264,7 @@ export default {
         },
         //前往消息页面
         goNews(){
+            sessionStorage.beforPath='/';
             this.$router.push({
                 path:'/news'
             })

@@ -34,8 +34,13 @@
                                     <div class="title">{{item.title}}</div>
                                     <div class="num">x{{item.num}}</div>
                                 </div>
-                                <div class="goods-price price">
-                                    <span>￥</span>{{item.price}}
+                                <div class="goods-txt-spce">
+                                    <div>
+                                        {{item.spec}}
+                                    </div>
+                                    <div class="goods-price price">
+                                        <span>￥</span>{{item.price}}
+                                    </div>
                                 </div>
                             </div>
                         </div>

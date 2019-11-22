@@ -1,7 +1,7 @@
 <template>
     <div class="news containerView-main">
         <!--头部-->
-        <nav-bar title="消息" :border=border :leftArrow=leftArrow></nav-bar>
+        <nav-bar title="消息" :url="url" :border=border :leftArrow=leftArrow></nav-bar>
         <!--导航栏-->
         <van-tabs @change="onClick" 
         title-active-color="#FF6702" 
@@ -18,16 +18,16 @@
                     error-text="请求失败，点击重新加载"
                   >
                     <div class="msg-list">
-                        <div class="msg-list-item f-bgf" v-for="(list,index) in lists" :key="index">
+                        <div @click.stop="goDetail(list.guid)" class="msg-list-item f-bgf" v-for="(list,index) in lists" :key="index">
                             <div class="item-img">
                                 <img v-lazy="logisticsImg" v-if="active==0" alt="">
                                 <img v-lazy="noticeImg" v-if="active==1" alt="">
-                                <div class="item-img-read" v-if="list.is_read"></div>
+                                <div class="item-img-read" v-if="list.is_read=='是'"></div>
                             </div>
                             <div class="item-con">
                                 <div class="title-and-time">
                                     <span class="title">{{list.title}}</span>
-                                    <span class="time">{{list.created}}</span>
+                                    <span class="time">{{list.time}}</span>
                                 </div>
                                 <div class="item-con-txt">{{list.content}}</div>
                             </div>
@@ -61,6 +61,7 @@ export default {
             ],
             lists:[],
             active:0,//选中项
+            url:sessionStorage.beforPath?sessionStorage.beforPath:'/'
         }
     },
     created () {
@@ -98,6 +99,15 @@ export default {
             this.finished=true;
             this.loading = false;
             this.init(this.page);
+        },
+        //前往消息详情
+        goDetail(id){
+            this.$router.push({
+                path:'/newsDetail',
+                query:{
+                    id:id
+                }
+            })
         },
         //下拉加载更多
         onLoad() {
