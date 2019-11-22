@@ -150,7 +150,10 @@ export default {
         },
         //返回上一页
         goBack(){
-            this.$router.go(-1);
+            //this.$router.go(-1);
+            this.$router.push({
+                path:'/'
+            })
         },
         //商品详情切换
         changeList(name,title){

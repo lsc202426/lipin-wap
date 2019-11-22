@@ -31,7 +31,7 @@
                                     }"
                                     @click="inCheckbox(list)"
                                 ></div>
-                                <div class="item-con-r">
+                                <div class="item-con-r" @click="goDetail(list.guid)">
                                     <div class="item-con-img">
                                         <img
                                             v-lazy="
@@ -352,6 +352,15 @@ export default {
                     this.total += parseFloat(item.price * item.num);
                 }
             });
+        },
+        //前往商品详情
+        goDetail(id){
+            this.$router.push({
+                path:'/goodsContent',
+                query:{
+                    id:id
+                }
+            })
         },
         //下拉加载更多
         onLoad() {
