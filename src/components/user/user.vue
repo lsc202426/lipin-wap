@@ -22,7 +22,7 @@
                             <div class="phone">{{data.mobile_phone}}</div>
                         </div>
                     </div>
-                    <div class="user-msg-integral">
+                    <div class="user-msg-integral" @click.stop="goIntegral">
                         <span>我的积分：{{data.integral}}</span>
                     </div>
                 </div>

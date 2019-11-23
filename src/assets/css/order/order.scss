@@ -228,7 +228,7 @@
 .orderDetail{
     font-size: 0.26rem;
     color:#333;
-    padding-bottom: 1rem;
+    // padding-bottom: 1rem;
     .detail-bottom {
         @include df;
         @include df-jc-fe;
@@ -302,7 +302,7 @@
         }
         &-item{
             @include df;
-            margin-bottom: 0.24rem;
+            padding-bottom: 0.24rem;
             .item-img-box{
                 @include df;
                 @include df-ai;

@@ -22,7 +22,7 @@
                         v-for="(list, index) in dataList"
                         :key="index"
                     >
-                        <van-swipe-cell :on-close="onClose" :name="list.guid">
+                        <van-swipe-cell :on-close="onClose" :name="list.cart_guid">
                             <div class="cart-item-con">
                                 <div
                                     class="icon-checkbox"

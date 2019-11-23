@@ -81,10 +81,7 @@ export default {
         //查看订单
         goDetail(){
             this.$router.push({
-                path:'/orderDetail',
-                query:{
-                    id:this.$route.query.id
-                }
+                path:'/order',
             })
         },
         //返回首页
