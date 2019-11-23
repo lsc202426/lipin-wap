@@ -53,7 +53,7 @@
                                         <div class="price-and-num">
                                             <div class="price">
                                                 <span>￥</span>
-                                                {{ list.price }}
+                                                {{ list.price|numToFloat }}
                                             </div>
                                             <div class="buy-num">
                                                 <span
@@ -108,7 +108,7 @@
                     <span>合计：</span>
                     <span class="price">
                         <span>￥</span>
-                        {{ total }}
+                        {{ total|numToFloat }}
                     </span>
                 </div>
                 <div v-if="isStaff" class="settle-btn f-bgc1" @click="goSettle">

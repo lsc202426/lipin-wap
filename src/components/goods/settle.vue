@@ -65,14 +65,14 @@
                 <div class="goods-tab f-bdb f-bgf" @click="changeIntCheck">
                     <div>可用积分：</div>
                     <div class="integral">
-                        <span>{{integral}}（1积分=1元）</span>
+                        <span>{{integral|numToFloat}}（1积分=1元）</span>
                         <span class="icon-checkbox" :class="{'icon-checkbox-active':isIntegral}"></span>
                     </div>
                 </div>
                 <div class="goods-tab f-bgf f-mgb">
                     <div>仍需支付：</div>
                     <div class="price">
-                        <span>￥</span>{{needToPay}}
+                        <span>￥</span>{{needToPay|numToFloat}}
                     </div>
                 </div>
                 <!--支付方式-->
@@ -113,7 +113,7 @@
             <div class="settle-bottom-text">
                 <span>共{{count}}件，应付金额：</span>
                 <span class="price">
-                    <span>￥</span>{{needToPay}}
+                    <span>￥</span>{{needToPay|numToFloat}}
                 </span>
             </div>
             <div class="payment-btn f-bgc1" @click="goPay">去付款</div>
