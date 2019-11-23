@@ -22,7 +22,7 @@
                             <div class="item-img">
                                 <img v-lazy="logisticsImg" v-if="active==0" alt="">
                                 <img v-lazy="noticeImg" v-if="active==1" alt="">
-                                <div class="item-img-read" v-if="list.is_read=='是'"></div>
+                                <div class="item-img-read" v-if="list.is_read!='是'"></div>
                             </div>
                             <div class="item-con">
                                 <div class="title-and-time">

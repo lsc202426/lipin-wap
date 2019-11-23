@@ -9,7 +9,7 @@
                     </div>
                     <div class="msg-img">
                         <img @click.stop="goMsg" :src="msgImg" alt="">
-                        <span></span>
+                        <span v-if="data.unread_msg"></span>
                     </div>
                 </div>
                 <div class="user-msg">

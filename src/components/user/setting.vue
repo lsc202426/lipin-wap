@@ -15,7 +15,7 @@
                 <div class="field-tail">
                     <div class="field-tail-txt user-head" v-if="images==''"></div>
                     <div class="field-tail-txt user-head" :style="{ backgroundImage: 'url(' + $config.api.public_domain + images + ')' }" v-else></div>
-                    <div class="icon-r"></div>
+                    <!-- <div class="icon-r"></div> -->
                 </div>
             </div>
             <!-- <input accept="image/*" @change="toBase64($event)" class="change-head" type="file"> -->
