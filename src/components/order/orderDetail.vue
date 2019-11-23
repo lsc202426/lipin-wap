@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="f-bdb">
+                <div v-if="orderInfo.pay_status!='待支付'" class="f-bdb">
                     <!-- <div class="detail-goods-rules">
                         <span>运费</span>
                         <span>￥0.00</span>
@@ -132,6 +132,7 @@ export default {
                     this.orderInfo=data.order_info;
                 }
             })
+            
         },
         //前往查看物流
         goLogistics(id){
