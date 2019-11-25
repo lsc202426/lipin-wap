@@ -51,9 +51,17 @@ export default {
             }).then((res)=>{
                 let data=res.data.data;
                 if(data.code===1000){
-                    this.data=data.info;
                     this.order=data.order;
+                    //请求物流信息
+                    this.getLogistics(data.url);
                 }
+            })
+        },
+        //请求物流信息
+        getLogistics(url){
+            this.$axios.get(url).then((res)=>{
+                this.data=res.data;
+                console.log(res);
             })
         }
     },

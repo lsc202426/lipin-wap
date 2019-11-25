@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="order-specs">
                                         <div class="specs">{{order.spec}}</div>
-                                        <div class="num">{{order.product_count}}</div>
+                                        <div class="num">x {{order.product_count}}</div>
                                     </div>
                                 </div>
                             </div>
