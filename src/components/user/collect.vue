@@ -132,12 +132,14 @@ export default {
         },
         //编辑
         editCollect(){
-            this.show=!this.show;
-            if(!this.show){
-                this.allCheck=false;
-                this.lists.forEach((item,index)=>{
-                    item.check=false;
-                })
+            if(this.lists.length>0){
+                this.show=!this.show;
+                if(!this.show){
+                    this.allCheck=false;
+                    this.lists.forEach((item,index)=>{
+                        item.check=false;
+                    })
+                }
             }
         },
         //是否全选
