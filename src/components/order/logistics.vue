@@ -60,7 +60,7 @@ export default {
         },
         //请求物流信息
         getLogistics(url){
-            this.$axios.get(url).then((res)=>{
+            this.$axios.post(url).then((res)=>{
                 this.data=res.data;
                 this.data.data.reverse();
                 switch (this.data.status) {
