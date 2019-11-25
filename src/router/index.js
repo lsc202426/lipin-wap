@@ -43,10 +43,7 @@ const routes = [
   {
     path: '/searchResult',
     name: 'searchResult',
-    component: () => import('../components/search/searchResult.vue'),
-    meta: {
-      requireAuth: true
-    }
+    component: () => import('../components/search/searchResult.vue')
   },
   // 结算
   {
