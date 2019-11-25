@@ -6,30 +6,22 @@
             <!--订单信息-->
             <div class="logistics-order f-mgb f-bgf">
                 <div class="logistics-order-img">
-                    <img v-lazy="img" alt="">
-                    <span>共2件商品</span>
+                    <img v-lazy="$config.api.public_domain+order.cover" alt="">
+                    <span>共{{order.goods_num}}件商品</span>
                 </div>
                 <div class="logistics-order-txt">
-                    <div class="logistics-order-title">物流状态：<span>运输中</span></div>
-                    <div>承运来源：圆通速递</div>
-                    <div>快递单号：26862183612166</div>
-                    <div>官方电话：400-68461-723</div>
+                    <div class="logistics-order-title">物流状态：<span>{{data.status}}</span></div>
+                    <div>承运来源：{{data.expTextName}}</div>
+                    <div>快递单号：{{data.mailNo}}</div>
+                    <div>官方电话：{{data.tel}}</div>
                 </div>
             </div>
             <!--物流信息-->
             <div class="logistics-msg f-mgb f-bgf">
                 <van-steps direction="vertical" :active="0">
-                    <van-step>
-                        <h3>【城市】物流状态1</h3>
-                        <p>2016-07-12 12:40</p>
-                    </van-step>
-                    <van-step>
-                        <h3>【城市】物流状态2</h3>
-                        <p>2016-07-11 10:00</p>
-                    </van-step>
-                    <van-step>
-                        <h3>快件已发货</h3>
-                        <p>2016-07-10 09:30</p>
+                    <van-step v-for="(item,index) in data.data" :key="index">
+                        <h3>{{item.context}}</h3>
+                        <p>{{item.time}}</p>
                     </van-step>
                 </van-steps>
             </div>
@@ -44,6 +36,25 @@ export default {
             border: true,
             leftArrow:true,
             img:require("@/assets/images/05.png"),
+            data:{},//物流信息内容
+            order:{},//订单内容
+        }
+    },
+    created () {
+        this.init();//初始化
+    },
+    methods: {
+        //初始化获取物流信息
+        init() {
+            this.$axios.post(`/v1/goods/logistics?token=${sessionStorage.token}`,{
+                order_id:this.$route.query.id
+            }).then((res)=>{
+                let data=res.data.data;
+                if(data.code===1000){
+                    this.data=data.info;
+                    this.order=data.order;
+                }
+            })
         }
     },
 }
