@@ -8,7 +8,9 @@ export default new Vuex.Store({
     // 底部菜单高亮
     menuShow: 0,
     // 搜索内容
-    search_txt: ''
+    search_txt: '',
+    // 搜索id
+    search_id: ''
   },
   mutations: {
     changeMenu (state, n) {
@@ -28,6 +30,9 @@ export default new Vuex.Store({
     },
     searchTxt (state, n) {
       state.search_txt = n
+    },
+    searchId (state, n) {
+      state.search_id = n
     }
   },
   actions: {

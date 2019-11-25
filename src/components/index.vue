@@ -42,81 +42,95 @@
             </div>
             <!--产品内容-->
             <div class="pro-content">
-                <div class="pro-title">
-                    <img v-lazy="proTitle" alt />
+                <!--产品类别列表-->
+                <div class="pro-type-list">
+                    <div class="pro-type-item" @click.stop="onSubmit(item.id)" v-for="(item,index) in typeList" :key="index">
+                        <div class="item-img">
+                            <img v-lazy="$config.api.public_domain + item.logo" alt="">
+                        </div>
+                        <div class="item-text">{{item.title}}</div>
+                    </div>
                 </div>
-                <div class="pro-content-box">
-                    <div class="pro-title-list">
-                        <van-tabs swipeable @change="changePro" animated sticky>
-                            <van-tab
-                                v-for="bar in navBar"
-                                :title="bar.title"
-                                :key="bar.id"
-                            >
-                                <div class="pro-con-list">
-                                    <van-list
-                                        v-model="loading"
-                                        :finished="finished"
-                                        @load="onLoad"
-                                        :immediate-check="false"
-                                        :error.sync="error"
-                                        error-text="请求失败，点击重新加载"
-                                    >
-                                        <div
-                                            class="list-box"
-                                            v-if="
-                                                listItem && listItem.length > 0
-                                            "
-                                        >
-                                            <div
-                                                @click="goDetail(item)"
-                                                class="list-item f-bgf"
-                                                v-for="item in listItem"
-                                                :key="item.id"
-                                            >
-                                                <div class="item-img">
-                                                    <img
-                                                        v-lazy="
-                                                            $config.api
-                                                                .public_domain +
-                                                                item.cover
-                                                        "
-                                                        alt
-                                                    />
-                                                </div>
-                                                <div class="item-text">
-                                                    {{ item.title }}
-                                                </div>
-                                                <div class="item-price">
-                                                    <span class="price"
-                                                        >￥{{
-                                                            item.price
-                                                        }}</span
-                                                    >
-                                                    <!-- <span class="icon-add-cart"></span> -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="no-data-box"
-                                            v-if="listItem.length <= 0"
-                                        >
-                                            <no-data></no-data>
-                                        </div>
-                                        <van-divider
-                                            dashed
-                                            class="botton-line"
-                                            v-if="
-                                                finished &&
-                                                    listItem &&
-                                                    listItem.length > 0
-                                            "
-                                            >到底了</van-divider
-                                        >
-                                    </van-list>
+                <!--产品块-->
+                <div class="pro-block-list">
+                    <div class="pro-block-item f-bgf" v-for="(list,index) in proBlock" :key="index">
+                        <div class="title">{{list.name}}</div>
+                        <div class="item-banner" @click.stop="goUrl(list)">
+                            <img v-lazy="$config.api.public_domain +list.image" alt="">
+                        </div>
+                        <div class="item-pro-list">
+                            <div class="pro-item-inblock" :class="{'f-bdt':index>2}" @click.stop="goDetail(item)" v-for="(item,index) in list.goods" :key="index">
+                                <div class="inblock-img">
+                                    <img v-lazy="$config.api.public_domain +item.cover" alt="">
                                 </div>
-                            </van-tab>
-                        </van-tabs>
+                                <div class="inblock-title">
+                                    {{item.title}}
+                                </div>
+                                <div class="price">￥{{item.price}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--猜你喜欢-->
+                <div class="guess-you-like" v-if="listItem&&listItem.length > 0">
+                    <div class="title">猜你喜欢</div>
+                    <div class="pro-title-list">
+                        <div class="pro-con-list">
+                            <van-list
+                                v-model="loading"
+                                :finished="finished"
+                                @load="onLoad"
+                                :immediate-check="false"
+                                :error.sync="error"
+                                error-text="请求失败，点击重新加载"
+                            >
+                                <div
+                                    class="list-box"
+                                    v-if="
+                                        listItem && listItem.length > 0
+                                    "
+                                >
+                                    <div
+                                        @click.stop="goDetail(item)"
+                                        class="list-item f-bgf"
+                                        v-for="item in listItem"
+                                        :key="item.id"
+                                    >
+                                        <div class="item-img">
+                                            <img
+                                                v-lazy="
+                                                    $config.api
+                                                        .public_domain +
+                                                        item.cover
+                                                "
+                                                alt
+                                            />
+                                        </div>
+                                        <div class="item-text">
+                                            {{ item.title }}
+                                        </div>
+                                        <div class="item-price">
+                                            <span class="price"
+                                                ><span>￥</span>{{
+                                                    item.price
+                                                }}</span
+                                            >
+                                            <!-- <span class="icon-add-cart"></span> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <van-divider
+                                    dashed
+                                    class="botton-line"
+                                    v-if="
+                                        finished &&
+                                            listItem &&
+                                            listItem.length > 0
+                                    "
+                                    >到底了</van-divider
+                                >
+                            </van-list>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -136,24 +150,18 @@ export default {
             border: false,
             search_txt: "", //搜索内容
             images: [],//轮播图片
-            proTitle: require("@/assets/images/youxuanlipin@2x.png"),
             msgBg:require("@/assets/images/icon_xiaoxi_wu@2x.png"),
             loading: false, //是否触发加载
             finished: false, //数据加载完毕
             error: false, //若列表数据加载失败，将error设置成true即可显示错误提示，用户点击错误提示后会重新触发 load 事件
             page: 1, //页码
-            proId: 0, //默认获取精品推荐列表内容
-            listItem: [], //数据内容
-            navBar: [
-                {
-                    id: 0,
-                    title: "精品推荐"
-                }
-            ], //导航内容
             hasMsg: false, //是否有未读消息
             isStaff: false, //是否是商务
             primary:0,//预选积分
             showPage:false,//页面显示
+            listItem:[],//猜你喜欢
+            typeList:[],//商品类别
+            proBlock:[],//推荐商品
         };
     },
     created() {
@@ -179,10 +187,7 @@ export default {
         //初始化获取数据
         async init(page) {
             this.$axios
-                .post(`v1/goods/list?page=${page}&token=${sessionStorage.token}`, {
-                    category_id: this.proId //分类id
-                })
-                .then(res => {
+                .post(`v1/goods/list?page=${page}&token=${sessionStorage.token}`).then(res => {
                     let data = res.data.data;
                     if (data.code === 1000) {
                         //this.showPage=true;
@@ -218,18 +223,22 @@ export default {
             this.$axios.post(`/v1/home/dataInfo?token=${sessionStorage.token}`).then(res => {
                 let data = res.data.data;
                 if (data.code === 1000) {
-                    this.navBar.push.apply(this.navBar, data.category_array);//商品分类
                     this.hasMsg = data.unread_msg;//是否有未读信息
                     this.isStaff=data.is_primary;//是否是商务
                     this.primary=data.integral;//预选积分
                     this.images=data.ad;//轮播
+                    this.typeList=data.category_array;//商品类别
+                    this.proBlock=data.recommend;//推荐商品
                 }
             });
         },
         search() {},
         //搜索
-        onSubmit() {
+        onSubmit(id) {
             this.$Store.commit("searchTxt", this.search_txt);
+            if(id){
+                this.$Store.commit("searchId", id);
+            }
             this.$router.push({
                 path: "/searchResult"
             });
@@ -239,19 +248,6 @@ export default {
             if(item.url){
                 window.location.href=item.url;
             }
-        },
-        //切换标签栏
-        changePro(name, title) {
-            //根据title获取点击的id
-            for (let i = 0; i < this.navBar.length; i++) {
-                if (this.navBar[i].title == title) {
-                    this.proId = this.navBar[i].id;
-                }
-            }
-            this.page = 1; //重新赋值获取页码
-            this.finished=true;
-            this.loading = false;
-            this.init(this.page);
         },
         //前往商品详情
         goDetail(item) {

@@ -6,7 +6,7 @@
     }
     /*头部*/
     .content-top {
-        height: 3.76rem;
+        height: 2.86rem;
         background: linear-gradient(360deg, rgba(254, 201, 92, 1) 0%, rgba(255, 123, 36, 1) 100%);
 
         .search-box {
@@ -93,7 +93,7 @@
 
         .banner {
             width: 100%;
-            height: 3.76rem;
+            height: 3.26rem;
             padding: 0 0.3rem;
 
             .banner-box {
@@ -108,7 +108,7 @@
                     background:linear-gradient(157deg, rgba(254, 124, 36, 1) 0%, rgba(255, 106, 94, 1) 100%);
                     img {
                         width: 100%;
-                        height: 3.76rem;
+                        height: 3.26rem;
                     }
                 }
             }
@@ -117,49 +117,104 @@
 
     /*产品内容*/
     .pro-content {
-        margin-top: 1.36rem;
-
-        .pro-title {
-            text-align: center;
-            img {
-                width: 3.08rem;
-                margin: 0.8rem auto 0.5rem;
+        /*产品类别列表*/
+        .pro-type-list{
+            @include df;
+            @include fw-w;
+            background:linear-gradient(180deg, rgba(255, 255, 255, 1) 80%, rgba(245, 245, 245, 1) 100%);
+            padding:1.76rem 0 0.86rem 0;
+            .pro-type-item{
+                width: 25%;
+                text-align: center;
+                padding:0 0.32rem;
+                margin-top:0.52rem;
+                .item-img{
+                    width:1.16rem;
+                    height: 1.16rem;
+                    border-radius: 50%;
+                    background-color:#F4F5F4;
+                    img{
+                        width:100%;
+                        height: 100%;
+                    }
+                }
+                .item-text{
+                    color:#393939;
+                    font-size: 0.28rem;
+                    font-weight: 400;
+                    line-height: 0.42rem;
+                    margin-top:0.28rem;
+                }
             }
         }
-
-        .pro-content-box {
-            .pro-title-list {}
-        }
-
-        .van-tabs__wrap {
-            padding: 0 0.15rem;
-            height: 0.76rem;
-        }
-
-        .van-tabs__line {
-            height: 0.04rem;
-            background-color: #FF6702;
-            width: 16% !important;
-        }
-
-        .van-tabs__nav {
-            background: none;
-
-            .van-tab {
-                color: #666;
-                padding: 0 0.2rem;
-                font-size: 0.3rem;
-                flex-basis: auto !important;
+        /*产品块*/
+        .pro-block-list{
+            padding:0 0.32rem;
+            .pro-block-item{
+                margin-bottom: 0.3rem;
+                border-radius: 0.12rem;
+                .title{
+                    color:#393939;
+                    font-size: 0.3rem;
+                    line-height: 0.92rem;
+                    padding:0 0.28rem;
+                }
+                .item-banner{
+                    width:100%;
+                    height: 3.02rem;
+                    img{
+                        width:100%;
+                        height: 100%;
+                    }
+                }
             }
-
-            .van-tab--active {
-                color: #FF6702;
+            .item-pro-list{
+                @include df;
+                @include fw-w;
+                overflow: hidden;
+                .pro-item-inblock{
+                    width:33.33%;
+                    font-size: 0.26rem;
+                    padding:0.14rem;
+                    border-right: 0.02rem solid #F5F5F5;
+                    &:nth-child(3){
+                        border-right: none;
+                    }
+                    .inblock-img{
+                        @include df;
+                        @include df-ai;
+                        width:2rem;
+                        height: 2rem;
+                        //border:0.02rem solid #979797;
+                        background-color:#D8D8D8;
+                        margin-bottom: 0.2rem;
+                        img{
+                            max-width: 100%;
+                            max-height: 100%;
+                        }
+                    }
+                    .inblock-title{
+                        color:#333;
+                        font-weight: 400;
+                        margin-bottom: 0.1rem;
+                        width:100%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space:nowrap;
+                    }
+                    .price{
+                        margin-bottom: 0.1rem;
+                    }
+                }
+                .f-bdt{
+                    border:none;
+                    border-top:0.02rem solid #F5F5F5;
+                    &:nth-child(3) {
+                        border-top: none;
+                    }
+                }
             }
         }
-        .van-sticky--fixed{
-            background: #fff;
-        }
-
         .pro-con-list {
             padding: 0.2rem;
         }
@@ -167,6 +222,7 @@
         .list-box {
             @include df;
             @include fw-w;
+
             .list-item {
                 @include fa;
                 flex: inherit;
@@ -199,7 +255,6 @@
                     -webkit-line-clamp: 2;
                     margin-bottom: 0.38rem;
                     overflow: hidden;
-                    word-break: break-all;
                 }
 
                 .item-price {
@@ -210,6 +265,10 @@
 
                     .price {
                         line-height: 0.34rem;
+                        font-size: 0.3rem;
+                        span{
+                            font-size: 0.26rem;
+                        }
                     }
 
                     .icon-add-cart {
@@ -219,6 +278,14 @@
                         height: 0.42rem;
                     }
                 }
+            }
+        }
+        /*猜你喜欢*/
+        .guess-you-like{
+            .title{
+                padding:0.2rem 0.32rem 0 0.32rem;
+                color:#393939;
+                font-size: 0.3rem;
             }
         }
     }

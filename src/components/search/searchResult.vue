@@ -88,6 +88,7 @@ export default {
     data() {
         return {
             search_txt:this.$store.state.search_txt,
+            search_id:this.$store.state.search_id,
             loading: false, //是否触发加载
             finished: false, //数据加载完毕
             error:false,//若列表数据加载失败，将error设置成true即可显示错误提示，用户点击错误提示后会重新触发 load 事件
@@ -125,6 +126,7 @@ export default {
         //搜索提交
         onSubmit(page) {
             let name=this.search_txt;//搜索名
+            let id=this.search_id;//搜索id
             let start_price=this.minPrice;//最低价
             let end_price=this.maxPrice;//最高价
             let sort_price='';//价格排序
@@ -152,7 +154,8 @@ export default {
                 sort_price:sort_price,
                 sort_num:sort_num,
                 start_price:start_price,
-                end_price:end_price
+                end_price:end_price,
+                category_id:id
             }).then((res)=>{
                 let data=res.data.data;
                 if (data.code === 1000) {
