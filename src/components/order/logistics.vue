@@ -10,7 +10,7 @@
                     <span>共{{order.goods_num}}件商品</span>
                 </div>
                 <div class="logistics-order-txt">
-                    <div class="logistics-order-title">物流状态：<span>{{data.status}}</span></div>
+                    <div class="logistics-order-title">物流状态：<span>{{type}}</span></div>
                     <div>承运来源：{{data.expTextName}}</div>
                     <div>快递单号：{{data.mailNo}}</div>
                     <div>官方电话：{{data.tel}}</div>
@@ -38,6 +38,7 @@ export default {
             img:require("@/assets/images/05.png"),
             data:{},//物流信息内容
             order:{},//订单内容
+            type:'',//物流状态
         }
     },
     created () {
@@ -61,8 +62,22 @@ export default {
         getLogistics(url){
             this.$axios.get(url).then((res)=>{
                 this.data=res.data;
-                console.log(res);
+                this.data.data.reverse();
+                switch (this.data.status) {
+                    case 1:
+                        this.type='运输中';
+                        break;
+                    case 2:
+                        this.type='派送中';
+                        break;
+                    case 3:
+                        this.type='已签收';
+                        break;
+                    default:
+                        break;
+                }
             })
+
         }
     },
 }
