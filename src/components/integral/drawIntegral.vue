@@ -17,7 +17,7 @@
             <div class="field-item f-bgf f-bdb">
                 <div class="field-tip">经办人手机：</div>
                 <input class="field-input" v-model.trim="phone" type="text" placeholder="请填写手机号码">
-                <div class="field-tail get-code" @click="getCode">{{codeTxt}}</div>
+                <div class="field-tail get-code field-position" @click="getCode">{{codeTxt}}</div>
             </div>
             <div class="field-item f-bgf">
                 <div class="field-tip">验证码：</div>

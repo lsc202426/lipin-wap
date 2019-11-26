@@ -7,7 +7,7 @@
             <div class="field-item f-bgf f-bdb">
                 <div class="field-tip">联系人：</div>
                 <input class="field-input" v-model.trim="name" type="text" placeholder="请填写姓名">
-                <div class="field-tail field-mark">
+                <div class="field-tail field-mark field-position">
                     <span @click="changeGender(item.name)" :class="{'active':item.name==genderMark}" v-for="(item,index) in gender" :key="index">{{item.name}}</span>
                 </div>
             </div>

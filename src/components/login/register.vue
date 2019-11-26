@@ -12,7 +12,7 @@
                     <div class="login-form-title">用户注册</div>
                     <div class="login-form-item f-bdb">
                         <img class="icon-phone" v-lazy="iconPhone" alt="">
-                        <input type="number" v-model.trim="phone" placeholder="请输入手机号">
+                        <input type="number" class="phone-input" v-model.trim="phone" placeholder="请输入手机号">
                         <div class="get-code" @click.stop="getCode">{{codeTxt}}</div>
                     </div>
                     <div class="login-form-item f-bdb">

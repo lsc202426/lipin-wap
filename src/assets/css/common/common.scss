@@ -86,6 +86,7 @@
     @include df;
     @include df-ai;
     @include df-jc-sb;
+    position: relative;
     height: 1rem;
     padding:0 0.3rem;
     color:#333;
@@ -93,6 +94,10 @@
         color:#666;
         min-width: 1.75rem;
         white-space: nowrap;
+    }
+    .field-position {
+        position: absolute;
+        right: 0.3rem;
     }
 
     .field-input {
@@ -121,6 +126,10 @@
         color: #F38219;
         min-width: 1.5rem;
     }
+}
+
+.phone-input {
+    max-width: 3.5rem;
 }
 
 /*滑动导航样式*/

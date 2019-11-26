@@ -47,6 +47,7 @@
         &-item{
             @include df;
             @include df-ai;
+            position: relative;
             height: 1.08rem;
             .icon-phone{
                 width:0.3rem;
@@ -63,10 +64,12 @@
                 text-align: center;
                 border-radius: 0.04rem;
                 font-size: 0.24rem;
+                position: absolute;
+                right: 0;
             }
             input{
-                flex:1;
-                margin-left:0.48rem;
+                flex:auto;
+                padding-left:0.48rem;
             }
         }
         .big-btn{
