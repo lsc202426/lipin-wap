@@ -183,6 +183,7 @@
                     .inblock-img{
                         @include df;
                         @include df-ai;
+                        @include df-jc;
                         width:2rem;
                         height: 2rem;
                         //border:0.02rem solid #979797;
