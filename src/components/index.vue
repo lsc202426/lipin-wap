@@ -8,7 +8,7 @@
                 <div class="search-box">
                     <div class="search">
                         <div class="search-bg f-bgf"></div>
-                        <form action="/" @submit.prevent="onSubmit">
+                        <form action="/" @submit.prevent="onSubmit('-1')">
                             <input
                                 type="search"
                                 v-on:keyup.native.enter="search"
@@ -16,7 +16,7 @@
                                 placeholder="搜索礼品名称"
                             />
                         </form>
-                        <div class="icon-search" @click.stop="onSubmit"></div>
+                        <div class="icon-search" @click.stop="onSubmit('-1')"></div>
                     </div>
                     <div class="msg" @click.stop="goNews">
                         <img :src="msgBg" alt />
@@ -54,7 +54,7 @@
                 <!--产品块-->
                 <div class="pro-block-list">
                     <div class="pro-block-item f-bgf" v-for="(list,index) in proBlock" :key="index">
-                        <div class="title">{{list.name}}</div>
+                        <div class="title" v-if="list.name">{{list.name}}</div>
                         <div class="item-banner" @click.stop="goUrl(list)">
                             <img v-lazy="$config.api.public_domain +list.image" alt="">
                         </div>
@@ -236,7 +236,7 @@ export default {
         //搜索
         onSubmit(id) {
             this.$Store.commit("searchTxt", this.search_txt);
-            if(id){
+            if(id!=='-1'){
                 this.$Store.commit("searchId", id);
             }
             this.$router.push({
