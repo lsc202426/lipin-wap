@@ -4,12 +4,12 @@
         <nav-bar title="设置" url="/user" :border=border :leftArrow=leftArrow></nav-bar>
         <!--内容-->
         <div class="setting-content containerView-main">
-            <div class="field-item f-bgf f-bdb">
+            <!-- <div class="field-item f-bgf f-bdb">
                 <div class="field-tip">账户ID</div>
                 <div class="field-tail">
                     {{data.id}}
                 </div>
-            </div>
+            </div> -->
             <div class="field-item f-bgf f-bdb f-mgb">
                 <div class="field-tip">头像</div>
                 <div class="field-tail">

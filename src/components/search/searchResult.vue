@@ -122,6 +122,9 @@ export default {
     created () {
         this.onSubmit(this.page);//初始化搜索
     },
+    destroyed () {
+        this.$Store.commit("searchId", '');
+    },
     methods: {
         //搜索提交
         onSubmit(page) {
