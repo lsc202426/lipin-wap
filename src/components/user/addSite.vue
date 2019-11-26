@@ -58,6 +58,9 @@ export default {
             address:'请选择地区',//地址
             addressDetail:'',//详细地址
             subAddress:'',//要提交的地址
+            province:'',//省
+            city:'',//市
+            region:'',//区
             mark:'家',//标签
             genderMark:'先生',//性别
             marks:[
@@ -70,7 +73,7 @@ export default {
                 {name:'女士'}
             ],
             show:false,
-            areaList:areaList
+            areaList:areaList,
         }
     },
     created () {
@@ -94,6 +97,9 @@ export default {
             let list=val.map((item,index)=>{
                 return item.name;
             })
+            this.province=list[0];
+            this.city=list[1];
+            this.region=list[2];
             this.address=list.join('-');
             this.subAddress=list.join('');
             this.show=false;
@@ -121,13 +127,16 @@ export default {
                 this.$toast(textTips);
                 return;
             }
-            let address=this.subAddress+this.addressDetail;
+            //let address=this.subAddress+this.addressDetail;
             this.$axios.post(`/v1/home/saveAddress?token=${sessionStorage.token}`,{
                 name:this.name,
                 gender:this.genderMark,
                 cellphone:this.phone,
-                address:address,
-                label:this.mark
+                address:this.addressDetail,
+                label:this.mark,
+                province:this.province,
+                city:this.city,
+                region:this.region
             }).then((res)=>{
                 let data=res.data.data;
                 if(data.code===1000){
