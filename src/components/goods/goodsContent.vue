@@ -1,8 +1,8 @@
 <template>
     <div class="goodsContent">
-        <div class="goods-page containerView-main">
-            <van-tabs @click="changeList">
-                <div class="goods-back" @click.stop="goBack"></div>
+        <div class="goods-page containerView-main" id="goods-page">
+            <van-tabs @click="changeList" sticky>
+                <div class="goods-back" :class="{'goods-back-fixed':isScroll}" @click.stop="goBack"></div>
                 <van-tab title="商品">
                     <!--轮播图内容-->
                     <div class="goods-banner">
@@ -33,9 +33,9 @@
                                 <div class="buy-box f-bgf">
                                     <div>购买数量</div>
                                     <div class="buy-num">
-                                        <span class="reduce" @click="reduceNum">-</span>
+                                        <span class="reduce" @click="reduceNum"></span>
                                         <input type="number" v-model.number="num">
-                                        <span class="add" @click="addNum">+</span>
+                                        <span class="add" @click="addNum"></span>
                                     </div>
                                 </div>
                             </div>
@@ -50,9 +50,9 @@
                                     <div class="buy-box f-bdb">
                                         <div>购买数量</div>
                                         <div class="buy-num">
-                                            <span class="reduce" @click="reduceNum">-</span>
+                                            <span class="reduce" @click="reduceNum"></span>
                                             <input type="number" v-model.number="num">
-                                            <span class="add" @click="addNum">+</span>
+                                            <span class="add" @click="addNum"></span>
                                         </div>
                                     </div>
                                     <div class="goods-btn-box">
@@ -63,12 +63,6 @@
                                 </div>
                             </van-action-sheet>
                         </div>
-                        <van-goods-action>
-                            <van-goods-action-icon @click="inStar" v-if="isCollection" icon="star" text="已收藏" />
-                            <van-goods-action-icon @click="inStar" v-else icon="star-o" text="收藏" />
-                            <van-goods-action-button @click.stop="addCart" color="#FF9234" type="warning" :text=addCartTxt />
-                            <van-goods-action-button @click.stop="orderNow" color="#F38219" type="danger" :text=orderNowTxt />
-                        </van-goods-action>
                     </div>
                 </van-tab>
                 <van-tab title="详情">
@@ -78,6 +72,14 @@
                 </van-tab>
             </van-tabs>
         </div>
+        <van-goods-action>
+            <van-goods-action-icon @click="inStar" v-if="isCollection" icon="star" text="已收藏" />
+            <van-goods-action-icon @click="inStar" v-else icon="star-o" text="收藏" />
+            <van-goods-action-button @click.stop="addCart" color="#FF9234" type="warning" :text=addCartTxt />
+            <van-goods-action-button @click.stop="orderNow" color="#F38219" type="danger" :text=orderNowTxt />
+        </van-goods-action>
+        <!--购物车标签-->
+        <div class="shop-cart-icon" @click.stop="goShopCart"></div>
     </div>
 </template>
 <script>
@@ -95,6 +97,7 @@ export default {
             showType:0,
             addCartTxt:'加入购物车',
             orderNowTxt:'立即购买',
+            isScroll:false,//是否滚动页面
         }
     },
     watch: {
@@ -105,11 +108,20 @@ export default {
             }else{
                 this.num=val;
             }
+        },
+        isScroll:function(val){
+            
         }
     },
     created () {
         //初始化获取商品数据
         this.init();
+    },
+    mounted(){
+        window.addEventListener('scroll', this.getScroll,true);
+    },
+    beforeDestroy(){
+        window.removeEventListener('scroll', this.getScroll);
     },
     methods: {
         init() {
@@ -223,6 +235,7 @@ export default {
         },
         //加入购物车
         addCart(){
+            this.hasToken();//判断是否登录
             this.showType=1;
             if(this.spec.value&&this.spec.value.length>0){
                 if(!this.spec_txt){
@@ -256,6 +269,7 @@ export default {
         },
         //立即购买
         orderNow(){
+            this.hasToken();//判断是否登录
             this.showType=2;
             if(this.spec.value&&this.spec.value.length>0){
                 if(!this.spec_txt){
@@ -308,6 +322,7 @@ export default {
                     let data=res.data.data;
                     if(data.code===1000){
                         sessionStorage.beforPath='goodsContent';
+                        sessionStorage.goodsId=this.$route.query.id;
                         this.$router.push({
                             path:'/settle',
                             query:{
@@ -319,6 +334,18 @@ export default {
             }
             
         },
+        //判断是否有登录
+        hasToken(){
+            if(!sessionStorage.token){
+                this.$router.push({
+                    path: '/login',
+                    query: {
+                        redirect: this.$route.fullPath
+                    }
+                })
+                return false;
+            }
+        },
         //确定，隐藏弹出框
         define(){
             if(!this.spec_txt){
@@ -329,6 +356,25 @@ export default {
             }else{
                 this.show=false;
             }
+        },
+        //页面滑动监听
+        getScroll(){
+            let obj=document.getElementById('goods-page');
+            let top=0;
+            if(obj){
+                top=obj.scrollTop;
+            }
+            if(top>0){
+                this.isScroll=true;
+            }else{
+                this.isScroll=false;
+            }
+        },
+        //前往购物车
+        goShopCart(){
+            this.$router.push({
+                path:'shopCart'
+            })
         }
     },
 }

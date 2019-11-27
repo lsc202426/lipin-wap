@@ -24,7 +24,7 @@
                         <input type="password" v-model.trim="password" placeholder="请输入8到16位英文和数字密码">
                     </div>
                     <div class="big-btn" @click="register">注册</div>
-                    <div class="go-index price" @click="goIndex">返回首页</div>
+                    <div class="go-index price" @click="goIndex"><span></span>返回首页</div>
                 </div>
             </div>
             <div class="operation-box">

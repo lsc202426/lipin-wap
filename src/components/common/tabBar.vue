@@ -9,7 +9,7 @@
       <img slot="icon" slot-scope="props" :src="props.active ? icon1.active : icon1.inactive" />
     </van-tabbar-item>
     <van-tabbar-item to="/user">
-      <span>我的</span>
+      <span>我</span>
       <img slot="icon" slot-scope="props" :src="props.active ? icon2.active : icon2.inactive" />
     </van-tabbar-item>
   </van-tabbar>

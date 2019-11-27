@@ -19,7 +19,7 @@
                         <input type="password" v-model.trim="password" placeholder="请输入密码">
                     </div>
                     <div class="big-btn" @click="login">登录</div>
-                    <div class="go-index price" @click="goIndex">返回首页</div>
+                    <div class="go-index" @click="goIndex"><span></span>返回首页</div>
                 </div>
             </div>
             <div class="operation-box">
@@ -89,7 +89,7 @@ export default {
                             this.$router.replace({
                                 path: this.$route.query.redirect,
                             });
-                        } else {
+                        }else {
                             this.$router.replace({
                                 path: '/',
                             });

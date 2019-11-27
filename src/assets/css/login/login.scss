@@ -6,7 +6,8 @@
             margin-top:0.54rem;
             line-height: 0.36rem;
             span{
-                padding:0 0.4rem;
+                padding:0 0.31rem;
+                font-size: 0.3rem;
             }
         }
         &-box{
@@ -27,7 +28,7 @@
             left:0.82rem;
             p{
                 color:#fff;
-                font-size: 0.48rem;
+                font-size: 0.52rem;
                 line-height: 0.66rem;
                 font-weight: 400;
             }
@@ -36,13 +37,14 @@
     &-form{
         border-radius: 0.12rem;
         margin-top:-1.94rem;
-        padding:0.54rem 0.5rem 0.6rem 0.5rem;
+        padding:0.54rem 0.5rem 0.42rem 0.5rem;
         font-size: 0.3rem;
         &-title{
             color:#F38219;
             font-weight: 400;
             line-height: 0.42rem;
             margin-bottom: 0.25rem;
+            font-size: 0.34rem;
         }
         &-item{
             @include df;
@@ -76,9 +78,20 @@
             margin-top:0.7rem;
         }
         .go-index{
+            @include df;
+            @include df-ai;
+            @include df-jc;
             text-align: center;
             font-size: 0.28rem;
-            margin-top: 0.2rem;
+            margin-top: 0.48rem;
+            color:#999;
+            span{
+                background:url('assets/images/go_index_icon.png') center center no-repeat;
+                background-size: 0.32rem 0.3rem;
+                width:0.32rem;
+                height: 0.32rem;
+                margin-right: 0.14rem;
+            }
         }
     }
 }

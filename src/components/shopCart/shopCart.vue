@@ -60,17 +60,18 @@
                                                     @click.stop="
                                                         reduceNum(list)
                                                     "
-                                                    >-</span
+                                                    ></span
                                                 >
                                                 <input
                                                     type="number"
-                                                    @keyup="computTotal"
+                                                    @click.stop
+                                                    @keyup.stop="computTotal"
                                                     v-model.number="list.num"
                                                 />
                                                 <span
                                                     class="add"
                                                     @click.stop="addNum(list)"
-                                                    >+</span
+                                                    ></span
                                                 >
                                             </div>
                                         </div>

@@ -24,6 +24,7 @@
                         <input type="password" v-model.trim="password" placeholder="请输入新密码">
                     </div>
                     <div class="big-btn" @click="forgetPass">确定</div>
+                    <div class="go-index" @click="goIndex"><span></span>返回首页</div>
                 </div>
             </div>
             <div class="operation-box">
@@ -136,6 +137,12 @@ export default {
                 })
             }
         },
+        //返回首页
+        goIndex(){
+            this.$router.push({
+                path:'/'
+            })
+        }
     },
 
 }

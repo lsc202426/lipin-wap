@@ -1,12 +1,63 @@
 .goodsContent{
-    
+    .van-popup--bottom.van-popup--round{
+        border-radius: 0.12rem 0.12rem 0 0;
+    }
+    .shop-cart-icon{
+        position: fixed;
+        bottom:2.16rem;
+        right: 0.22rem;
+        background:url('assets/images/shop_cart_icon.png') center center no-repeat;
+        background-size: 100% 100%;
+        width:0.8rem;
+        height: 0.8rem;
+    }
+    .van-goods-action {
+        .van-goods-action-icon {
+            width: 2rem;
+        }
+
+        .van-icon-star {
+            color: #F38219;
+            font-size: 0.45rem;
+        }
+
+        .van-icon-star-o {
+            color: #666;
+            font-size: 0.45rem;
+        }
+
+        button {
+            height: 1rem;
+            padding: 0;
+            margin: 0;
+            border-radius: 0;
+            font-size: 0.3rem;
+        }
+    }
 }
 .goods-page{
     position: relative;
     .van-tabs{
+        .van-sticky--fixed{
+            .van-tabs__wrap{
+                background:#fff;
+            }
+            .van-tabs__nav{
+                .van-tab{
+                    color:#333;
+                }
+                .van-tab--active{
+                    color:#FF6702;
+                }
+                .van-tabs__line {
+                    bottom: 0;
+                    background-color: #FF6702;
+                }
+            }
+        }
         .van-tabs__wrap {
             height: 1rem;
-            background:rgba(56, 56, 56, 0.11);
+            background:rgba(56, 56, 56, 0.6);
             z-index: 2;
             &::after{
                 border:none;
@@ -67,14 +118,18 @@
         }
     }
     .goods-back {
-        z-index: 2;
+        z-index: 200;
         background: url('assets/images/icon_fanhui_touming@2x.png') center center no-repeat;
         background-size: 0.18rem 0.32rem;
         width: 0.82rem;
         height: 1rem;
-        position: absolute;
+        position: fixed;
         left: 0;
         top: 0;
+    }
+    .goods-back-fixed{
+        background: url('assets/images/icon_fanhui@2x1.png') center center no-repeat;
+        background-size: 0.18rem 0.32rem;
     }
     .goods-content{
         text-align: left;
@@ -176,6 +231,8 @@
                 @include df-ai;
                 height: 1.72rem;
                 .buy-num{
+                    @include df;
+                    @include df-ai;
                     border: 0.02rem solid #D2D2D2;
                     border-radius: 0.04rem;
                     text-align: center;
@@ -190,16 +247,20 @@
                         line-height: 0.68rem;
                         width: 1.06rem;
                         text-align: center;
+                        border-radius: 0;
                     }
                     span{
                         width:0.68rem;
+                        height: 0.68rem;
                         display: inline-block;
                     }
                     .reduce{
-
+                        background:url('assets/images/jianhao@2x.png') center center no-repeat;
+                        background-size: 0.3rem 0.04rem;
                     }
                     .add{
-
+                        background:url('assets/images/jiahao@2x.png') center center no-repeat;
+                        background-size: 0.3rem 0.28rem;
                     }
                 }
             }
@@ -230,26 +291,6 @@
             padding:0;
             &::before{
                 content:'';
-            }
-        }
-        .van-goods-action{
-            .van-goods-action-icon{
-                width:2rem;
-            }
-            .van-icon-star {
-                color: #F38219;
-                font-size: 0.45rem;
-            }
-            .van-icon-star-o{
-                color:#666;
-                font-size: 0.45rem;
-            }
-            button{
-                height: 1rem;
-                padding:0;
-                margin:0;
-                border-radius: 0;
-                font-size: 0.3rem;
             }
         }
     }

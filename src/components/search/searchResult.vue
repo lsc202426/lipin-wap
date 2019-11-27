@@ -3,7 +3,7 @@
         <div class="search-content containerView-main">
             <div class="search-top f-bgf">
                 <div class="search-top-con">
-                    <div class="search-top-back" @click="goBack"></div>
+                    <div class="search-top-back" @click.stop="goBack"></div>
                     <div class="search-top-i">
                         <form action="/" @submit.prevent="onSubmit(1)">
                             <input type="search" 

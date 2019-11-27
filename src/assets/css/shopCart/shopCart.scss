@@ -71,6 +71,8 @@
                 @include df-ai;
                 width:100%;
                 .buy-num {
+                    @include df;
+                    @include df-ai;
                     border: 0.02rem solid #D2D2D2;
                     border-radius: 0.04rem;
                     text-align: center;
@@ -82,16 +84,25 @@
                         border-left: 0.02rem solid #D2D2D2;
                         border-right: 0.02rem solid #D2D2D2;
                         height: 0.5rem;
-                        line-height: 0.5rem;
                         width: 0.76rem;
                         text-align: center;
+                        border-radius: 0;
+                        flex: 1;
                     }
                     span {
                         width: 0.5rem;
+                        height: 0.5rem;
                         display: inline-block;
                     }
-                    .reduce {}
-                    .add {}
+                    .reduce {
+                        background: url('assets/images/jianhao@2x.png') center center no-repeat;
+                        background-size: 0.18rem 0.04rem;
+                    }
+
+                    .add {
+                        background: url('assets/images/jiahao@2x.png') center center no-repeat;
+                        background-size: 0.18rem 0.18rem;
+                    }
                 }
                 .price{
                     font-size: 0.3rem;

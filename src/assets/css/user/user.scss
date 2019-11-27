@@ -119,15 +119,15 @@
             }
             .icon-bg1{
                 background: url('assets/images/icon_quanbudingdan@2x.png') center center no-repeat;
-                background-size: cover;
+                background-size: contain;
             }
             .icon-bg2 {
                 background: url('assets/images/icon_daifukuan@2x.png') center center no-repeat;
-                background-size: cover;
+                background-size: contain;
             }
             .icon-bg3 {
                 background: url('assets/images/icon_daishouhuo@2x.png') center center no-repeat;
-                background-size: cover;
+                background-size: contain;
             }
             span{
                 font-size: 0.26rem;
