@@ -149,6 +149,12 @@ export default {
         };
     },
     created() {
+        if(this.$route.query.token){
+            sessionStorage.token=this.$route.query.token;
+            this.$route.push({
+                path:'/shopCart'
+            })
+        }
         this.init(this.page); //初始化
     },
     watch: {

@@ -114,6 +114,15 @@ export default {
         }
     },
     created () {
+        if(this.$route.query.token){
+            sessionStorage.token=this.$route.query.token;
+            this.$route.push({
+                path:'/goodsContent',
+                query:{
+                    id:this.$route.query.id
+                }
+            })
+        }
         //初始化获取商品数据
         this.init();
     },
@@ -329,7 +338,7 @@ export default {
                     if(data.code===1000){
                         sessionStorage.beforPath='goodsContent';
                         sessionStorage.goodsId=this.$route.query.id;
-                        window.location.href =`${this.$config.api.public_english_url}/settle?id=${data.buy_id}&token=${sessionStorage.token}&beforPath=goodsContent`;
+                        window.location.href =`${this.$config.api.public_english_url}/settle?id=${data.buy_id}&token=${sessionStorage.token}&beforPath=goodsContent&goodsId=${this.$route.query.id}`;
                         // this.$router.push({
                         //     path:'/settle',
                         //     query:{

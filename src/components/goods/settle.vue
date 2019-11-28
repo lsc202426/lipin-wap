@@ -132,7 +132,7 @@ export default {
             integral:0,//可用积分
             isIntegral:true,//是否使用积分
             needToPay:0,//需支付总额
-            payType:1,//默认选中支付方式，0：微信；1：支付宝；2：银联
+            payType:0,//默认选中支付方式，0：微信；1：支付宝；2：银联
             goodsList:[],//商品列表
             address:{},//地址信息
             source:'',//来源地址
@@ -144,13 +144,15 @@ export default {
         if(this.$route.query.token){
             sessionStorage.token=this.$route.query.token;
             sessionStorage.beforPath=this.$route.query.beforPath;
+            if(this.$route.query.goodsId){
+                sessionStorage.goodsId=this.$route.query.goodsId;
+            }
             this.$router.push({
                 path:'/settle',
                 query:{
                     id:this.$route.query.id
                 }
             })
-            return false;
         }
         setTimeout(() => {
             this.init();//初始化
@@ -236,24 +238,28 @@ export default {
         goBack() {
             if(sessionStorage.beforPath){
                 if(sessionStorage.beforPath=='order'){
-                    this.$router.push({
-                        path:'/order'
-                    })
+                    window.location.href =`${this.$config.api.public_chinese_url}/order?token=${sessionStorage.token}`;
+                    // this.$router.push({
+                    //     path:'/order'
+                    // })
                 }else if(sessionStorage.beforPath=='orderDetail'){
-                    this.$router.push({
-                        path:`/orderDetail?id=${this.$route.query.id}`
-                    })
+                    window.location.href =`${this.$config.api.public_chinese_url}/orderDetail?id=${this.$route.query.id}&token=${sessionStorage.token}`;
+                    // this.$router.push({
+                    //     path:`/orderDetail?id=${this.$route.query.id}`
+                    // })
                 }else if(sessionStorage.beforPath=='shopCart'){
-                    this.$router.push({
-                        path:'/shopCart'
-                    })
+                    window.location.href =`${this.$config.api.public_chinese_url}/shopCart?token=${sessionStorage.token}`;
+                    // this.$router.push({
+                    //     path:'/shopCart'
+                    // })
                 }else if(sessionStorage.beforPath=='goodsContent'){
-                    this.$router.push({
-                        path:'/goodsContent',
-                        query:{
-                            id:sessionStorage.goodsId
-                        }
-                    })
+                    window.location.href =`${this.$config.api.public_chinese_url}/orderDetail?id=${sessionStorage.goodsId}&token=${sessionStorage.token}`;
+                    // this.$router.push({
+                    //     path:'/goodsContent',
+                    //     query:{
+                    //         id:sessionStorage.goodsId
+                    //     }
+                    // })
                 }else{
                     this.$router.push({
                         path:'/'

@@ -89,6 +89,12 @@ export default {
         }
     },
     created () {
+        if(this.$route.query.token){
+            sessionStorage.token=this.$route.query.token;
+            this.$route.push({
+                path:'/order'
+            })
+        }
         this.active=parseInt(this.active);
         this.init(this.page);//初始化
     },

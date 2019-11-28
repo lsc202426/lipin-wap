@@ -99,6 +99,15 @@ export default {
         }
     },
     created () {
+        if(this.$route.query.token){
+            sessionStorage.token=this.$route.query.token;
+            this.$route.push({
+                path:'/orderDetail',
+                query:{
+                    id:this.$route.query.id
+                }
+            })
+        }
         this.init();//初始化
     },
     mounted() {
