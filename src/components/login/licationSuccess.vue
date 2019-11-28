@@ -9,7 +9,7 @@
             </div>
             <div class="pay-content-title">提交成功</div>
             <div class="pay-content-price">
-                提交申请->等待审核->成功入驻
+                提交申请 => 等待审核 => 成功入驻
             </div>
             <div class="pay-content-price">
                 {{data.content}}
