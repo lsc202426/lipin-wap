@@ -236,6 +236,9 @@ export default {
         //加入购物车
         addCart(){
             this.hasToken();//判断是否登录
+            if(!this.hasToken()){
+                return false;
+            }
             this.showType=1;
             if(this.spec.value&&this.spec.value.length>0){
                 if(!this.spec_txt){
@@ -270,6 +273,9 @@ export default {
         //立即购买
         orderNow(){
             this.hasToken();//判断是否登录
+            if(!this.hasToken()){
+                return false;
+            }
             this.showType=2;
             if(this.spec.value&&this.spec.value.length>0){
                 if(!this.spec_txt){
