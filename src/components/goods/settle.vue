@@ -144,13 +144,13 @@ export default {
         if(this.$route.query.token){
             sessionStorage.token=this.$route.query.token;
             sessionStorage.beforPath=this.$route.query.beforPath;
-            // this.$router.push({
-            //     path:'/settle',
-            //     query:{
-            //         id:this.$route.query.id
-            //     }
-            // })
-            // return false;
+            this.$router.push({
+                path:'/settle',
+                query:{
+                    id:this.$route.query.id
+                }
+            })
+            return false;
         }
         setTimeout(() => {
             this.init();//初始化
@@ -313,8 +313,8 @@ export default {
             //获取结算方式
             if(this.payType==0&&this.needToPay>0){
                 payment='weixin';
-                this.$toast('此功能正在开发，请选择其他支付方式');
-                return;
+                // this.$toast('此功能正在开发，请选择其他支付方式');
+                // return;
             }else if(this.payType==1&&this.needToPay>0){
                 payment='alipay';
             }else if(this.payType==2&&this.needToPay>0){

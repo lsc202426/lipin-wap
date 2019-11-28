@@ -49,10 +49,7 @@ const routes = [
   {
     path: '/settle',
     name: 'settle',
-    component: () => import('../components/goods/settle.vue'),
-    meta: {
-      requireAuth: true
-    }
+    component: () => import('../components/goods/settle.vue')
   },
   // 消息
   {
@@ -202,10 +199,7 @@ const routes = [
   {
     path: '/paySuccess',
     name: 'paySuccess',
-    component: () => import('../components/goods/paySuccess.vue'),
-    meta: {
-      requireAuth: true
-    }
+    component: () => import('../components/goods/paySuccess.vue')
   },
   // 订单详情
   {
