@@ -123,8 +123,10 @@ export default {
                 }
             })
         }
-        //初始化获取商品数据
-        this.init();
+        setTimeout(() => {
+            //初始化获取商品数据
+            this.init();
+        }, 50);
     },
     mounted(){
         window.addEventListener('scroll', this.getScroll,true);

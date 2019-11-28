@@ -155,7 +155,9 @@ export default {
                 path:'/shopCart'
             })
         }
-        this.init(this.page); //初始化
+        setTimeout(() => {
+            this.init(this.page); //初始化
+        }, 50);
     },
     watch: {
         allCheck: function(val) {},

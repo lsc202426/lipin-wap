@@ -108,7 +108,9 @@ export default {
                 }
             })
         }
-        this.init();//初始化
+        setTimeout(() => {
+            this.init();//初始化
+        }, 50);
     },
     mounted() {
         //禁用浏览器返回

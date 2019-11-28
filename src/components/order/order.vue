@@ -95,8 +95,10 @@ export default {
                 path:'/order'
             })
         }
-        this.active=parseInt(this.active);
-        this.init(this.page);//初始化
+        setTimeout(() => {
+            this.active=parseInt(this.active);
+            this.init(this.page);//初始化
+        }, 50);
     },
     watch: {
         // active:function(val){
