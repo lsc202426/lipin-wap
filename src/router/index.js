@@ -218,6 +218,18 @@ const routes = [
     meta: {
       requireAuth: true
     }
+  },
+  // 申请入驻
+  {
+    path: '/licationSettle',
+    name: 'licationSettle',
+    component: () => import('../components/login/licationSettle.vue')
+  },
+  // 申请入驻
+  {
+    path: '/licationSuccess',
+    name: 'licationSuccess',
+    component: () => import('../components/login/licationSuccess.vue')
   }
 ]
 
