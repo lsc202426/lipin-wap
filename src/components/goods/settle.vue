@@ -78,7 +78,7 @@
                 <!--支付方式-->
                 <div class="pay-mode f-mgb" v-if="needToPay>0">
                     <div class="title">请选择支付方式</div>
-                    <!-- <div class="goods-tab f-bdb f-bgf" @click.stop="checkPayType(0)">
+                    <div class="goods-tab f-bdb f-bgf" @click.stop="checkPayType(0)">
                         <div class="pay-item">
                             <div class="img-box">
                                 <img v-lazy="imgWx" class="imgWx" alt="">
@@ -86,7 +86,7 @@
                             <span>微信支付</span>
                         </div>
                         <div class="icon-checkbox" :class="{'icon-checkbox-active':payType==0}"></div>
-                    </div> -->
+                    </div>
                     <div class="goods-tab f-bdb f-bgf" @click.stop="checkPayType(1)">
                         <div class="pay-item">
                             <div class="img-box">
@@ -141,7 +141,20 @@ export default {
         }
     },
     created () {
-        this.init();//初始化
+        if(this.$route.query.token){
+            sessionStorage.token=this.$route.query.token;
+            sessionStorage.beforPath=this.$route.query.beforPath;
+            this.$router.push({
+                path:'/settle',
+                query:{
+                    id:this.$route.query.id
+                }
+            })
+            return false;
+        }
+        setTimeout(() => {
+            this.init();//初始化
+        }, 50);
     },
     methods: {
         //初始化获取数据
@@ -353,12 +366,13 @@ export default {
                         document.forms[0].submit();
                     }
                     setTimeout(() => {
-                        this.$router.push({
-                            path:'/paySuccess',
-                            query:{
-                                id:data.transaction_id
-                            }
-                        })
+                        window.location.href =`${this.$config.api.public_chinese_url}/paySuccess?id=${data.transaction_id}&token=${sessionStorage.token}`;
+                        // this.$router.push({
+                        //     path:'/paySuccess',
+                        //     query:{
+                        //         id:data.transaction_id
+                        //     }
+                        // })
                     }, 2000);
                 }
             })

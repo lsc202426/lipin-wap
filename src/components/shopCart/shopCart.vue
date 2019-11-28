@@ -318,12 +318,13 @@ export default {
                         let data = res.data.data;
                         if (data.code === 1000) {
                             sessionStorage.beforPath = "shopCart";
-                            this.$router.push({
-                                path: "/settle",
-                                query: {
-                                    id: data.buy_id
-                                }
-                            });
+                            window.location.href =`${this.$config.api.public_english_url}/settle?id=${data.buy_id}&token=${sessionStorage.token}&beforPath=shopCart`;
+                            // this.$router.push({
+                            //     path: "/settle",
+                            //     query: {
+                            //         id: data.buy_id
+                            //     }
+                            // });
                         }
                     });
             }

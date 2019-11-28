@@ -1,7 +1,7 @@
 <template>
     <div class="paySuccess">
         <!--头部-->
-        <nav-bar :title="title" :border=border :leftArrow=leftArrow></nav-bar>
+        <nav-bar :title="title" :border=border url="/" :leftArrow=leftArrow></nav-bar>
         <!--内容-->
         <div class="pay-content containerView-main">
             <div class="pay-content-bg" :class="{'pay-content-bg-fail':payTxt!='支付成功'&&payTxt=='待支付'}">
@@ -33,6 +33,15 @@ export default {
     },
     created () {
         localStorage.removeItem('orderId');
+        if(this.$route.query.token){
+            sessionStorage.token=this.$route.query.token;
+            this.$route.push({
+                path:'/paySuccess',
+                query:{
+                    id:this.$route.query.id
+                }
+            })
+        }
         this.init();//初始化
     },
     mounted() {

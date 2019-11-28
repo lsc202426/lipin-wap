@@ -168,12 +168,13 @@ export default {
         //去付款
         goPay(id){
             sessionStorage.beforPath='order';
-            this.$router.push({
-                path:'/settle',
-                query:{
-                    id:id
-                }
-            })
+            window.location.href =`${this.$config.api.public_english_url}/settle?id=${id}&token=${sessionStorage.token}&beforPath=order`;
+            // this.$router.push({
+            //     path:'/settle',
+            //     query:{
+            //         id:id
+            //     }
+            // })
         },
         //确认收货
         confirmReceipt(id){
