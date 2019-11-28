@@ -329,12 +329,13 @@ export default {
                     if(data.code===1000){
                         sessionStorage.beforPath='goodsContent';
                         sessionStorage.goodsId=this.$route.query.id;
-                        this.$router.push({
-                            path:'/settle',
-                            query:{
-                                id:data.buy_id
-                            }
-                        })
+                        window.location.href =`${this.$config.api.public_english_url}/settle?id=${data.buy_id}&token=${sessionStorage.token}&beforPath=goodsContent`;
+                        // this.$router.push({
+                        //     path:'/settle',
+                        //     query:{
+                        //         id:data.buy_id
+                        //     }
+                        // })
                     }
                 })
             }

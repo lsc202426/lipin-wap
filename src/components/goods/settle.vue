@@ -144,13 +144,13 @@ export default {
         if(this.$route.query.token){
             sessionStorage.token=this.$route.query.token;
             sessionStorage.beforPath=this.$route.query.beforPath;
-            this.$router.push({
-                path:'/settle',
-                query:{
-                    id:this.$route.query.id
-                }
-            })
-            return false;
+            // this.$router.push({
+            //     path:'/settle',
+            //     query:{
+            //         id:this.$route.query.id
+            //     }
+            // })
+            // return false;
         }
         setTimeout(() => {
             this.init();//初始化
