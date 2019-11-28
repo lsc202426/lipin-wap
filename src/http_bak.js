@@ -30,19 +30,11 @@ axios.interceptors.request.use(
       // token: sessionStorage.token
     }
     config.data = Qs.stringify(config.data)
-    if (router.currentRoute.name === 'paySuccess') {
-      Toast.loading({
-        message: '正在查询支付结果...',
-        forbidClick: true,
-        loadingType: 'spinner'
-      })
-    } else {
-      Toast.loading({
-        message: '加载中...',
-        forbidClick: true,
-        loadingType: 'spinner'
-      })
-    }
+    Toast.loading({
+      message: '加载中...',
+      forbidClick: true,
+      loadingType: 'spinner'
+    })
     return config
   },
   error => {
