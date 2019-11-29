@@ -35,7 +35,7 @@ export default {
         localStorage.removeItem('orderId');
         if(this.$route.query.token){
             sessionStorage.token=this.$route.query.token;
-            this.$route.push({
+            this.$router.push({
                 path:'/paySuccess',
                 query:{
                     id:this.$route.query.id
