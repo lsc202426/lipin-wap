@@ -96,7 +96,7 @@ export default {
             spec_txt:'',//规格值名字
             showType:0,
             addCartTxt:'加入购物车',
-            orderNowTxt:'立即购买',
+            orderNowTxt:'立即兑换',
             isScroll:false,//是否滚动页面
             navTitle:[
                 '商品','详情'

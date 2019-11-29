@@ -116,7 +116,7 @@
                     <span>￥</span>{{needToPay|numToFloat}}
                 </span>
             </div>
-            <div class="payment-btn f-bgc1" @click="goPay">去付款</div>
+            <div class="payment-btn f-bgc1" @click="goPay">去兑换</div>
         </div>
     </div>
 </template>
