@@ -153,7 +153,6 @@ export default {
             let detailConTop=document.getElementById('goodsDetail');
             if(detailConTop){
                 this.conTop=detailConTop.offsetTop;
-                console.log(this.conTop);
             }
         })
 
