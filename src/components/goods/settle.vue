@@ -170,8 +170,9 @@ export default {
                 //         id:localStorage.orderId
                 //     }
                 // })
-                return;
-            }else if(sessionStorage.beforPath){
+                return false;
+            }
+            if(sessionStorage.beforPath){
                 //如果是从商品购买页面过来
                 if(sessionStorage.beforPath=='goodsContent'){
                     this.source='buy';
@@ -373,15 +374,15 @@ export default {
                         //保持与支付宝默认编码格式一致，如果不一致将会出现：调试错误，请回到请求来源地，重新发起请求，错误代码 invalid-signature 错误原因: 验签出错，建议检查签名字符串或签名私钥与应用公钥是否匹配
                         document.forms[0].submit();
                     }
-                    // setTimeout(() => {
-                    //     window.location.href =`${this.$config.api.public_chinese_url}/paySuccess?id=${data.transaction_id}&token=${sessionStorage.token}`;
-                    //     // this.$router.push({
-                    //     //     path:'/paySuccess',
-                    //     //     query:{
-                    //     //         id:data.transaction_id
-                    //     //     }
-                    //     // })
-                    // }, 2000);
+                    setTimeout(() => {
+                        window.location.href =`${this.$config.api.public_chinese_url}/paySuccess?id=${data.transaction_id}&token=${sessionStorage.token}`;
+                        // this.$router.push({
+                        //     path:'/paySuccess',
+                        //     query:{
+                        //         id:data.transaction_id
+                        //     }
+                        // })
+                    }, 2000);
                 }
             })
         }
