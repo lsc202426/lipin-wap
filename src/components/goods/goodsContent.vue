@@ -280,7 +280,7 @@ export default {
         },
         //加入购物车
         addCart(){
-            this.hasToken();//判断是否登录
+            //判断是否登录
             if(!this.hasToken()){
                 return false;
             }
@@ -317,7 +317,7 @@ export default {
         },
         //立即购买
         orderNow(){
-            this.hasToken();//判断是否登录
+            //判断是否登录
             if(!this.hasToken()){
                 return false;
             }

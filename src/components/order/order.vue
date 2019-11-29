@@ -1,73 +1,75 @@
 <template>
-    <div class="order containerView-main">
+    <div class="order">
         <!--头部-->
         <nav-bar title="我的订单" url="/user" :border=border :leftArrow=leftArrow></nav-bar>
         <!--头部右上角按钮-->
         <div class="title-right">
             <div class="icon-shopcart" @click="goShopCart"></div>
         </div>
-        <!--导航栏-->
-        <van-tabs @change="onClick" 
-        title-active-color="#FF6702" 
-        title-inactive-color="#333"
-        swipeable
-        v-model="active"
-        >
-            <van-tab :title="item" v-for="(item,index) in navTitle" :key="index">
-                <van-list
-                    v-model="loading"
-                    :finished="finished"
-                    @load="onLoad"
-                    :immediate-check="false"
-                    :error.sync="error"
-                    error-text="请求失败，点击重新加载"
-                  >
-                    <div class="msg-list">
-                        <div class="order-item f-bgf" @click="goDetail(list.id)" v-for="(list,index) in lists" :key="index">
-                            <div class="order-item-top">
-                                <div class="order-time">
-                                    {{list.created}}
-                                </div>
-                                <div class="order-state price" v-if="list.pay_status=='待支付'">
-                                    {{list.pay_status}}
-                                </div>
-                                <div class="order-state price" v-else>
-                                    {{list.status}}
-                                </div>
-                            </div>
-                            <div class="order-item-pro" v-for="(order,index) in list.order_product" :key="index">
-                                <div class="order-img">
-                                    <img v-lazy="$config.api.public_domain+order.cover" alt="">
-                                </div>
-                                <div class="order-txt">
-                                    <div class="order-title">
-                                        <div class="title">{{order.product_name}}</div>
-                                        <div class="num"><span>￥</span>{{order.totle}}</div>
+        <div class="containerView-main">
+            <!--导航栏-->
+            <van-tabs @change="onClick" 
+            title-active-color="#FF6702" 
+            title-inactive-color="#333"
+            swipeable
+            v-model="active"
+            >
+                <van-tab :title="item" v-for="(item,index) in navTitle" :key="index">
+                    <van-list
+                        v-model="loading"
+                        :finished="finished"
+                        @load="onLoad"
+                        :immediate-check="false"
+                        :error.sync="error"
+                        error-text="请求失败，点击重新加载"
+                    >
+                        <div class="msg-list">
+                            <div class="order-item f-bgf" @click="goDetail(list.id)" v-for="(list,index) in lists" :key="index">
+                                <div class="order-item-top">
+                                    <div class="order-time">
+                                        {{list.created}}
                                     </div>
-                                    <div class="order-specs">
-                                        <div class="specs">{{order.spec}}</div>
-                                        <div class="num">x {{order.product_count}}</div>
+                                    <div class="order-state price" v-if="list.pay_status=='待支付'">
+                                        {{list.pay_status}}
+                                    </div>
+                                    <div class="order-state price" v-else>
+                                        {{list.status}}
                                     </div>
                                 </div>
+                                <div class="order-item-pro" v-for="(order,index) in list.order_product" :key="index">
+                                    <div class="order-img">
+                                        <img v-lazy="$config.api.public_domain+order.cover" alt="">
+                                    </div>
+                                    <div class="order-txt">
+                                        <div class="order-title">
+                                            <div class="title">{{order.product_name}}</div>
+                                            <div class="num"><span>￥</span>{{order.totle}}</div>
+                                        </div>
+                                        <div class="order-specs">
+                                            <div class="specs">{{order.spec}}</div>
+                                            <div class="num">x {{order.product_count}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="order-item-total">
+                                    共{{list.goods_num}}件商品 合计：￥<span>{{list.totle}}</span>
+                                </div>
+                                <div class="order-item-btn">
+                                    <div v-if="list.pay_status=='支付成功'&&(list.status=='已发货'||list.status=='已完成')" class="order-btn order-btn-gay" @click.stop="goLogistics(list.id)">查看物流</div>
+                                    <div v-if="list.pay_status=='待支付'" class="order-btn order-btn-colour" @click.stop="goPay(list.id)">去付款</div>
+                                    <div v-if="list.pay_status=='支付成功'&&list.status=='已发货'" class="order-btn order-btn-colour" @click.stop="confirmReceipt(list.id)">确认收货</div>
+                                </div>
                             </div>
-                            <div class="order-item-total">
-                                共{{list.goods_num}}件商品 合计：￥<span>{{list.totle}}</span>
-                            </div>
-                            <div class="order-item-btn">
-                                <div v-if="list.pay_status=='支付成功'&&(list.status=='已发货'||list.status=='已完成')" class="order-btn order-btn-gay" @click.stop="goLogistics(list.id)">查看物流</div>
-                                <div v-if="list.pay_status=='待支付'" class="order-btn order-btn-colour" @click.stop="goPay(list.id)">去付款</div>
-                                <div v-if="list.pay_status=='支付成功'&&list.status=='已发货'" class="order-btn order-btn-colour" @click.stop="confirmReceipt(list.id)">确认收货</div>
-                            </div>
+                            <!--暂无数据-->
+                            <no-data v-if="lists.length<=0"></no-data>
                         </div>
-                        <!--暂无数据-->
-                        <no-data v-if="lists.length<=0"></no-data>
-                    </div>
-                </van-list>
-                <van-divider dashed class="botton-line" v-if="finished&&lists&&lists.length>0">
-                    没有更多了
-                </van-divider> 
-            </van-tab>
-        </van-tabs>
+                    </van-list>
+                    <van-divider dashed class="botton-line" v-if="finished&&lists&&lists.length>0">
+                        没有更多了
+                    </van-divider> 
+                </van-tab>
+            </van-tabs>
+        </div>
     </div>
 </template>
 <script>
