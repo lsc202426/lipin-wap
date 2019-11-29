@@ -135,7 +135,7 @@ export default {
     created () {
         if(this.$route.query.token){
             sessionStorage.token=this.$route.query.token;
-            this.$route.push({
+            this.$router.push({
                 path:'/goodsContent',
                 query:{
                     id:this.$route.query.id
