@@ -18,7 +18,7 @@
     }
     &-top{
         position: relative;
-        background:url('assets/images/login-bg@2x.png') top left no-repeat;
+        background:url('assets/images/bg1@2x.png') top left no-repeat;
         background-size: 100%;
         width:100%;
         height: 5.42rem;
@@ -229,6 +229,7 @@
         }
         .gain-tips{
             @include df;
+            @include df-jc;
             font-size: 0.26rem;
             color:#999;
             margin-bottom: 0.3rem;

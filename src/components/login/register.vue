@@ -1,11 +1,11 @@
 <template>
     <div class="login register">
         <div class="login-content containerView-main">
-            <div class="login-top">
-                <div class="login-top-msg">
+            <div class="login-top" @click.stop="goLicationSettle">
+                <!-- <div class="login-top-msg">
                     <p>欢迎来到</p>
                     <p>网聚礼品.商标</p>
-                </div>
+                </div> -->
             </div>
             <div class="login-content-box">
                 <div class="login-form f-bgf">
@@ -148,6 +148,12 @@ export default {
         goIndex(){
             this.$router.push({
                 path:'/'
+            })
+        },
+        //前往申请成为供应商页面
+        goLicationSettle(){
+            this.$router.push({
+                path:'licationGain'
             })
         }
     },

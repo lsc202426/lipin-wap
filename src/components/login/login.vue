@@ -1,12 +1,12 @@
 <template>
     <div class="login">
         <div class="login-content containerView-main">
-            <div class="login-top">
-                <div class="login-top-msg">
+            <div class="login-top" @click.stop="goLicationSettle">
+                <!-- <div class="login-top-msg">
                     <p>欢迎来到</p>
                     <p>网聚礼品</p>
-                </div>
-                <div class="lication-settle" @click.stop="goLicationSettle"></div>
+                </div> -->
+                <!-- <div class="lication-settle" @click.stop="goLicationSettle"></div> -->
             </div>
             <div class="login-content-box">
                 <div class="login-form f-bgf">
