@@ -1,7 +1,7 @@
 <template>
     <div class="goodsContent">
         <div class="goods-page containerView-main" id="goods-page">
-            <van-tabs @click="changeList" v-model="active" sticky>
+            <van-tabs v-model="active" sticky>
                 <div class="goods-back" :class="{'goods-back-fixed':isScroll}" @click.stop="goBack"></div>
                 <van-tab :title="item" v-for="(item,index) in navTitle" :key="index">
                     <div>
@@ -103,6 +103,7 @@ export default {
             ],
             active:0,
             conTop:0,//详情距离顶部距离
+            isClick:false,//是否是点击
         }
     },
     watch: {
@@ -116,6 +117,19 @@ export default {
         },
         isScroll:function(val){
             
+        },
+        active:function(val){
+            let obj=document.getElementById('goods-page');
+            if(!this.isClick){
+                this.isClick=true;
+                //let vanTab=document.getElementsByClassName('van-tabs__content');
+                if(obj&&val==1){
+                    //vanTab[0].style.transform=`translate3d(0, -${this.conTop}px, 0)`;
+                    obj.scrollTop=this.conTop;
+                }else{
+                    obj.scrollTop=0;
+                }
+            }
         }
     },
     created () {
@@ -192,17 +206,17 @@ export default {
             })
         },
         //商品详情切换
-        changeList(name,title){
-            this.active=name;
-            let obj=document.getElementById('goods-page');
-            //let vanTab=document.getElementsByClassName('van-tabs__content');
-            if(obj&&this.active==1){
-                //vanTab[0].style.transform=`translate3d(0, -${this.conTop}px, 0)`;
-                obj.scrollTop=this.conTop;
-            }else{
-                obj.scrollTop=0;
-            }
-        },
+        // changeList(name,title){
+        //     this.active=name;
+        //     let obj=document.getElementById('goods-page');
+        //     //let vanTab=document.getElementsByClassName('van-tabs__content');
+        //     if(obj&&this.active==1){
+        //         //vanTab[0].style.transform=`translate3d(0, -${this.conTop}px, 0)`;
+        //         obj.scrollTop=this.conTop;
+        //     }else{
+        //         obj.scrollTop=0;
+        //     }
+        // },
         //弹出参数选择框
         showLayer(){
             this.showType=0;
@@ -411,11 +425,19 @@ export default {
                 this.isScroll=false;
             }
             //获取元素距离顶部高度
-            if(top>=this.conTop){
-                this.active=1;
+            if(this.isClick){
+                setTimeout(() => {
+                    this.isClick=false;
+                }, 500);
             }else{
-                this.active=0;
+                this.isClick=true;
+                if(top>=this.conTop){
+                    this.active=1;
+                }else{
+                    this.active=0;
+                }
             }
+            
         },
         //前往购物车
         goShopCart(){

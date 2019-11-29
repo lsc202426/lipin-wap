@@ -38,8 +38,11 @@
                 </div>
             </div>
         </div>
-        <van-popup v-model="show">
-            <div class="popup-close" @click.stop="closePopup"></div>
+        <van-popup v-model="show" position="bottom" close-icon-position>
+            <div class="popup-top">
+                积分规则
+                <div class="popup-close" @click.stop="closePopup"></div>
+            </div>
             <div>
                 <p class="title">礼品.商标积分使用规则：</p>
                 <p>1、账户积分仅限“www.礼品.商标”内使用，不设兑现及转让;</p>

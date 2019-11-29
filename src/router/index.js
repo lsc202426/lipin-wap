@@ -230,6 +230,12 @@ const routes = [
     path: '/licationSuccess',
     name: 'licationSuccess',
     component: () => import('../components/login/licationSuccess.vue')
+  },
+  // 入驻供货商
+  {
+    path: '/licationGain',
+    name: 'licationGain',
+    component: () => import('../components/login/licationGain.vue')
   }
 ]
 

@@ -3,20 +3,21 @@
         <!--头部-->
         <nav-bar :title="title" :border=border url="/login" :leftArrow=leftArrow></nav-bar>
         <!--内容-->
-        <div class="pay-content containerView-main">
+        <div class="pay-content containerView-main paySuccess-content">
             <div class="pay-content-bg">
                 <img :src="payBgImg" alt="">
             </div>
             <div class="pay-content-title">提交成功</div>
-            <div class="pay-content-price">
-                提交申请 => 等待审核 => 成功入驻
+            <div class="lication-process">
+                <div class="lication-process-img">
+                    <img :src="processIcon" alt="">
+                </div>
             </div>
             <div class="pay-content-price">
                 {{data.content}}
             </div>
             <div class="lication-tips">
-                <p>申请进度查询：</p>
-                <p>{{data.phone}}</p>
+                <p>申请进度查询：{{data.phone}}</p>
             </div>
             <!--确定按钮-->
             <div class="lication-btn">
@@ -34,6 +35,7 @@ export default {
             border:true,
             leftArrow:true,
             payBgImg:require("@/assets/images/paySuccess_bg.png"),
+            processIcon:require("@/assets/images/process_icon.png"),
             payTxt:'',//订单支付结果
             price:0,
             data:{},//内容

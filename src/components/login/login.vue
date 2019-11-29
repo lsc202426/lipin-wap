@@ -6,7 +6,7 @@
                     <p>欢迎来到</p>
                     <p>网聚礼品</p>
                 </div>
-                <div class="lication-settle" @click.stop="goLicationSettle">申请成为供应商</div>
+                <div class="lication-settle" @click.stop="goLicationSettle"></div>
             </div>
             <div class="login-content-box">
                 <div class="login-form f-bgf">
@@ -120,7 +120,7 @@ export default {
         //前往申请成为供应商页面
         goLicationSettle(){
             this.$router.push({
-                path:'licationSettle'
+                path:'licationGain'
             })
         }
     },

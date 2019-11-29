@@ -35,15 +35,12 @@
         }
         .lication-settle{
             position: absolute;
-            background:linear-gradient(223deg, rgba(254, 164, 49, 1) 0%, rgba(254, 197, 54, 1) 100%);
-            height: .8rem;
-            line-height: .8rem;
-            border-radius: .8rem;
-            color:#fff;
-            padding:0 .6rem 0 .3rem;
-            font-size: 0.3rem;
-            right: -.4rem;
-            top:1.3rem;
+            top:0.2rem;
+            right: 0.24rem;
+            background:url('assets/images/gonghuoshang@2x.png') center center no-repeat;
+            background-size: 100% 100%;
+            height: 0.82rem;
+            width:3.16rem;
         }
     }
     &-form{
@@ -122,11 +119,125 @@
     }
     .pay-content-price{
         padding:0 .8rem;
-        margin-bottom: .3rem;
+        margin-bottom: .28rem;
+        font-size: 0.26rem;
+        color:#666;
     }
     .lication-tips{
         font-size: .26rem;
         color:#666;
         line-height: .42rem;
+    }
+    .paySuccess-content{
+        padding-top:0.92rem;
+        .pay-content-bg{
+            margin-bottom: 0.56rem;
+        }
+        .pay-content-title{
+            font-size: 0.36rem;
+            margin-bottom: 0.38rem;
+        }
+        .lication-process{
+            img{
+                width:100%;
+            }
+            &-img{
+                padding:0 0.82rem;
+                margin-bottom: 0.96rem;
+            }
+        }
+    }
+}
+/*入驻供货商*/
+.licationGain{
+    padding-top:1rem;
+    .gain-content{
+        padding:0.34rem;
+        &-box{
+            .banner{
+                width:100%;
+                margin-bottom: 0.66rem;
+            }
+            .gain-item{
+                padding-bottom: 0.6rem;
+                .title{
+                    margin-bottom:0.2rem;
+                    color:#F38219;
+                    font-size: 0.44rem;
+                    padding-left:0.34rem;
+                    position: relative;
+                    &::before{
+                        content: '';
+                        display: inline-block;
+                        width:0.12rem;
+                        height: 0.12rem;
+                        background-color:#F38219;
+                        border-radius: 50%;
+                        position: absolute;
+                        left:0;
+                        top:50%;
+                        margin-top:-0.06rem;
+                    }
+                }
+                .text{
+                    color:#666;
+                    font-size: 0.28rem;
+                    line-height: 0.4rem;
+                }
+            }
+            .gain-tarm{
+                padding:0.74rem 0;
+                .title{
+                    @include df;
+                    @include df-ai;
+                    @include df-jc;
+                    margin-bottom:0.34rem;
+                    color:#F38219;
+                    font-size: 0.44rem;
+                    //line-height: 0.66rem;
+                    text-align: center;
+                    &::before{
+                        content: '';
+                        display: inline-block;
+                        width:0.12rem;
+                        height: 0.12rem;
+                        background-color:#F38219;
+                        border-radius: 50%;
+                        margin-right:0.24rem;
+                    }
+                    &::after{
+                        content: '';
+                        display: inline-block;
+                        width:0.12rem;
+                        height: 0.12rem;
+                        background-color:#F38219;
+                        border-radius: 50%;
+                        margin-left:0.24rem;
+                    }
+                }
+                .text{
+                    color:#333;
+                    font-size: 0.3rem;
+                    line-height: 0.6rem;
+                }
+            }
+            .gain-contact{
+                font-size: 0.24rem;
+                color:#999;
+                margin-top:0.2rem;
+            }
+        }
+        .gain-tips{
+            @include df;
+            font-size: 0.26rem;
+            color:#999;
+            margin-bottom: 0.3rem;
+            .icon-checkbox{
+                margin-right: 0.18rem;
+            }
+        }
+        .lication-btn{
+            padding:0.8rem 0 0.46rem;
+        }
     }
 }
