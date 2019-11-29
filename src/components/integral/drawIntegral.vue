@@ -9,10 +9,10 @@
                 <input class="field-input field-input-r" v-model.trim="name" @blur.prevent="checkIntegral" type="text" placeholder="请填写点商标名称">
                 <div class="field-tail">.商标</div>
             </div>
-            <div v-if="isCheckInt" class="check-integral f-bgf">
+            <!-- <div v-if="isCheckInt" class="check-integral f-bgf">
                 <span class="check-integral-img" @click="closeCheckTips"></span>
                 <span>{{msgTxt}}</span>
-            </div>
+            </div> -->
             <div class="draw-tips">请填写注册点商标预留的经办人手机</div>
             <div class="field-item f-bgf f-bdb">
                 <div class="field-tip">经办人手机：</div>
