@@ -6,7 +6,7 @@
         <div class="draw-content containerView-main">
             <div class="field-item f-bgf f-mgb">
                 <div class="field-tip">点商标名称：</div>
-                <input class="field-input" v-model.trim="name" @blur.prevent="checkIntegral" type="text" placeholder="请填写点商标名称">
+                <input class="field-input field-input-r" v-model.trim="name" @blur.prevent="checkIntegral" type="text" placeholder="请填写点商标名称">
                 <div class="field-tail">.商标</div>
             </div>
             <div v-if="isCheckInt" class="check-integral f-bgf">
@@ -136,6 +136,7 @@ export default {
                     return;
                 }
                 this.$axios.post(`/site/sendSms?token=${sessionStorage.token}`,{
+                    domain_name:this.name,
                     mobile_phone:this.phone,
                     type:2
                 }).then((res)=>{

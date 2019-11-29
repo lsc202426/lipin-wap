@@ -38,6 +38,9 @@
             <div class="addSite-btn">
                 <div class="big-btn" @click="onSubmit">确定</div>
             </div>
+            <div class="addSite-tips">
+                温馨提示：以下地区暂时不支持配送：（海外、港澳台、西藏、青海、内蒙古、新疆、宁夏、甘肃、辽宁、黑龙江、吉林）
+            </div>
         </div>
         <!--地址弹出层-->
         <van-popup v-model="show" position="bottom">

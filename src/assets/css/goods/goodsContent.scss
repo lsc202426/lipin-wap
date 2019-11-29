@@ -38,6 +38,13 @@
 .goods-page{
     position: relative;
     .van-tabs{
+        // .van-sticky{
+        //     position: fixed;
+        //     top: 0;
+        //     right: 0;
+        //     left: 0;
+        //     z-index: 99;
+        // }
         .van-sticky--fixed{
             .van-tabs__wrap{
                 background:#fff;
@@ -84,7 +91,6 @@
         .van-tabs__content{
             // height: 7.78rem;
             margin-top:-1rem;
-            .van-tab__pane,
             .goods-banner,
             .van-swipe {
                 min-height: 5rem;
@@ -136,6 +142,9 @@
         text-align: left;
         margin-bottom: 1rem;
         overflow: hidden;
+        .goods-detail{
+            padding-top:0.2rem;
+        }
         .content-box{
             margin-bottom: 0.2rem;
             padding:0 0.36rem;

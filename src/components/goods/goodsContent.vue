@@ -1,53 +1,37 @@
 <template>
     <div class="goodsContent">
         <div class="goods-page containerView-main" id="goods-page">
-            <van-tabs @click="changeList" sticky>
+            <van-tabs @click="changeList" v-model="active" sticky>
                 <div class="goods-back" :class="{'goods-back-fixed':isScroll}" @click.stop="goBack"></div>
-                <van-tab title="商品">
-                    <!--轮播图内容-->
-                    <div class="goods-banner">
-                        <van-swipe :autoplay="3000">
-                            <van-swipe-item v-for="(image, index) in data.carousel" :key="index">
-                                <img v-lazy="$config.api.public_domain+image" />
-                            </van-swipe-item>
-                        </van-swipe>
-                    </div>
-                    <!--内容部分-->
-                    <div class="goods-content">
-                        <div class="content-box f-bgf">
-                            <div class="content-title">{{data.title}}</div>
-                            <div class="content-text">{{data.describe}}</div>
-                            <div class="content-price price">
-                                <span class="sign">￥</span>
-                                <span>{{data.price}}</span>
-                            </div>
+                <van-tab :title="item" v-for="(item,index) in navTitle" :key="index">
+                    <div>
+                        <!--轮播图内容-->
+                        <div class="goods-banner">
+                            <van-swipe :autoplay="3000">
+                                <van-swipe-item v-for="(image, index) in data.carousel" :key="index">
+                                    <img v-lazy="$config.api.public_domain+image" />
+                                </van-swipe-item>
+                            </van-swipe>
                         </div>
-                        <div class="goods-parameter">
-                            <div class="parameter-text f-bgf" @click="showLayer" v-if="spec.value&&spec.value.length>0">
-                                <span class="change-tip">选择参数</span>
-                                <div class="parameter-con">
-                                    <span v-show="spec_txt">{{spec_txt}} x {{num}}</span>
+                        <!--内容部分-->
+                        <div class="goods-content">
+                            <div class="content-box f-bgf">
+                                <div class="content-title">{{data.title}}</div>
+                                <div class="content-text">{{data.describe}}</div>
+                                <div class="content-price price">
+                                    <span class="sign">￥</span>
+                                    <span>{{data.price}}</span>
                                 </div>
                             </div>
-                            <div class="parameter-box parameter-box-n f-bgf" v-else>
-                                <div class="buy-box f-bgf">
-                                    <div>购买数量</div>
-                                    <div class="buy-num">
-                                        <span class="reduce" @click="reduceNum"></span>
-                                        <input type="number" v-model.number="num">
-                                        <span class="add" @click="addNum"></span>
+                            <div class="goods-parameter">
+                                <div class="parameter-text f-bgf" @click="showLayer" v-if="spec.value&&spec.value.length>0">
+                                    <span class="change-tip">选择参数</span>
+                                    <div class="parameter-con">
+                                        <span v-show="spec_txt">{{spec_txt}} x {{num}}</span>
                                     </div>
                                 </div>
-                            </div>
-                            <van-action-sheet v-model="show" title=" ">
-                                <div class="parameter-box">
-                                    <div class="parameter-item f-bdb">
-                                        <div class="parameter-title">{{spec.sp_name}}</div>
-                                        <div class="parameter-detail">
-                                            <span @click="changePar(item,index,)" :class="{'active':spec.default==index}" v-for="(item,index) in spec.value" :key="item.id">{{item.sp_value_name}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="buy-box f-bdb">
+                                <div class="parameter-box parameter-box-n f-bgf" v-else>
+                                    <div class="buy-box f-bgf">
                                         <div>购买数量</div>
                                         <div class="buy-num">
                                             <span class="reduce" @click="reduceNum"></span>
@@ -55,19 +39,35 @@
                                             <span class="add" @click="addNum"></span>
                                         </div>
                                     </div>
-                                    <div class="goods-btn-box">
-                                        <div @click.stop="define" v-if="showType==0" class="f-bgc1">确定</div>
-                                        <div @click.stop="addCart" v-if="showType==1" class="f-bgc2">{{addCartTxt}}</div>
-                                        <div @click.stop="orderNow" v-if="showType==2" class="f-bgc1">{{orderNowTxt}}</div>
-                                    </div>
                                 </div>
-                            </van-action-sheet>
+                                <div class="goods-detail" id="goodsDetail">
+                                    <div v-html="data.memo"></div>
+                                </div>
+                                <van-action-sheet v-model="show" title=" ">
+                                    <div class="parameter-box">
+                                        <div class="parameter-item f-bdb">
+                                            <div class="parameter-title">{{spec.sp_name}}</div>
+                                            <div class="parameter-detail">
+                                                <span @click="changePar(item,index,)" :class="{'active':spec.default==index}" v-for="(item,index) in spec.value" :key="item.id">{{item.sp_value_name}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="buy-box f-bdb">
+                                            <div>购买数量</div>
+                                            <div class="buy-num">
+                                                <span class="reduce" @click="reduceNum"></span>
+                                                <input type="number" v-model.number="num">
+                                                <span class="add" @click="addNum"></span>
+                                            </div>
+                                        </div>
+                                        <div class="goods-btn-box">
+                                            <div @click.stop="define" v-if="showType==0" class="f-bgc1">确定</div>
+                                            <div @click.stop="addCart" v-if="showType==1" class="f-bgc2">{{addCartTxt}}</div>
+                                            <div @click.stop="orderNow" v-if="showType==2" class="f-bgc1">{{orderNowTxt}}</div>
+                                        </div>
+                                    </div>
+                                </van-action-sheet>
+                            </div>
                         </div>
-                    </div>
-                </van-tab>
-                <van-tab title="详情">
-                    <div class="goods-detail">
-                        <div v-html="data.memo"></div>
                     </div>
                 </van-tab>
             </van-tabs>
@@ -98,6 +98,11 @@ export default {
             addCartTxt:'加入购物车',
             orderNowTxt:'立即购买',
             isScroll:false,//是否滚动页面
+            navTitle:[
+                '商品','详情'
+            ],
+            active:0,
+            conTop:0,//详情距离顶部距离
         }
     },
     watch: {
@@ -130,6 +135,14 @@ export default {
     },
     mounted(){
         window.addEventListener('scroll', this.getScroll,true);
+        this.$nextTick(()=>{
+            let detailConTop=document.getElementById('goodsDetail');
+            if(detailConTop){
+                this.conTop=detailConTop.offsetTop;
+                console.log(this.conTop);
+            }
+        })
+
     },
     beforeDestroy(){
         window.removeEventListener('scroll', this.getScroll);
@@ -180,7 +193,15 @@ export default {
         },
         //商品详情切换
         changeList(name,title){
-            //console.log(name,title);
+            this.active=name;
+            let obj=document.getElementById('goods-page');
+            //let vanTab=document.getElementsByClassName('van-tabs__content');
+            if(obj&&this.active==1){
+                //vanTab[0].style.transform=`translate3d(0, -${this.conTop}px, 0)`;
+                obj.scrollTop=this.conTop;
+            }else{
+                obj.scrollTop=0;
+            }
         },
         //弹出参数选择框
         showLayer(){
@@ -388,6 +409,12 @@ export default {
                 this.isScroll=true;
             }else{
                 this.isScroll=false;
+            }
+            //获取元素距离顶部高度
+            if(top>=this.conTop){
+                this.active=1;
+            }else{
+                this.active=0;
             }
         },
         //前往购物车

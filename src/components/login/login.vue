@@ -4,7 +4,7 @@
             <div class="login-top">
                 <div class="login-top-msg">
                     <p>欢迎来到</p>
-                    <p>网聚礼品.商标</p>
+                    <p>网聚礼品</p>
                 </div>
                 <div class="lication-settle" @click.stop="goLicationSettle">申请成为供应商</div>
             </div>

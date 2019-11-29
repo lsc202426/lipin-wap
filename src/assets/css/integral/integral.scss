@@ -1,6 +1,31 @@
 /*积分页面*/
 .integral{
-
+    .van-popup{
+        width:70%;
+        padding:0.3rem;
+        border-radius: 0.12rem;
+        .popup-close{
+            position: absolute;
+            background:url('assets/images/icon_guanbi@2x.png') center center no-repeat;
+            background-size: 0.34rem 0.34rem;
+            width:0.4rem;
+            height: 0.4rem;
+            border-radius: 50%;
+            top: 0.1rem;
+            right: 0.1rem;
+        }
+        .title{
+            color:#333;
+            padding-bottom: 0.2rem;
+            font-size: 0.34rem;
+            font-weight: 500;
+        }
+        p{
+            word-break:break-all;
+            color:#666;
+            padding-bottom: 0.1rem;
+        }
+    }
 }
 .integral-content{
 
