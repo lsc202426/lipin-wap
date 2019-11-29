@@ -46,6 +46,9 @@ export default {
             this.init();//初始化
         }, 50);
     },
+    destroyed () {
+        localStorage.clear();
+    },
     mounted() {
         //禁用浏览器返回
         (function(){
