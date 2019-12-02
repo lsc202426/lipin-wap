@@ -256,7 +256,7 @@ export default {
                     //     path:'/shopCart'
                     // })
                 }else if(sessionStorage.beforPath=='goodsContent'){
-                    window.location.href =`${this.$config.api.public_chinese_url}/orderDetail?id=${sessionStorage.goodsId}&token=${sessionStorage.token}`;
+                    window.location.href =`${this.$config.api.public_chinese_url}/goodsContent?id=${sessionStorage.goodsId}&token=${sessionStorage.token}`;
                     // this.$router.push({
                     //     path:'/goodsContent',
                     //     query:{
