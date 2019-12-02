@@ -163,7 +163,9 @@ export default {
         init(){
             //判断来源
             if(localStorage.orderId){//如果是支付返回回来
-                window.location.href =`${this.$config.api.public_chinese_url}/paySuccess?id=${localStorage.orderId}&token=${localStorage.token}`;
+                let id=localStorage.orderId;
+                localStorage.removeItem('orderId');
+                window.location.href =`${this.$config.api.public_chinese_url}/paySuccess?id=${id}&token=${localStorage.token}`;
                 // this.$router.push({
                 //     path:'/paySuccess',
                 //     query:{
@@ -376,6 +378,7 @@ export default {
                     }
                     setTimeout(() => {
                         window.location.href =`${this.$config.api.public_chinese_url}/paySuccess?id=${data.transaction_id}&token=${sessionStorage.token}`;
+                        localStorage.removeItem('orderId');
                         // this.$router.push({
                         //     path:'/paySuccess',
                         //     query:{
