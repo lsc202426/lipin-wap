@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <no-data v-else text="您还没有添加添加">
+                <no-data v-else text="您还没有添加商品">
                     <div class="at-add" @click="atAdd">立即添加</div>
                 </no-data>
             </van-list>
