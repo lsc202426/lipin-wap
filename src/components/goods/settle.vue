@@ -27,7 +27,7 @@
                     <div class="goods-item f-bdb" v-for="(item,index) in goodsList" :key="index">
                         <div class="goods-item-con">
                             <div class="goods-img">
-                                <img v-lazy="$config.api.public_domain+item.cover" alt="">
+                                <img v-lazy="item.cover" alt="">
                             </div>
                             <div class="goods-txt">
                                 <div class="goods-title">

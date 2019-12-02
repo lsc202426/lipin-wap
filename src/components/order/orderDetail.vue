@@ -34,7 +34,7 @@
                 <div class="detail-goods-title">商品信息</div>
                 <div class="detail-goods-item" v-for="(item,index) in orderInfo.order_product" :key="index">
                     <div class="item-img-box">
-                        <img v-lazy="$config.api.public_domain+item.cover" alt="">
+                        <img v-lazy="item.cover" alt="">
                     </div>
                     <div class="item-con-box">
                         <div class="item-con-title">

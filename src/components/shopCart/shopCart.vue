@@ -35,7 +35,6 @@
                                     <div class="item-con-img">
                                         <img
                                             v-lazy="
-                                                $config.api.public_domain +
                                                     list.cover
                                             "
                                             alt

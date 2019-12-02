@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="order-item-pro" v-for="(order,index) in list.order_product" :key="index">
                                     <div class="order-img">
-                                        <img v-lazy="$config.api.public_domain+order.cover" alt="">
+                                        <img v-lazy="order.cover" alt="">
                                     </div>
                                     <div class="order-txt">
                                         <div class="order-title">

@@ -43,7 +43,7 @@
                         <div class="list-box">
                             <div @click="goDetail(item)" class="list-item f-bgf" v-for="(item,index) in listItem" :key="index">
                                 <div class="item-img">
-                                    <img v-lazy="$config.api.public_domain+item.cover" alt="">
+                                    <img v-lazy="item.cover" alt="">
                                 </div>
                                 <div class="item-text">{{item.title}}</div>
                                 <div class="item-price">

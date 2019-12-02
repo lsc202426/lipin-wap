@@ -33,7 +33,7 @@
                                 @click="goUrl(image)"
                             >
                                 <lazy-component>
-                                    <img v-lazy="$config.api.public_domain+image.image" />
+                                    <img v-lazy="image.image" />
                                 </lazy-component>
                             </van-swipe-item>
                         </van-swipe>
@@ -46,7 +46,7 @@
                 <div class="pro-type-list">
                     <div class="pro-type-item" @click.stop="onSubmit(item.id)" v-for="(item,index) in typeList" :key="index">
                         <div class="item-img">
-                            <img v-lazy="$config.api.public_domain + item.logo" alt="">
+                            <img v-lazy="item.logo" alt="">
                         </div>
                         <div class="item-text">{{item.title}}</div>
                     </div>
@@ -56,12 +56,12 @@
                     <div class="pro-block-item f-bgf" v-for="(list,index) in proBlock" :key="index">
                         <div class="title" v-if="list.name">{{list.name}}</div>
                         <div class="item-banner" @click.stop="goUrl(list)">
-                            <img v-lazy="$config.api.public_domain +list.image" alt="">
+                            <img v-lazy="list.image" alt="">
                         </div>
                         <div class="item-pro-list">
                             <div class="pro-item-inblock" :class="{'f-bdt':index>2}" @click.stop="goDetail(item)" v-for="(item,index) in list.goods" :key="index">
                                 <div class="inblock-img">
-                                    <img v-lazy="$config.api.public_domain +item.cover" alt="">
+                                    <img v-lazy="item.cover" alt="">
                                 </div>
                                 <div class="inblock-title">
                                     {{item.title}}
@@ -99,8 +99,6 @@
                                         <div class="item-img">
                                             <img
                                                 v-lazy="
-                                                    $config.api
-                                                        .public_domain +
                                                         item.cover
                                                 "
                                                 alt

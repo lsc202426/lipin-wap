@@ -9,7 +9,7 @@
                         <div class="goods-banner">
                             <van-swipe :autoplay="3000">
                                 <van-swipe-item v-for="(image, index) in data.carousel" :key="index">
-                                    <img v-lazy="$config.api.public_domain+image" />
+                                    <img v-lazy="image" />
                                 </van-swipe-item>
                             </van-swipe>
                         </div>

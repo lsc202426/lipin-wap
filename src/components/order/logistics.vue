@@ -6,7 +6,7 @@
             <!--订单信息-->
             <div class="logistics-order f-mgb f-bgf">
                 <div class="logistics-order-img">
-                    <img v-lazy="$config.api.public_domain+order.cover" alt="">
+                    <img v-lazy="order.cover" alt="">
                     <span>共{{order.goods_num}}件商品</span>
                 </div>
                 <div class="logistics-order-txt">

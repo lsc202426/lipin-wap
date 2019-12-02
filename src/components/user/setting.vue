@@ -14,7 +14,7 @@
                 <div class="field-tip">头像</div>
                 <div class="field-tail">
                     <div class="field-tail-txt user-head" v-if="images==''"></div>
-                    <div class="field-tail-txt user-head" :style="{ backgroundImage: 'url(' + $config.api.public_domain + images + ')' }" v-else></div>
+                    <div class="field-tail-txt user-head" :style="{ backgroundImage: 'url(' + images + ')' }" v-else></div>
                     <!-- <div class="icon-r"></div> -->
                 </div>
             </div>

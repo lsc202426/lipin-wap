@@ -18,7 +18,7 @@
                     <div @click.stop="goDetail(list.goods_id)" class="collect-item f-bdb" v-for="(list,index) in lists" :key="index">
                         <div @click.stop="isCheck(list)" class="icon-checkbox" :class="{'icon-checkbox-active':list.check}" v-show="show"></div>
                         <div class="collect-item-img">
-                            <img v-lazy="$config.api.public_domain + list.cover" alt="">
+                            <img v-lazy="list.cover" alt="">
                         </div>
                         <div class="collect-item-txt">
                             <div class="title">{{list.title}}</div>
