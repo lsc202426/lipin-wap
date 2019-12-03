@@ -299,13 +299,13 @@ button {
 /*复选框按钮选中*/
 .icon-checkbox{
     background:url('assets/images/icon_weizxuanzhong@2x.png') center top no-repeat;
-    background-size:contain;
+    background-size:100% 100%;
     width:0.36rem;
     height: 0.36rem;
 }
 .icon-checkbox-active{
     background:url('assets/images/icon_xuanzhong@2x.png') center top no-repeat;
-    background-size:contain;
+    background-size:100% 100%;
 }
 /*v-cloak防止页面闪烁*/
 [v-cloak] {

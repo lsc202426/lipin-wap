@@ -1,7 +1,7 @@
 <template>
     <div class="login forgetPass">
         <div class="login-content containerView-main">
-            <div class="login-top" @click.stop="goLicationSettle">
+            <div class="login-top">
                 <!-- <div class="login-top-msg">
                     <p>欢迎来到</p>
                     <p>网聚礼品.商标</p>
