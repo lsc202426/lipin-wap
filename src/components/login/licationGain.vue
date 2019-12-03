@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="gain-contact">
-                    <p>如需了解更多请联系：020-62944090，张小姐</p>
+                    <p>如需了解更多请联系：13711681000，张小姐</p>
                     <p>邮箱：grace.zhang@tdnnic.org</p>
                 </div>
                 <!--确定按钮-->
