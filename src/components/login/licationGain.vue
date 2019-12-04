@@ -1,10 +1,10 @@
 <template>
-    <div class="licationGain integral f-bgf">
+    <div class="licationGain integral">
         <!--头部-->
         <nav-bar title="入驻供货商" url="/login" :border=border :leftArrow=leftArrow></nav-bar>
         <!--内容-->
         <div class="gain-content containerView-main">
-            <div class="gain-content-box">
+            <div class="gain-content-box f-bgf">
                 <img class="banner" :src="banner" alt="">
                 <div class="gain-item">
                     <div class="title">对接刚需群体</div>
@@ -35,14 +35,34 @@
                     </div>
                 </div>
                 <div class="gain-contact">
-                    <p>如需了解更多请联系：13711681000，张小姐</p>
+                    <p>如需了解更多请联系</p>
+                    <p>手机：13711681000，张小姐</p>
                     <p>邮箱：grace.zhang@tdnnic.org</p>
                 </div>
-                <!--确定按钮-->
-                <div class="lication-btn">
-                    <div class="gain-tips"><div @click.stop="changeCheck" class="icon-checkbox" :class="{'icon-checkbox-active':isCheck}"></div>我已阅读<span @click.stop="showPopup" class="price">《供货商须知》</span></div>
-                    <div class="big-btn" @click="onSubmit">立即申请</div>
+            </div>
+            <div class="lication-code">
+                <div class="lication-code-title">
+                    公司官网：<span class="price">网聚.商标</span>
                 </div>
+                <div class="lication-code-list">
+                    <div class="lication-code-item">
+                        <div class="title">点商标官方网站</div>
+                        <div class="item-img f-bgf">
+                            <img v-lazy="webImg" alt="">
+                        </div>
+                    </div>
+                    <div class="lication-code-item">
+                        <div class="title">官方微信公众号</div>
+                        <div class="item-img f-bgf">
+                            <img v-lazy="codeImg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--确定按钮-->
+            <div class="lication-btn">
+                <div class="gain-tips"><div @click.stop="changeCheck" class="icon-checkbox" :class="{'icon-checkbox-active':isCheck}"></div>我已阅读<span @click.stop="showPopup" class="price">《供货商须知》</span></div>
+                <div class="big-btn" @click="onSubmit">立即申请</div>
             </div>
         </div>
         <van-popup v-model="show" position="bottom" close-icon-position>
@@ -62,7 +82,7 @@
                 <p>1、平台入驻不收取任何费用，但供货商在该平台所提供的商品或服务价格需低于或等于市场上的售价，若出现高于市场上的折扣价，平台方有权取消该供货商的进驻或拒绝支付相关的购货款项；</p>
                 <p>2、供货商所提供商品/服务的市场售价或与结算价发生变动、可供产品/服务数量或品质或型号发生变化，应提前5个工作日以书面或邮件的形式通知，但供货商需保证调价/调货之前发出的釆购单依然有效，并按之前约定采购价结算；</p>
                 <p>3、供货商收到乙方采购需求,需在二个工作日内，依据平台釆购清单上的产品及数量，收货人名称及送货地址，向指定收货人及地址发货，相关物流费用由供货商承担；</p>
-                <p>4、收货人收到产品/服务并确认收货后，订单采购款于次月的5日统一结算，供货商收到货款后应开具发票。</p>
+                <p>4、收货人收到产品/服务并确认收货后，订单采购款于次月的10日前统一结算，供货商收到货款后应开具发票。</p>
             </div>
             <div>
                 <p class="title">退/换货的规则</p>
@@ -96,6 +116,8 @@ export default {
             leftArrow:true,
             isCheck:false,
             banner:require('@/assets/images/banner_icon.png'),
+            codeImg:require('@/assets/images/qr_weixin.png'),
+            webImg:require('@/assets/images/qr_website.png'),
             show:false,
         }
     },

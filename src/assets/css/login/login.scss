@@ -152,8 +152,8 @@
 .licationGain{
     padding-top:1rem;
     .gain-content{
-        padding:0.34rem;
         &-box{
+            padding:0.34rem;
             .banner{
                 width:100%;
                 margin-bottom: 0.66rem;
@@ -221,11 +221,6 @@
                     line-height: 0.6rem;
                 }
             }
-            .gain-contact{
-                font-size: 0.24rem;
-                color:#999;
-                margin-top:0.2rem;
-            }
         }
         .gain-tips{
             @include df;
@@ -238,7 +233,60 @@
             }
         }
         .lication-btn{
-            padding:0.8rem 0 0.46rem;
+            padding:0.8rem 0.3rem 0.46rem;
+        }
+        .gain-contact {
+            font-size: 0.24rem;
+            color: #999;
+            margin-top: 0.4rem;
+            margin-bottom: 0.1rem;
+        }
+        .lication-code{
+            &-title{
+                text-align: center;
+                font-size: 0.26rem;
+                color:#999;
+                margin-top: 0.65rem;
+                .price{
+                    font-size: 0.4rem;
+                    line-height: 0.6rem;
+                    border-bottom: 0.02rem solid #FF6A00;
+                    padding-bottom: 0.02rem;
+                }
+            }
+            &-list{
+                @include df;
+                @include df-jc-se;
+                margin-top:0.6rem;
+            }
+            &-item{
+                @include df;
+                @include df-jc;
+                @include fd-c;
+                box-sizing: border-box;
+                width:2.86rem;
+                height: 3.4rem;
+                border-radius: 0.12rem;
+                background-color:#EBEBEB;
+                padding:0.16rem;
+                .title{
+                    color:#333;
+                    font-size: 0.24rem;
+                    line-height: 0.34rem;
+                    margin-top:0.04rem;
+                    text-align: center;
+                }
+                .item-img{
+                    box-sizing: border-box;
+                    margin-top:0.14rem;
+                    padding:0.16rem;
+                    img {
+                        width:100%;
+                        height: 100%;
+                    }
+                }
+                
+            }
         }
     }
 }

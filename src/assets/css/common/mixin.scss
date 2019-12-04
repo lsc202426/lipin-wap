@@ -40,6 +40,12 @@
     justify-content: space-between;
 }
 
+@mixin df-jc-se {
+    -webkit-justify-content: space-evenly;
+    -moz-justify-content: space-evenly;
+    justify-content: space-evenly;
+}
+
 @mixin df-jc-fs {
     -webkit-justify-content: flex-start;
     -moz-justify-content: flex-start;
