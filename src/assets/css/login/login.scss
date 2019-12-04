@@ -257,7 +257,7 @@
             }
             &-list{
                 @include df;
-                @include df-jc-se;
+                @include df-jc;
                 margin-top:0.6rem;
             }
             &-item{
@@ -270,6 +270,9 @@
                 border-radius: 0.12rem;
                 background-color:#EBEBEB;
                 padding:0.16rem;
+                &:first-child {
+                    margin-right: 0.6rem;
+                }
                 .title{
                     color:#333;
                     font-size: 0.24rem;
