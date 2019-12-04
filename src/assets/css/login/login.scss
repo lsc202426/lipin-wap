@@ -227,13 +227,13 @@
             @include df-jc;
             font-size: 0.26rem;
             color:#999;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.48rem;
             .icon-checkbox{
                 margin-right: 0.18rem;
             }
         }
         .lication-btn{
-            padding:0.8rem 0.3rem 0.46rem;
+            padding:0.56rem 0.3rem 0.46rem;
         }
         .gain-contact {
             font-size: 0.28rem;
@@ -243,11 +243,14 @@
             line-height: 0.44rem;
         }
         .lication-code{
+            margin:0 0.34rem;
+            padding:0.6rem 0;
+            border-top:0.02rem solid #E7E7E7;
+            border-bottom: 0.02rem solid #E7E7E7;
             &-title{
                 text-align: center;
                 font-size: 0.26rem;
                 color:#999;
-                margin-top: 0.65rem;
                 .price{
                     border-bottom: 0.02rem solid #FF6A00;
                     padding:0 0.08rem 0.02rem 0.08rem;
@@ -258,7 +261,7 @@
             &-list{
                 @include df;
                 @include df-jc;
-                margin-top:0.6rem;
+                margin-top:0.36rem;
             }
             &-item{
                 @include df;

@@ -4,7 +4,7 @@
         <nav-bar title="入驻供货商" url="/login" :border=border :leftArrow=leftArrow></nav-bar>
         <!--内容-->
         <div class="gain-content containerView-main">
-            <div class="gain-content-box f-bdb">
+            <div class="gain-content-box">
                 <img class="banner" :src="banner" alt="">
                 <div class="gain-item">
                     <div class="title">对接刚需群体</div>
