@@ -249,10 +249,10 @@
                 color:#999;
                 margin-top: 0.65rem;
                 .price{
-                    font-size: 0.4rem;
-                    line-height: 0.6rem;
                     border-bottom: 0.02rem solid #FF6A00;
-                    padding-bottom: 0.02rem;
+                    padding:0 0.08rem 0.02rem 0.08rem;
+                    display: inline-block;
+                    margin-left:0.12rem;
                 }
             }
             &-list{
@@ -262,28 +262,28 @@
             }
             &-item{
                 @include df;
-                @include df-jc;
                 @include fd-c;
                 box-sizing: border-box;
-                width:2.86rem;
-                height: 3.4rem;
+                width:1.66rem;
+                height: 1.94rem;
                 border-radius: 0.12rem;
                 background-color:#EBEBEB;
-                padding:0.16rem;
                 &:first-child {
-                    margin-right: 0.6rem;
+                    margin-right: 0.72rem;
                 }
                 .title{
                     color:#333;
-                    font-size: 0.24rem;
-                    line-height: 0.34rem;
-                    margin-top:0.04rem;
+                    font-size: 0.2rem;
+                    line-height: 0.28rem;
+                    margin-top:0.08rem;
                     text-align: center;
                 }
                 .item-img{
                     box-sizing: border-box;
-                    margin-top:0.14rem;
-                    padding:0.16rem;
+                    padding:0.1rem;
+                    width:1.42rem;
+                    height: 1.42rem;
+                    margin:0.04rem 0.12rem 0 0.12rem;
                     img {
                         width:100%;
                         height: 100%;

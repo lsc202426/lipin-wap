@@ -1,10 +1,10 @@
 <template>
-    <div class="licationGain integral">
+    <div class="licationGain integral f-bgf">
         <!--头部-->
         <nav-bar title="入驻供货商" url="/login" :border=border :leftArrow=leftArrow></nav-bar>
         <!--内容-->
         <div class="gain-content containerView-main">
-            <div class="gain-content-box f-bgf">
+            <div class="gain-content-box f-bdb">
                 <img class="banner" :src="banner" alt="">
                 <div class="gain-item">
                     <div class="title">对接刚需群体</div>
@@ -42,7 +42,7 @@
             </div>
             <div class="lication-code">
                 <div class="lication-code-title">
-                    公司官网：<span class="price" @click.stop="goDsb">网聚.商标</span>
+                    公司官网：<span class="price" @click.stop="goDsb">http://网聚.商标</span>
                 </div>
                 <div class="lication-code-list">
                     <div class="lication-code-item">
