@@ -42,7 +42,7 @@
             </div>
             <div class="lication-code">
                 <div class="lication-code-title">
-                    公司官网：<span class="price">网聚.商标</span>
+                    公司官网：<span class="price" @click.stop="goDsb">网聚.商标</span>
                 </div>
                 <div class="lication-code-list">
                     <div class="lication-code-item">
@@ -141,6 +141,10 @@ export default {
         },
         closePopup(){
             this.show=false;
+        },
+        //前往网聚.商标
+        goDsb(){
+            window.location.href="http://网聚.商标";
         }
     },
 }
