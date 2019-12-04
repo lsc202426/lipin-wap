@@ -36,7 +36,7 @@
                 </div>
                 <div class="gain-contact">
                     <p>如需了解更多请联系</p>
-                    <p>手机：13711681000，张小姐</p>
+                    <p>手机：13711681000 张小姐</p>
                     <p>邮箱：grace.zhang@tdnnic.org</p>
                 </div>
             </div>
