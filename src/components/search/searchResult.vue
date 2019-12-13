@@ -57,7 +57,7 @@
                         </van-divider>
                     </van-list>
                 </div>
-                <div v-else>
+                <div v-else class="order">
                     <no-data></no-data>
                 </div>
             </div>

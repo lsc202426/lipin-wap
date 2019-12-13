@@ -9,7 +9,7 @@
             </div>
             <div class="login-content-box">
                 <div class="login-form f-bgf">
-                    <div class="login-form-title">用户注册</div>
+                    <div class="login-form-title">会员注册</div>
                     <div class="login-form-item f-bdb">
                         <img class="icon-phone" v-lazy="iconPhone" alt="">
                         <input type="number" class="phone-input" v-model.trim="phone" placeholder="请输入手机号">
@@ -29,7 +29,7 @@
             </div>
             <div class="operation-box">
                 <span @click="forgetPass">忘记密码</span>
-                <span @click="login">用户登录</span>
+                <span @click="login">会员登录</span>
             </div>
         </div>
     </div>

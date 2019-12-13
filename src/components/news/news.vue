@@ -40,7 +40,9 @@
             </van-tab>
         </van-tabs>
         <!--暂无数据-->
-        <no-data v-if="lists.length<=0"></no-data>
+        <div class="order" v-if="lists.length<=0">
+            <no-data></no-data>
+        </div>
     </div>
 </template>
 <script>

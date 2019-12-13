@@ -129,6 +129,10 @@
                 background: url('assets/images/icon_daishouhuo@2x.png') center center no-repeat;
                 background-size: contain;
             }
+            .icon-bg4 {
+                background: url('assets/images/icon_daipingjia@2x.png') center center no-repeat;
+                background-size: contain;
+            }
             span{
                 font-size: 0.26rem;
                 line-height: 0.36rem;
@@ -165,6 +169,10 @@
                 background: url('assets/images/icon_lipinyugoumai@2x.png') center center no-repeat;
                 background-size: contain;
             }
+            .tab-item-bg4 {
+                background: url('assets/images/dizhiguanli@2x.png') center center no-repeat;
+                background-size: contain;
+            }
         }
         .arrow-right{
 
@@ -181,52 +189,66 @@
     }
 }
 .address-content{
-    
     .address-list{
         .address-item{
-            padding:0.34rem 0.6rem 0.34rem 0.28rem;
+            @include df;
+            @include df-ai;
+            padding:0.34rem 0.28rem 0.34rem 0.28rem;
             position: relative;
-            &::after {
-                content: '';
-                position: absolute;
-                right: 0;
-                top: 50%;
-                margin-top: -0.14rem;
-                background: url('assets/images/icon_xuanze@2x.png') center center no-repeat;
-                background-size: 0.16rem 0.28rem;
-                width:0.16rem;
-                height: 0.28rem;
-                right: 0.34rem;
-            }
-            &-txt{
-                @include df;
-                font-size: 0.3rem;
-                color:#333;
-                font-weight: 500;
-                div{
-                    margin-right: 0.3rem;
+            .msg-txt{
+                flex: 1;
+                .address-item-txt {
+                    @include df;
+                    font-size: 0.3rem;
+                    color: #333;
+                    font-weight: 500;
+
+                    div {
+                        margin-right: 0.3rem;
+                    }
+
+                    .mark {
+                        font-size: 0.24rem;
+                        font-weight: 400;
+                        color: #F38219;
+                        line-height: 0.36rem;
+                        height: 0.38rem;
+                        border: 0.02rem solid #F38219;
+                        border-radius: 0.04rem;
+                        text-align: center;
+                        padding: 0 0.16rem;
+                    }
                 }
-                .mark{
-                    font-size: 0.24rem;
-                    font-weight: 400;
-                    color:#F38219;
+
+                .address-item-ress {
+                    font-size: 0.26rem;
+                    color: #666;
                     line-height: 0.36rem;
-                    height: 0.38rem;
-                    border:0.02rem solid #F38219;
-                    border-radius: 0.04rem;
-                    text-align: center;
-                    padding:0 0.16rem;
+                    margin-top: 0.18rem;
                 }
             }
-            &-ress{
+            .edit-txt{
                 font-size: 0.26rem;
-                color:#666;
-                line-height: 0.36rem;
-                margin-top:0.18rem;
+                color:#999;
+                height: 0.46rem;
+                line-height: 0.46rem;
+                border-left: 0.02rem solid #DBDBDB;
+                padding:0 0.2rem 0 0.4rem;
             }
+            // &::after {
+            //     content: '';
+            //     position: absolute;
+            //     right: 0;
+            //     top: 50%;
+            //     margin-top: -0.14rem;
+            //     background: url('assets/images/icon_xuanze@2x.png') center center no-repeat;
+            //     background-size: 0.16rem 0.28rem;
+            //     width:0.16rem;
+            //     height: 0.28rem;
+            //     right: 0.34rem;
+            // }
         }
     }
-        
 }
 
 /*新增地址*/
@@ -273,10 +295,25 @@
             font-size: 0.26rem;
             color: #999;
         }
+        .delete-btn {
+            height: 1rem;
+            line-height: 1rem;
+            text-align: center;
+            font-size: 0.3rem;
+        }
     }
     .addSite-btn{
         padding:0 0.3rem;
         margin-top:0.78rem;
+    }
+    .collect-edit{
+        position: fixed;
+        color: #F38219;
+        padding: 0 0.26rem;
+        line-height: 1rem;
+        top: 0;
+        right: 0;
+        z-index: 3;
     }
 }
 
@@ -470,6 +507,314 @@
     }
     .modify-pass-list {
         padding-bottom: 0.62rem;
+    }
+}
+
+/*评价中心*/
+.evaluateContent{
+    padding-top:0.98rem;
+    .msg-list-eva{
+        padding:0.3rem;
+        .msg-list-item {
+            color:#333;
+            border-radius: 0.12rem;
+            padding:0.32rem 0.28rem;
+            overflow: hidden;
+            margin-bottom: 0.3rem;
+        }
+        .item-con {
+            @include df;
+            @include df-ai;
+            &-img{
+                @include df;
+                @include df-ai;
+                @include df-jc;
+                width:1.7rem;
+                height: 1.7rem;
+                border:0.02rem solid #D2D2D2;
+                img{
+                    max-width:100%;
+                    max-height: 100%;
+                }
+            }
+            &-txt{
+                @include df-as-fs;
+                flex: 1;
+                padding-left:0.34rem;
+                .title{
+                    font-size: 0.3rem;
+                    font-weight: 500;
+                    height: 0.64rem;
+                    line-height: 0.32rem;
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 2;
+                    margin-bottom: 0.3rem;
+                    margin-top:0.08rem;
+                }
+                .num{
+                    span{
+                        font-size: 0.26rem;
+                        padding-right: 0.08rem;
+                    }
+                    .van-rate{
+                        vertical-align: middle;
+                    }
+                }
+                .txt-btn{
+                    @include df;
+                    @include df-ai;
+                    @include df-jc;
+                    float:right;
+                    font-size: 0.26rem;
+                    width:1.44rem;
+                    height: 0.5rem;
+                    border:0.02rem solid #F38219;
+                    border-radius: 0.04rem;
+                    margin-top:0.14rem;
+                }
+            }
+        }
+        .item-text{
+            font-size: 0.3rem;
+            line-height: 0.34rem;
+            margin-top: 0.36rem;
+        }
+    }
+}
+
+/*发布评价*/
+.publishEvaluate{
+    .publish-bottom {
+        @include df;
+        @include df-ai;
+        @include df-jc-sb;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 1rem;
+
+        .anonymous {
+            @include df;
+            color: #333;
+            font-size: 0.26rem;
+
+            .icon-checkbox {
+                margin:0 0.18rem 0 0.32rem;
+            }
+        }
+
+        .publish-bottom-btn {
+            width:2.98rem;
+            height: 100%;
+            color:#fff;
+            font-size: 0.3rem;
+            text-align: center;
+            line-height: 1rem;
+        }
+    }
+}
+.publish-evaluate-con {
+    padding-top:1.02rem;
+    .publish-page{
+        padding:0.3rem 0.3rem 0.08rem 0.3rem;
+    }
+    .page-goods{
+        @include df;
+        @include df-ai;
+        margin-bottom: 0.4rem;
+        &-img{
+            width:1.04rem;
+            height: 1.04rem;
+            border:0.02rem solid #D2D2D2;
+            img{
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+        &-text{
+            flex: 1;
+            padding-left:0.2rem;
+            .title{
+                font-size: 0.3rem;
+                color:#333;
+                margin-bottom: 0.24rem;
+                line-height: 0.34rem;
+                max-height: 0.66rem;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+            }
+            .specs{
+                font-size: 0.24rem;
+                color:#999;
+            }
+        }
+    }
+    .evaluate-num{
+        @include df;
+        @include df-ai;
+        font-size: 0.3rem;
+        color:#333;
+        padding-bottom: 0.28rem;
+        span{
+            padding-right: 0.3rem;
+        }
+    }
+    .evaluate-text{
+        @include df;
+        textarea{
+            width:100%;
+            height: 1.8rem;
+            border:none;
+            resize:none;
+            padding:0.3rem 0;
+        }
+    }
+    .upload-images{
+        .van-uploader__upload{
+            background:url('assets/images/shangchuanzhaopian@2x.png') center center no-repeat;
+            background-size: 100% 100%;
+            border:none;
+            margin:0 0.24rem 0.22rem 0;
+            width:1.92rem;
+            height: 1.92rem;
+        }
+        .van-uploader__preview{
+            margin:0 0.24rem 0.22rem 0;
+        }
+        .van-uploader__preview-image{
+            width:1.92rem;
+            height: 1.92rem;
+        }
+        .van-icon-plus {
+            display: none;
+        }
+    }
+}
+
+/*评价成功*/
+.evaluateSuccess{
+    .evaluate-success-top{
+        background:linear-gradient(128deg, rgba(250, 150, 57, 1) 0%, rgba(242, 127, 20, 1) 100%);
+        height: 4.7rem;
+        width: 100%;
+        color:#fff;
+        text-align: center;
+        .title{
+            padding:0.34rem;
+            margin-bottom: 0.36rem;
+            &-icon{
+                float: left;
+                background: url('assets/images/icon_fanhui@2x.png') left center no-repeat;
+                background-size:0.18rem 0.32rem;
+                width:0.32rem;
+                height: 0.32rem;
+            }
+            &-txt{
+                font-size:0.34rem;
+                line-height: 0.34rem;
+                font-weight: 400;
+            }
+        }
+        .top-tip{
+            @include df;
+            @include df-jc;
+            margin-bottom: 0.26rem;
+            .tip-icon{
+                background: url('assets/images/evaluate_success.png') center center no-repeat;
+                background-size: 100% 100%;
+                width:0.42rem;
+                height: 0.42rem;
+                margin-right:0.16rem;
+            }
+            .tip-txt{
+                font-size: 0.34rem;
+                line-height: 0.42rem;
+            }
+        }
+        .top-txt{
+            font-size: 0.26rem;
+            line-height: 0.26rem;
+            margin-bottom: 0.54rem;
+        }
+        .top-btn{
+            margin: 0 auto;
+            width:2.24rem;
+            height: 0.7rem;
+            line-height: 0.7rem;
+            font-size: -.28rem;
+            border:0.02rem solid #fff;
+            border-radius:0.04rem;
+        }
+    }
+    .continue-evaluate{
+        border-radius: 0.12rem 0.12rem 0 0;
+        overflow: hidden;
+        margin-top:-0.5rem;
+        &-title{
+            font-size: 0.28rem;
+            color:#333;
+            text-align: center;
+            line-height: 0.28rem;
+            padding:0.32rem;
+        }
+        &-list{
+            .msg-list-item {
+                color: #333;
+                padding: 0 0.28rem;
+                overflow: hidden;
+            }
+            .item-con {
+                @include df;
+                @include df-ai;
+                padding:0.32rem 0;
+                &-img {
+                    @include df;
+                    @include df-ai;
+                    @include df-jc;
+                    width: 1.7rem;
+                    height: 1.7rem;
+                    border: 0.02rem solid #D2D2D2;
+                    img {
+                        max-width: 100%;
+                        max-height: 100%;
+                    }
+                }
+                &-txt {
+                    @include df-as-fs;
+                    flex: 1;
+                    padding-left: 0.34rem;
+                    .title {
+                        font-size: 0.3rem;
+                        font-weight: 500;
+                        height: 0.64rem;
+                        line-height: 0.32rem;
+                        overflow: hidden;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        margin-bottom: 0.3rem;
+                        margin-top: 0.08rem;
+                    }
+                    .txt-btn {
+                        @include df;
+                        @include df-ai;
+                        @include df-jc;
+                        float: right;
+                        font-size: 0.26rem;
+                        width: 1.44rem;
+                        height: 0.5rem;
+                        border: 0.02rem solid #F38219;
+                        border-radius: 0.04rem;
+                        margin-top: 0.14rem;
+                    }
+                }
+            }
+        }
     }
 }
 

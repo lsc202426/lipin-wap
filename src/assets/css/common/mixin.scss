@@ -64,6 +64,12 @@
     align-self: center;
 }
 
+@mixin df-as-fs {
+    -webkit-align-self: flex-start;
+    -moz-align-self: flex-start;
+    align-self: flex-start;
+}
+
 @mixin df-as-fe {
     -webkit-align-self: flex-end;
     -moz-align-self: flex-end;

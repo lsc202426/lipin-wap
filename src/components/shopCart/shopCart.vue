@@ -1,11 +1,13 @@
 <template>
-    <div class="shopCart" v-if="showPage">
+    <div class="shopCart collect" v-if="showPage">
         <!--头部-->
         <nav-bar
             :title="title"
             :border="border"
             :leftArrow="leftArrow"
         ></nav-bar>
+        <!--编辑按钮-->
+        <div class="collect-edit" v-if="dataList&&dataList.length > 0" @click="editCart">{{editTxt}}</div>
         <!--内容-->
         <div class="cart-content containerView-main" v-if="dataList && dataList.length > 0">
             <div class="cart-list">
@@ -117,6 +119,21 @@
                 </div>
             </div>
         </div>
+        <!--底部编辑栏-->
+        <div class="settle-box f-bgf" v-if="show && dataList.length > 0">
+            <div class="all-check" @click.stop="allChecked">
+                <div
+                    class="icon-checkbox"
+                    :class="{ 'icon-checkbox-active': allCheck }"
+                ></div>
+                <div>全选</div>
+            </div>
+            <div class="settle-price-btn">
+                <div class="settle-btn f-bgc1" @click.stop="delectAll">
+                    删除
+                </div>
+            </div>
+        </div>
         <!--底部-->
         <primary-bar v-if="isStaff"></primary-bar>
         <tab-bar v-else></tab-bar>
@@ -145,6 +162,8 @@ export default {
             primary:0,//预选积分
             showPage:false,//是否显示页面
             delList:[],//删除的商品
+            editTxt:"管理",//管理购物车
+            show:false,
         };
     },
     created() {
@@ -163,6 +182,18 @@ export default {
         dataList: function(val) {
             // this.computTotal();//计算价格
             // this.$forceUpdate();//强制渲染
+        },
+        show:function(val){
+            this.dataList.forEach((item, index) => {
+                item.check = false;
+            });
+            if(val){
+                this.editTxt='取消';
+                this.allCheck=false;
+            }else{
+                this.editTxt='管理';
+                this.total=0;
+            }
         }
     },
     methods: {
@@ -240,6 +271,40 @@ export default {
                     break;
             }
         },
+        //删除全部
+        delectAll(){
+            this.delList=[];
+            this.$dialog.confirm({
+                message: "确定删除吗？"
+            }).then(()=>{
+                this.dataList.forEach((item, index) => {
+                    if (item.check) {
+                        this.delList.push(item.cart_guid);
+                    }
+                });
+                this.$axios.post(`/v1/goods/delCart?token=${sessionStorage.token}`,{
+                    ids:this.delList
+                }).then((res)=>{
+                    let data=res.data.data;
+                    if(data.code===1000){
+                        this.$toast({
+                            message:'删除成功',
+                            forbidClick:true
+                        })
+                        setTimeout(() => {
+                            this.page=1;
+                            this.finished=true;
+                            this.loading=false;
+                            this.init(this.page);
+                        }, 1500);
+                    }
+                })
+                this.$dialog.close();
+            }).catch(()=>{
+                this.$dialog.close();
+            })
+        },
+
         //减少商品数量
         reduceNum(list) {
             list.num = parseInt(list.num);
@@ -275,6 +340,7 @@ export default {
         },
         //结算
         goSettle() {
+            this.goods=[];
             //判断产品选择情况
             this.dataList.forEach((item, index) => {
                 if (item.check) {
@@ -369,6 +435,18 @@ export default {
                     id:id
                 }
             })
+        },
+        //编辑购物车
+        editCart(){
+            if(this.dataList.length>0){
+                this.show=!this.show;
+                if(!this.show){
+                    this.allCheck=false;
+                    this.dataList.forEach((item,index)=>{
+                        item.check=false;
+                    })
+                }
+            }
         },
         //下拉加载更多
         onLoad() {

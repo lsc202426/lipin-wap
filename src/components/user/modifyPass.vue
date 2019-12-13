@@ -1,7 +1,7 @@
 <template>
     <div class="modifyPhone modifyPass">
         <!--头部-->
-        <nav-bar title="修改手机号" :border=border :leftArrow=leftArrow></nav-bar>
+        <nav-bar title="修改密码" :border=border :leftArrow=leftArrow></nav-bar>
         <!--内容部分-->
         <div class="modify-phone-content containerView-main">
             <div class="modify-pass-list f-bgf">

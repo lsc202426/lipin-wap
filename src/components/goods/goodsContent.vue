@@ -1,7 +1,7 @@
 <template>
     <div class="goodsContent">
         <div class="goods-page containerView-main" id="goods-page">
-            <van-tabs v-model="active" sticky>
+            <van-tabs v-model="active" @change="onClick" :class="{'goods-back-fixed':isScroll}">
                 <div class="goods-back" :class="{'goods-back-fixed':isScroll}" @click.stop="goBack"></div>
                 <van-tab :title="item" v-for="(item,index) in navTitle" :key="index">
                     <div>
@@ -18,9 +18,31 @@
                             <div class="content-box f-bgf">
                                 <div class="content-title">{{data.title}}</div>
                                 <div class="content-text">{{data.describe}}</div>
-                                <div class="content-price price">
-                                    <span class="sign">￥</span>
-                                    <span>{{data.price}}</span>
+                                <div :class="{'f-bdb':seller}">
+                                    <div class="content-price price">
+                                        <span class="sign">￥</span>
+                                        <span>{{data.price}}</span>
+                                    </div>
+                                </div>
+                                <div class="web-nonstop" v-if="seller">
+                                    <div class="web-nonstop-img">
+                                        <img v-lazy="seller.logo" alt="">
+                                    </div>
+                                    <div class="web-nonstop-con">
+                                        <div class="web-title">
+                                            <div class="web-title-l">
+                                                {{seller.website_name}}
+                                            </div>
+                                            <div class="web-title-r">
+                                                <div class="mark-icon"></div>
+                                                品牌认证
+                                            </div>
+                                        </div>
+                                        <div class="web-url">{{seller.website_domain}}</div>
+                                        <div class="web-go" @click.stop="goWeb(seller.website_url)">
+                                            直达品牌官网<span class="web-go-icon"></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="goods-parameter">
@@ -40,9 +62,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!--评价模块-->
+                                <evaluate :list="lists" @giveLike="giveLike" :title="showTitle" :count="data.goods_evaluate_count" id="refEvaluate"></evaluate>
+                                <!--详情模块-->
                                 <div class="goods-detail" id="goodsDetail">
                                     <div v-html="data.memo"></div>
                                 </div>
+                                <!--规格弹窗-->
                                 <van-action-sheet v-model="show" title=" ">
                                     <div class="parameter-box">
                                         <div class="parameter-item f-bdb">
@@ -83,6 +109,7 @@
     </div>
 </template>
 <script>
+import evaluate from '@/components/common/evaluate.vue'
 export default {
     name:'goodsContent',
     data(){
@@ -92,6 +119,7 @@ export default {
             isCollection:false,//是否收藏
             data:{},//获取的数据信息
             spec:{},//参数内容
+            seller:{},//官网直达
             spec_id:'',//规格值id
             spec_txt:'',//规格值名字
             showType:0,
@@ -99,11 +127,15 @@ export default {
             orderNowTxt:'立即兑换',
             isScroll:false,//是否滚动页面
             navTitle:[
-                '商品','详情'
+                '商品','评价','详情'
             ],
             active:0,
             conTop:0,//详情距离顶部距离
+            evaluateTop:0,//评价距离顶部距离
             isClick:false,//是否是点击
+            lists:[],//数据列表
+            showTitle:true,
+            obj:null,
         }
     },
     watch: {
@@ -116,19 +148,28 @@ export default {
             }
         },
         isScroll:function(val){
-            
+
         },
         active:function(val){
-            let obj=document.getElementById('goods-page');
-            if(!this.isClick){
-                this.isClick=true;
-                //let vanTab=document.getElementsByClassName('van-tabs__content');
-                if(obj&&val==1){
-                    //vanTab[0].style.transform=`translate3d(0, -${this.conTop}px, 0)`;
-                    obj.scrollTop=this.conTop;
-                }else{
-                    obj.scrollTop=0;
-                }
+            if(val==1){
+                this.$nextTick(()=>{
+                    if(this.isClick){
+                        this.obj.scrollTop=this.evaluateTop+1;
+                    }
+                })
+            }else if(val==2){
+                this.$nextTick(()=>{
+                    if(this.isClick){
+                        this.obj.scrollTop=this.conTop+1;
+                    }
+                    
+                })
+            }else{
+                this.$nextTick(()=>{
+                    if(this.isClick){
+                        this.obj.scrollTop=0;
+                    }
+                })
             }
         }
     },
@@ -151,9 +192,15 @@ export default {
         window.addEventListener('scroll', this.getScroll,true);
         this.$nextTick(()=>{
             let detailConTop=document.getElementById('goodsDetail');
+            let detailEvaluateTop=document.getElementById('refEvaluate');
             if(detailConTop){
                 this.conTop=detailConTop.offsetTop;
             }
+            if(detailEvaluateTop){
+                this.evaluateTop=detailEvaluateTop.offsetTop;
+            }
+            this.obj=document.documentElement;
+            this.obj.scrollTop=0;
         })
 
     },
@@ -170,6 +217,8 @@ export default {
                     let data=res.data.data;
                     if(data.code===1000){
                         this.data=data.info;
+                        this.seller=this.data.seller;
+                        this.lists=this.data.goods_evaluate;
                         this.data.spec.default=-1;
                         if(this.data.collect_id&&this.data.collect_id!=''){
                             this.isCollection=true;
@@ -205,17 +254,12 @@ export default {
             })
         },
         //商品详情切换
-        // changeList(name,title){
-        //     this.active=name;
-        //     let obj=document.getElementById('goods-page');
-        //     //let vanTab=document.getElementsByClassName('van-tabs__content');
-        //     if(obj&&this.active==1){
-        //         //vanTab[0].style.transform=`translate3d(0, -${this.conTop}px, 0)`;
-        //         obj.scrollTop=this.conTop;
-        //     }else{
-        //         obj.scrollTop=0;
-        //     }
-        // },
+        onClick(name,title){
+            this.active=name;
+            this.$nextTick(()=>{
+                this.isClick=true;
+            })
+        },
         //弹出参数选择框
         showLayer(){
             this.showType=0;
@@ -280,6 +324,10 @@ export default {
         },
         //加入购物车
         addCart(){
+            //判断是否售罄
+            if(true){
+                
+            }
             //判断是否登录
             if(!this.hasToken()){
                 return false;
@@ -384,7 +432,7 @@ export default {
                     }
                 })
             }
-            
+
         },
         //判断是否有登录
         hasToken(){
@@ -413,37 +461,59 @@ export default {
         },
         //页面滑动监听
         getScroll(){
-            let obj=document.getElementById('goods-page');
-            let top=0;
-            if(obj){
-                top=obj.scrollTop;
-            }
+            let top=this.obj.scrollTop;
+            this.isClick=false;
             if(top>0){
                 this.isScroll=true;
             }else{
                 this.isScroll=false;
             }
-            //获取元素距离顶部高度
-            if(this.isClick){
-                setTimeout(() => {
-                    this.isClick=false;
-                }, 500);
-            }else{
-                this.isClick=true;
-                if(top>=this.conTop){
-                    this.active=1;
-                }else{
-                    this.active=0;
-                }
+            if(top<this.evaluateTop&&this.active!=0){
+                this.active=0;
             }
-            
+            if(top>=this.evaluateTop&&top<this.conTop&&this.active!=1){
+                this.active=1;
+            }
+            if(top>=this.conTop&&this.active!=2){
+                this.active=2;
+            }
         },
         //前往购物车
         goShopCart(){
             this.$router.push({
                 path:'shopCart'
             })
+        },
+        //官网直达
+        goWeb(url){
+            window.location.href=url;
+        },
+        //点赞
+        giveLike(t){
+            this.$axios.post(`/v1/evaluate/like?token=${sessionStorage.token}`,{
+                id:t.id,
+                type:1,//1：评论点赞、2：回复点赞
+            }).then((res)=>{
+                let data=res.data.data;
+                if(data.code===1000){
+                    this.lists.forEach((item,index)=>{
+                        if(item.id==t.id){
+                            if(t.is_like){
+                                item.is_like=false;
+                                item.like-=1;
+                            }else{
+                                item.is_like=true;
+                                item.like+=1;
+                            }
+                        }
+                    })
+                    this.$forceUpdate();
+                }
+            })
         }
     },
+    components:{
+        evaluate
+    }
 }
 </script>

@@ -1,0 +1,147 @@
+/*评价列表*/
+.evaluate{
+    .no-evaluate{
+        @include df;
+        padding: 0.3rem 0.32rem;
+        margin-top: 0.2rem;
+    }
+    &-con{
+        margin-top: 0.2rem;
+        overflow: hidden;
+        &-title{
+            @include df;
+            @include df-jc-sb;
+            @include df-ai;
+            padding:0.3rem 0.32rem;
+            .num{
+                color:#333;
+                font-size: 0.3rem;
+                line-height: 0.42rem;
+            }
+            .more{
+                color:#666;
+                font-size: 0.24rem;
+                background:url('assets/images/icon_xuanze@2x.png') right center no-repeat;
+                background-size: 0.12rem 0.22rem;
+                padding-right: 0.2rem;
+            }
+        }
+    }
+    .evaluate-list {
+
+    }
+}
+
+
+.evaluate-item {
+    @include df;
+    padding: .3rem 0;
+    margin:0 0.3rem;
+    &:last-child{
+        border:none;
+    }
+    .item-img {
+        width: .8rem;
+        height: .8rem;
+        border-radius: 50%;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .item-content {
+        flex: 1;
+        padding-left: .26rem;
+
+        .item-top {
+            @include df;
+            @include df-jc-sb;
+
+            .item-name {
+                font-size: .26rem;
+                color: #333;
+                font-weight: 500;
+            }
+
+            .item-time {
+                font-size: .24rem;
+                color: #999;
+            }
+        }
+
+        .item-value {
+            margin-bottom: .3rem;
+        }
+
+        .item-text {
+            font-size: .3rem;
+            color: #333;
+            line-height: .4rem;
+            margin-bottom: .3rem;
+        }
+        .images-list{
+            @include df;
+            @include fw-w;
+            .images-item{
+                @include df;
+                @include df-ai;
+                @include df-jc;
+                width:1.78rem;
+                height: 1.78rem;
+                margin:0 0.24rem 0.2rem 0;
+                overflow: hidden;
+                &:nth-child(3n){
+                    margin-right:0;
+                }
+                img{
+                    max-width:100%;
+                    max-height: 100%;
+                }
+            }
+        }
+        &-bot{
+            @include df;
+            @include fd-r-r;
+            @include df-ai;
+            color:#999;
+            font-size: 0.24rem;
+            padding-top:0.2rem;
+            .evaluate-num{
+                @include df;
+                @include df-ai;
+                &::before{
+                    content:"";
+                    display: inline-block;
+                    background:url('assets/images/pinglun@2x.png') center center no-repeat;
+                    background-size: 100% 100%;
+                    width: 0.32rem;
+                    height: 0.28rem;
+                    margin-right: 0.1rem;
+                }
+            }
+            .good-box {
+                @include df;
+                @include df-ai;
+                margin-right: 0.44rem;
+                &::before {
+                    content: "";
+                    display: inline-block;
+                    background: url('assets/images/dianzan@2x.png') center center no-repeat;
+                    background-size: 100% 100%;
+                    width: 0.32rem;
+                    height: 0.3rem;
+                    margin-right: 0.1rem;
+                }
+            }
+            .good-box-active{
+                &::before {
+                    content: "";
+                    background: url('assets/images/good-active.png') center center no-repeat;
+                    background-size: 100% 100%;
+                }
+            }
+        }
+    }
+}

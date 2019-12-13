@@ -48,6 +48,10 @@
                         <div class="icon-bg icon-bg3"></div>
                         <span>待收货</span>
                     </div>
+                    <div class="icon-item" @click="goOrderList(3)">
+                        <div class="icon-bg icon-bg4"></div>
+                        <span>待评价</span>
+                    </div>
                 </div>
             </div>
             <!--导航栏目-->
@@ -63,6 +67,13 @@
                     <div class="user-tab-l">
                         <span class="tab-item-bg tab-item-bg2"></span>
                         <span>我的积分</span>
+                    </div>
+                    <div class="arrow-right"></div>
+                </div>
+                <div class="user-tab-item f-bdb" @click="goAddress">
+                    <div class="user-tab-l">
+                        <span class="tab-item-bg tab-item-bg4"></span>
+                        <span>地址管理</span>
                     </div>
                     <div class="arrow-right"></div>
                 </div>
@@ -132,17 +143,29 @@ export default {
         },
         //前往订单列表
         goOrderList(i){
-            this.$router.push({
-                path:'/order',
-                query:{
-                    state:i
-                }
-            })
+            if(i===3){
+                this.$router.push({
+                    path:'/evaluateContent',
+                })
+            }else{
+                this.$router.push({
+                    path:'/order',
+                    query:{
+                        state:i
+                    }
+                })
+            }
         },
         //前往我的收藏
         goCollect(){
             this.$router.push({
                 path:'/collect',
+            })
+        },
+        //前往地址列表
+        goAddress(){
+            this.$router.push({
+                path:'/myAddress',
             })
         },
         //前往积分预购

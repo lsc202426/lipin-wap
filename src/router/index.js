@@ -236,6 +236,60 @@ const routes = [
     path: '/licationGain',
     name: 'licationGain',
     component: () => import('../components/login/licationGain.vue')
+  },
+  // 评价中心
+  {
+    path: '/evaluateContent',
+    name: 'evaluateContent',
+    component: () => import('../components/user/evaluateContent.vue'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  // 评价列表
+  {
+    path: '/evaluateList',
+    name: 'evaluateList',
+    component: () => import('../components/goods/evaluateList.vue'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  // 评价详情
+  {
+    path: '/evaluateDetail',
+    name: 'evaluateDetail',
+    component: () => import('../components/goods/evaluateDetail.vue'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  // 发表评价
+  {
+    path: '/publishEvaluate',
+    name: 'publishEvaluate',
+    component: () => import('../components/user/publishEvaluate.vue'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  // 评价成功
+  {
+    path: '/evaluateSuccess',
+    name: 'evaluateSuccess',
+    component: () => import('../components/user/evaluateSuccess.vue'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  // 编辑地址
+  {
+    path: '/editSite',
+    name: 'editSite',
+    component: () => import('../components/user/editSite.vue'),
+    meta: {
+      requireAuth: true
+    }
   }
 ]
 

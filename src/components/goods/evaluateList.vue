@@ -1,9 +1,9 @@
 <template>
-    <div class="myAddress">
+    <div class="evaluateList">
         <!--头部-->
-        <nav-bar title="我的地址" :url="url" :border=border :leftArrow=leftArrow></nav-bar>
+        <nav-bar title="评价列表" :url="url" :border=border :leftArrow=leftArrow></nav-bar>
         <!--内容-->
-        <div class="address-content containerView-main">
+        <div class="containerView-main">
             <div class="address-list" v-if="lists&&lists.length>0">
                 <van-list
                     v-model="loading"
@@ -13,66 +13,52 @@
                     :error.sync="error"
                     error-text="请求失败，点击重新加载"
                   >
-                    <div @click="selectSite(list)" class="address-item f-bgf" :class="{'f-bdb':index!=lists.length-1}" v-for="(list,index) in lists" :key="index">
-                        <div class="msg-txt">
-                            <div class="address-item-txt">
-                                <div>{{list.name}}</div>
-                                <div>{{list.cellphone}}</div>
-                                <div class="mark">{{list.label}}</div>
-                            </div>
-                            <div class="address-item-ress">
-                                {{list.address}}
-                            </div>
-                        </div>
-                        <div class="edit-txt" @click.stop="editAddress(list)">编辑</div>
+                    <div class="content-list">
+                        <evaluate :list="lists" @giveLike="giveLike" :title="showTitle" :count="count" id="refEvaluate"></evaluate>
                     </div>
-                    <van-divider dashed class="botton-line" v-if="finished">
+                    <van-divider dashed class="botton-line"  v-if="finished&&lists&&lists.length>0">
                         没有更多了
                     </van-divider>
                 </van-list>
             </div>
             <div class="order" v-else>
-                <no-data text="您还没有添加地址"></no-data>
+                <no-data></no-data>
             </div>
         </div>
-        <!--底部按钮-->
-        <div class="fixed-btn">
-            <div class="big-btn" @click="addSite">添加地址</div>
-        </div>
+        <!--导航-->
     </div>
 </template>
 <script>
+import evaluate from '@/components/common/evaluate.vue'
 export default {
-    name:'myAddress',
+    name:'evaluateList',
     data() {
         return {
             border: true,
             leftArrow:true,
+            showTitle:false,
             lists:[],//获取的接口数据内容
             loading: false, //是否触发加载
             finished: false, //数据加载完毕
             error:false,//若列表数据加载失败，将error设置成true即可显示错误提示，用户点击错误提示后会重新触发 load 事件
             page: 1, //页码
-            url:"",
+            url:`/goodsContent?id=${this.$route.query.id}`,
+            count:0,
         }
     },
     created () {
-        //判断是否是结算页面过来，赋值页面返回按钮
-        if(this.$route.query.id){
-            this.url=`/settle?id=${this.$route.query.id}`;
-        }else{
-            this.url="/user"
-        }
         this.init(this.page);//初始化
     },
     methods: {
         //初始化获取地址数据
         init(page){
-            this.$axios.post(`/v1/home/myAddress?page=${page}&token=${sessionStorage.token}`).then((res)=>{
-                let data=res.data.data;
+            this.$axios.post(`/v1/evaluate/plist?page=${page}&token=${sessionStorage.token}`,{
+                guid:this.$route.query.id
+            }).then((res)=>{
+                let data = res.data.data;
                 if (data.code === 1000) {
                     if (page <= 1) {
-                        this.lists=data.list;
+                        this.lists = data.list;
                     } else {
                         this.lists.push.apply(this.lists, data.list);
                     }
@@ -109,9 +95,9 @@ export default {
         },
         //选择地址
         selectSite(list){
+            sessionStorage.address=JSON.stringify(list);//选择地址之后存储地址信息
             //判断是否是从结算页面过来
             if(this.$route.query.id){
-                sessionStorage.address=JSON.stringify(list);//选择地址之后存储地址信息
                 //如果是，跳转回结算页面
                 this.$router.push({
                     path:'/settle',
@@ -121,25 +107,34 @@ export default {
                 })
             }else{
                 //如果不是，预留后面做地址编辑
-                return;
             }
         },
-        editAddress(list){
-            sessionStorage.addressId=list.id
-            if(this.$route.query.id){
-                sessionStorage.address=JSON.stringify(list);//编辑存储地址信息
-                this.$router.push({
-                    path:'/editSite',
-                    query:{
-                        id:this.$route.query.id
-                    }
-                })
-            }else{
-                this.$router.push({
-                    path:'/editSite'
-                })
-            }
+        //点赞
+        giveLike(t){
+            this.$axios.post(`/v1/evaluate/like?token=${sessionStorage.token}`,{
+                id:t.id,
+                type:1,//1：评论点赞、2：回复点赞
+            }).then((res)=>{
+                let data=res.data.data;
+                if(data.code===1000){
+                    this.lists.forEach((item,index)=>{
+                        if(item.id==t.id){
+                            if(t.is_like){
+                                item.is_like=false;
+                                item.like-=1;
+                            }else{
+                                item.is_like=true;
+                                item.like+=1;
+                            }
+                        }
+                    })
+                    this.$forceUpdate();
+                }
+            })
         }
     },
+    components:{
+        evaluate
+    }
 }
 </script>

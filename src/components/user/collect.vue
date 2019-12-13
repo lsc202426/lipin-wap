@@ -33,10 +33,15 @@
                         </div>
                     </div>
                 </div>
-                <no-data v-else text="您还没有添加商品">
-                    <div class="at-add" @click="atAdd">立即添加</div>
-                </no-data>
+                <div class="order" v-else>
+                    <no-data text="您还没有添加商品">
+                        <div class="at-add" @click="atAdd">立即添加</div>
+                    </no-data>
+                </div>
             </van-list>
+            <van-divider dashed class="botton-line" v-if="finished&&lists&&lists.length>0">
+                没有更多了
+            </van-divider> 
         </div>
         <!--底部编辑栏-->
         <div class="collect-edit-column f-bgf" v-show="show">
@@ -233,7 +238,6 @@ export default {
                         }, 2000);
                     }
                 })
-                //console.log('确定');
             }).catch(()=>{
                 //console.log('取消')
             })

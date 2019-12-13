@@ -1,7 +1,9 @@
 <template>
     <div class="addSite">
         <!--头部-->
-        <nav-bar title="新增地址" :border=border :leftArrow=leftArrow></nav-bar>
+        <nav-bar title="编辑收货地址" :border=border :leftArrow=leftArrow></nav-bar>
+        <!--编辑按钮-->
+        <div class="collect-edit" @click="onSubmit">保存</div>
         <!--内容-->
         <div class="addSite-content containerView-main">
             <div class="field-item f-bgf f-bdb">
@@ -34,9 +36,9 @@
                     <span @click="changeMark(item.name)" :class="{'active':item.name==mark}" v-for="(item,index) in marks" :key="index">{{item.name}}</span>
                 </div>
             </div>
-            <!--确定按钮-->
-            <div class="addSite-btn">
-                <div class="big-btn" @click="onSubmit">确定</div>
+            <!--删除按钮-->
+            <div class="f-bgf price delete-btn" @click="deleteSite">
+                删除收货地址
             </div>
             <div class="addSite-tips">
                 <p>以下地区暂不包邮（支持到付）：西藏、青海、内蒙古、新疆、宁夏、甘肃、辽宁、黑龙江、吉林；</p>
@@ -52,7 +54,7 @@
 <script>
 import areaList from '@/assets/js/areaList.js'
 export default {
-    name:'addSite',
+    name:'editSite',
     data() {
         return {
             border: true,
@@ -79,21 +81,44 @@ export default {
             show:false,
             areaList:areaList,
             countyCode:null,
+            addressMsg:{},//地址信息
+            addressId:sessionStorage.addressId,//要编辑的地址id
         }
     },
     created () {
-        //可以通过区的code设置地址默认选中项
-        // let obj=this.areaList.county_list;
-        // let county="天河区";
-        // let code=null;
-        // Object.keys(obj).forEach((key)=>{
-        //     if(obj[key]==county){
-        //         code=key;
-        //     }
-        // })
-        // this.countyCode=code;
+        //初始化
+        this.init();
+    },
+    destroyed () {
+        sessionStorage.removeItem('addressId');
     },
     methods: {
+        //初始化获取地址数据
+        init(){
+            this.$axios.post(`/v1/home/addressInfo?token=${sessionStorage.token}`,{
+                id:this.addressId
+            }).then((res)=>{
+                let data=res.data.data;
+                if (data.code === 1000) {
+                    this.addressMsg=data.info;
+                    this.genderMark=this.addressMsg.gender;
+                    this.mark=this.addressMsg.label;
+                    this.address=this.addressMsg.province +'-'+ this.addressMsg.city + '-' + this.addressMsg.region;
+                    this.phone=this.addressMsg.cellphone;
+                    this.addressDetail=this.addressMsg.address;
+                    this.name=this.addressMsg.name;
+                    let obj=this.areaList.county_list;
+                    let county=this.addressMsg.region;
+                    let code=null;
+                    Object.keys(obj).forEach((key)=>{
+                        if(obj[key]==county){
+                            code=key;
+                        }
+                    })
+                    this.countyCode=code;
+                }
+            })
+        },
         //修改性别
         changeGender(name) {
             this.genderMark=name;
@@ -122,6 +147,23 @@ export default {
         cancel(){
             this.show=false;
         },
+        //删除收货地址
+        deleteSite(){
+            this.$axios.post(`/v1/home/delAddress?token=${sessionStorage.token}`,{
+                id:this.addressId
+            }).then((res)=>{
+                let data=res.data.data;
+                if(data.code===1000){
+                    this.$toast({
+                        message:'删除成功',
+                        forbidClick:true
+                    });
+                    setTimeout(() => {
+                        this.jump();
+                    }, 2000);
+                }
+            })
+        },
         //提交
         onSubmit(){
             let textTips="";
@@ -142,7 +184,8 @@ export default {
                 return;
             }
             //let address=this.subAddress+this.addressDetail;
-            this.$axios.post(`/v1/home/saveAddress?token=${sessionStorage.token}`,{
+            this.$axios.post(`/v1/home/editAddress?token=${sessionStorage.token}`,{
+                id:this.addressId,
                 name:this.name,
                 gender:this.genderMark,
                 cellphone:this.phone,
@@ -159,25 +202,38 @@ export default {
                         forbidClick:true
                     });
                     setTimeout(() => {
-                        //判断是否从结算页面直接过来的
-                        if(this.$route.query.id){
-                            //如果是，直接回到结算页面
-                            this.$router.push({
-                                path:'/settle',
-                                query:{
-                                    id:this.$route.query.id
-                                }
-                            })
-                        }else{
-                            //如果不是，直接前往地址列表
-                            this.$router.push({
-                                path:'/myAddress'
-                            })
-                        }
+                        this.jump();
                     }, 2000);
                 }
             })
         },
+        //操作成功跳转
+        jump(){
+            //判断是否从结算页面直接过来的
+            if(this.$route.query.id){
+                let obj={
+                    id:this.addressId,
+                    name:this.name,
+                    cellphone:this.phone,
+                    gender:this.genderMark,
+                    label:this.mark,
+                    address:this.province+this.city+this.region+this.addressDetail
+                }
+                sessionStorage.address=JSON.stringify(obj);
+                //如果是，直接回到结算页面
+                this.$router.push({
+                    path:'/settle',
+                    query:{
+                        id:this.$route.query.id
+                    }
+                })
+            }else{
+                //如果不是，直接前往地址列表
+                this.$router.push({
+                    path:'/myAddress'
+                })
+            }
+        }
     },
 }
 </script>

@@ -342,13 +342,13 @@ export default {
                 is_integral:is_integral,
                 payment:payment
             }).then((res)=>{
-                this.$toast.loading({
-                    message:'正在支付中...',
-                    forbidClick: true,
-                    loadingType: 'spinner'
-                })
                 let data=res.data.data;
                 if(data.code===1000){
+                    this.$toast.loading({
+                        message:'正在支付中...',
+                        forbidClick: true,
+                        loadingType: 'spinner'
+                    })
                     localStorage.orderId=data.transaction_id;
                     localStorage.token=sessionStorage.token;
                     //微信支付

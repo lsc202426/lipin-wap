@@ -4,6 +4,23 @@
         <div class="content containerView-main">
             <!--头部-->
             <div class="content-top">
+                <div></div>
+                <!--轮播-->
+                <div class="banner">
+                    <div class="banner-box">
+                        <van-swipe :autoplay="3000">
+                            <van-swipe-item
+                                v-for="(image, index) in images"
+                                :key="index"
+                                @click="goUrl(image)"
+                            >
+                                <lazy-component class="lazy-img">
+                                    <img v-lazy="image.image" />
+                                </lazy-component>
+                            </van-swipe-item>
+                        </van-swipe>
+                    </div>
+                </div>
                 <!--搜索-->
                 <div class="search-box">
                     <div class="search">
@@ -21,22 +38,6 @@
                     <div class="msg" @click.stop="goNews">
                         <img :src="msgBg" alt />
                         <div v-if="hasMsg" class="msg-red"></div>
-                    </div>
-                </div>
-                <!--轮播-->
-                <div class="banner">
-                    <div class="banner-box">
-                        <van-swipe :autoplay="3000">
-                            <van-swipe-item
-                                v-for="(image, index) in images"
-                                :key="index"
-                                @click="goUrl(image)"
-                            >
-                                <lazy-component>
-                                    <img v-lazy="image.image" />
-                                </lazy-component>
-                            </van-swipe-item>
-                        </van-swipe>
                     </div>
                 </div>
             </div>
