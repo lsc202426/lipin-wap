@@ -91,9 +91,19 @@ export default {
         },
         //新增地址
         addSite() {
-            this.$router.push({
-                path:'/addSite'
-            })
+            if(this.$route.query.id){
+                this.$router.push({
+                    path:'/addSite',
+                    query:{
+                        id:this.$route.query.id
+                    }
+                })
+            }else{
+                this.$router.push({
+                    path:'/addSite'
+                })
+            }
+            
         },
         //下拉加载更多
         onLoad() {

@@ -232,7 +232,7 @@ export default {
         //计算需支付金额
         computedTotal(){
             //计算需支付总额
-            if(this.total<=this.integral){
+            if(parseFloat(this.total)<=parseFloat(this.integral)){
                 this.needToPay=0;
             }else{
                 this.needToPay=this.total-this.integral;
