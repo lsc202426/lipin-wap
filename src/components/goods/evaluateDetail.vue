@@ -175,6 +175,7 @@ export default {
                         message:'评价成功',
                         forbidClick:true
                     })
+                    this.evaluateTxt='';
                     setTimeout(() => {
                         this.page=1;
                         this.finished=true;

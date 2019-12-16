@@ -301,6 +301,7 @@ const router = new VueRouter({
 
 // 验证是否需要登录
 router.beforeEach((to, from, next) => {
+  document.documentElement.scrollTop = 0
   // 监听路由设置当前路由底部菜单高亮
   Store.commit('changeMenu', to.name)
   if (to.matched.some(r => r.meta.requireAuth)) {

@@ -19,7 +19,7 @@
                     error-text="请求失败，点击重新加载"
                   >
                     <div class="msg-list-eva">
-                        <div class="msg-list-item f-bgf" v-for="(item,index) in lists" :key="index" @click.stop="goDetail(item.id)">
+                        <div class="msg-list-item f-bgf" v-for="(item,index) in lists" :key="index" @click.stop="goDetail(item.eva_id)">
                             <div class="item-con">
                                 <div class="item-con-img">
                                     <img v-lazy="item.cover" alt="">
