@@ -75,7 +75,7 @@
             <div class="bot-box">
                 <div class="bot-text" @click.stop="fillEvaluate">说点什么吧！</div>
                 <div class="bot-sup" @click.stop="giveLike(lists,'obj')" :class="{'bot-sup-active':lists.is_like}">{{lists.like}}</div>
-                <div class="bot-num">{{lists.reply_num}}</div>
+                <div class="bot-num" @click.stop="fillEvaluate">{{lists.reply_num}}</div>
             </div>
         </div>
         <van-popup
@@ -200,9 +200,13 @@ export default {
         },
         //点赞
         giveLike(t,o){
+            let type=2;
+            if(o&&o==='obj'){
+                type=1;
+            }
             this.$axios.post(`/v1/evaluate/like?token=${sessionStorage.token}`,{
                 id:t.id,
-                type:2,//1：评论点赞、2：回复点赞
+                type:type,//1：评论点赞、2：回复点赞
             }).then((res)=>{
                 let data=res.data.data;
                 if(data.code===1000){
