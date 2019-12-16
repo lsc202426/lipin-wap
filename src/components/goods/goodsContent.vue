@@ -154,13 +154,13 @@ export default {
             if(val==1){
                 this.$nextTick(()=>{
                     if(this.isClick){
-                        this.obj.scrollTop=this.evaluateTop+1;
+                        this.obj.scrollTop=this.evaluateTop;
                     }
                 })
             }else if(val==2){
                 this.$nextTick(()=>{
                     if(this.isClick){
-                        this.obj.scrollTop=this.conTop+1;
+                        this.obj.scrollTop=this.conTop;
                     }
                     
                 })
@@ -190,19 +190,6 @@ export default {
     },
     mounted(){
         window.addEventListener('scroll', this.getScroll,true);
-        this.$nextTick(()=>{
-            let detailConTop=document.getElementById('goodsDetail');
-            let detailEvaluateTop=document.getElementById('refEvaluate');
-            if(detailConTop){
-                this.conTop=detailConTop.offsetTop;
-            }
-            if(detailEvaluateTop){
-                this.evaluateTop=detailEvaluateTop.offsetTop;
-            }
-            this.obj=document.documentElement;
-            this.obj.scrollTop=0;
-        })
-
     },
     beforeDestroy(){
         window.removeEventListener('scroll', this.getScroll);
@@ -237,6 +224,18 @@ export default {
                             this.addCartTxt='加入预选清单';
                             this.orderNowTxt='提交审核';
                         }
+                        this.$nextTick(()=>{
+                            let detailConTop=document.getElementById('goodsDetail');
+                            let detailEvaluateTop=document.getElementById('refEvaluate');
+                            if(detailConTop){
+                                this.conTop=detailConTop.offsetTop-70;
+                            }
+                            if(detailEvaluateTop){
+                                this.evaluateTop=detailEvaluateTop.offsetTop-70;
+                            }
+                            this.obj=document.documentElement;
+                            this.obj.scrollTop=0;
+                        })
                     }
                 })
             }else{
@@ -461,7 +460,10 @@ export default {
         },
         //页面滑动监听
         getScroll(){
-            let top=this.obj.scrollTop;
+            let top=0;
+            if(this.obj){
+                top=this.obj.scrollTop;
+            }
             this.isClick=false;
             if(top>0){
                 this.isScroll=true;
