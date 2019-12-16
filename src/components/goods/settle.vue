@@ -78,7 +78,7 @@
                 <!--支付方式-->
                 <div class="pay-mode f-mgb" v-if="needToPay>0">
                     <div class="title">请选择支付方式</div>
-                    <!-- <div class="goods-tab f-bdb f-bgf" @click.stop="checkPayType(0)">
+                    <div class="goods-tab f-bdb f-bgf" @click.stop="checkPayType(0)">
                         <div class="pay-item">
                             <div class="img-box">
                                 <img v-lazy="imgWx" class="imgWx" alt="">
@@ -86,7 +86,7 @@
                             <span>微信支付</span>
                         </div>
                         <div class="icon-checkbox" :class="{'icon-checkbox-active':payType==0}"></div>
-                    </div> -->
+                    </div>
                     <div class="goods-tab f-bdb f-bgf" @click.stop="checkPayType(1)">
                         <div class="pay-item">
                             <div class="img-box">
@@ -132,7 +132,7 @@ export default {
             integral:0,//可用积分
             isIntegral:true,//是否使用积分
             needToPay:0,//需支付总额
-            payType:1,//默认选中支付方式，0：微信；1：支付宝；2：银联
+            payType:0,//默认选中支付方式，0：微信；1：支付宝；2：银联
             goodsList:[],//商品列表
             address:{},//地址信息
             source:'',//来源地址
