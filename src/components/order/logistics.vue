@@ -11,9 +11,9 @@
                 </div>
                 <div class="logistics-order-txt">
                     <div class="logistics-order-title">物流状态：<span>{{data.state}}</span></div>
-                    <div>承运来源：{{data.company.fullname}}</div>
+                    <div>承运来源：{{company.fullname}}</div>
                     <div>快递单号：{{order.express_no}}</div>
-                    <div>官方电话：{{data.company.tel}}</div>
+                    <div>官方电话：{{company.tel}}</div>
                 </div>
             </div>
             <!--物流信息-->
@@ -38,6 +38,7 @@ export default {
             img:require("@/assets/images/05.png"),
             data:{},//物流信息内容
             order:{},//订单内容
+            company:{},//来源和电话
             type:'',//物流状态
         }
     },
@@ -54,6 +55,7 @@ export default {
                 if(data.code===1000){
                     this.order=data.order;
                     this.data=data.info;
+                    this.company=data.info.company;
                     //请求物流信息
                     //this.getLogistics(data.url);
                 }else{

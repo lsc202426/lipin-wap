@@ -187,9 +187,7 @@ export default {
                 }
             }else{
                 //如果没有存路径，返回首页去
-                this.$router.push({
-                    path:'/'
-                })
+                window.location.href=this.$config.api.public_chinese_url;
                 return;
             }
             if(this.$route.query.id){//这个id就是buy_id
@@ -215,17 +213,13 @@ export default {
                         this.computedTotal();
                     }else if(data.code===1001){
                         setTimeout(() => {
-                            this.$router.push({
-                                path:'/'
-                            })
+                            window.location.href=this.$config.api.public_chinese_url;
                         }, 2000);
                     }
                 })
             }else{
                 //如果没有id，返回首页去
-                this.$router.push({
-                    path:'/'
-                })
+                window.location.href=this.$config.api.public_chinese_url;
                 return;
             }
         },
@@ -265,14 +259,10 @@ export default {
                     //     }
                     // })
                 }else{
-                    this.$router.push({
-                        path:'/'
-                    })
+                    window.location.href=this.$config.api.public_chinese_url;
                 }
             }else{
-                this.$router.push({
-                    path:'/'
-                })
+                window.location.href=this.$config.api.public_chinese_url;
             }
         },
         //前往选择地址
@@ -355,7 +345,7 @@ export default {
                     if(payment=='weixin'){
                         let el = document.createElement('a');
                         document.body.appendChild(el);
-                        el.href =data.mweb_url;
+                        el.href =data.pay_info;
                         setTimeout(function() {
                             el.click();
                             document.body.removeChild(el);
