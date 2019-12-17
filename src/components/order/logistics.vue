@@ -10,17 +10,17 @@
                     <span>共{{order.goods_num}}件商品</span>
                 </div>
                 <div class="logistics-order-txt">
-                    <div class="logistics-order-title">物流状态：<span>{{type}}</span></div>
-                    <div>承运来源：{{data.expTextName}}</div>
-                    <div>快递单号：{{data.mailNo}}</div>
-                    <div>官方电话：{{data.tel}}</div>
+                    <div class="logistics-order-title">物流状态：<span>{{data.state}}</span></div>
+                    <div>承运来源：{{data.company.fullname}}</div>
+                    <div>快递单号：{{order.express_no}}</div>
+                    <div>官方电话：{{data.company.tel}}</div>
                 </div>
             </div>
             <!--物流信息-->
             <div class="logistics-msg f-mgb f-bgf">
                 <van-steps direction="vertical" :active="0">
                     <van-step v-for="(item,index) in data.data" :key="index">
-                        <h3>{{item.context}}</h3>
+                        <h3>{{item.desc}}</h3>
                         <p>{{item.time}}</p>
                     </van-step>
                 </van-steps>
@@ -53,32 +53,37 @@ export default {
                 let data=res.data.data;
                 if(data.code===1000){
                     this.order=data.order;
+                    this.data=data.info;
                     //请求物流信息
-                    this.getLogistics(data.url);
+                    //this.getLogistics(data.url);
+                }else{
+                    setTimeout(() => {
+                        this.$router.go(-1);
+                    }, 2000);
                 }
             })
         },
         //请求物流信息
-        getLogistics(url){
-            this.$axios.post(url).then((res)=>{
-                this.data=res.data;
-                this.data.data.reverse();
-                switch (this.data.status) {
-                    case 1:
-                        this.type='运输中';
-                        break;
-                    case 2:
-                        this.type='派送中';
-                        break;
-                    case 3:
-                        this.type='已签收';
-                        break;
-                    default:
-                        break;
-                }
-            })
+        // getLogistics(url){
+        //     this.$axios.post(url).then((res)=>{
+        //         this.data=res.data;
+        //         this.data.data.reverse();
+        //         switch (this.data.status) {
+        //             case 1:
+        //                 this.type='运输中';
+        //                 break;
+        //             case 2:
+        //                 this.type='派送中';
+        //                 break;
+        //             case 3:
+        //                 this.type='已签收';
+        //                 break;
+        //             default:
+        //                 break;
+        //         }
+        //     })
 
-        }
+        // }
     },
 }
 </script>

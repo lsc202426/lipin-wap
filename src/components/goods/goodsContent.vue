@@ -136,6 +136,7 @@ export default {
             lists:[],//数据列表
             showTitle:true,
             obj:null,
+            once:1,//用来控制初始进来的时候页面滑动触发了一次
         }
     },
     watch: {
@@ -192,9 +193,10 @@ export default {
         window.addEventListener('scroll', this.getScroll,true);
     },
     beforeDestroy(){
-        window.removeEventListener('scroll', this.getScroll);
+        window.removeEventListener('scroll', this.getScroll,true);
     },
     methods: {
+        //初始化
         init() {
             if(this.$route.query.id){
                 let id=this.$route.query.id;
@@ -235,6 +237,7 @@ export default {
                             }
                             this.obj=document.documentElement;
                             this.obj.scrollTop=0;
+                            this.once=2;
                         })
                     }
                 })
@@ -476,7 +479,7 @@ export default {
             if(top>=this.evaluateTop&&top<this.conTop&&this.active!=1){
                 this.active=1;
             }
-            if(top>=this.conTop&&this.active!=2){
+            if(top>=this.conTop&&this.active!=2&&this.once!=1){
                 this.active=2;
             }
         },
