@@ -345,7 +345,7 @@ export default {
                     if(payment=='weixin'){
                         let el = document.createElement('a');
                         document.body.appendChild(el);
-                        el.href =data.pay_info;
+                        el.href =data.pay_info+'&redirect_url=' +encodeURI(this.$config.api.public_english_url);
                         setTimeout(function() {
                             el.click();
                             document.body.removeChild(el);

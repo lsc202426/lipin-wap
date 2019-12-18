@@ -107,6 +107,9 @@ export default {
                     this.phone=this.addressMsg.cellphone;
                     this.addressDetail=this.addressMsg.address;
                     this.name=this.addressMsg.name;
+                    this.city= this.addressMsg.city;
+                    this.province= this.addressMsg.province;
+                    this.region= this.addressMsg.region;
                     let obj=this.areaList.county_list;
                     let county=this.addressMsg.region;
                     let code=null;
@@ -159,7 +162,7 @@ export default {
                         forbidClick:true
                     });
                     setTimeout(() => {
-                        this.jump();
+                        this.jump('del');
                     }, 2000);
                 }
             })
@@ -208,25 +211,36 @@ export default {
             })
         },
         //操作成功跳转
-        jump(){
+        jump(i){
             //判断是否从结算页面直接过来的
             if(this.$route.query.id){
-                let obj={
-                    id:this.addressId,
-                    name:this.name,
-                    cellphone:this.phone,
-                    gender:this.genderMark,
-                    label:this.mark,
-                    address:this.province+this.city+this.region+this.addressDetail
-                }
-                sessionStorage.address=JSON.stringify(obj);
-                //如果是，直接回到结算页面
-                this.$router.push({
-                    path:'/settle',
-                    query:{
-                        id:this.$route.query.id
+                //如果是删除
+                if(i==='del'){
+                    this.$router.push({
+                        path:'/myAddress',
+                        query:{
+                            id:this.$route.query.id
+                        }
+                    })
+                }else{
+                    let obj={
+                        id:this.addressId,
+                        name:this.name,
+                        cellphone:this.phone,
+                        gender:this.genderMark,
+                        label:this.mark,
+                        address:this.province+this.city+this.region+this.addressDetail
                     }
-                })
+                    sessionStorage.address=JSON.stringify(obj);
+                    //如果是，直接回到结算页面
+                    this.$router.push({
+                        path:'/settle',
+                        query:{
+                            id:this.$route.query.id
+                        }
+                    })
+                }
+                
             }else{
                 //如果不是，直接前往地址列表
                 this.$router.push({

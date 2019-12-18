@@ -168,6 +168,7 @@ export default {
                                     id:this.$route.query.id
                                 }
                             })
+                            sessionStorage.removeItem('address');
                         }else{
                             //如果不是，直接前往地址列表
                             this.$router.push({
