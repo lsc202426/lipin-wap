@@ -216,6 +216,7 @@ export default {
             if(this.$route.query.id){
                 //如果是删除
                 if(i==='del'){
+                    sessionStorage.removeItem('address');
                     this.$router.push({
                         path:'/myAddress',
                         query:{
