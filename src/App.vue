@@ -1,8 +1,12 @@
 <template>
   <div id="app">
-    <div style="width:100%;height:100%;">
-        <router-view v-if="isRouterAlive" class="page-content" />
-    </div>
+        
+        <div style="width:100%;height:100%;">
+            <transition name="fade" mode="out-in">
+                <router-view v-if="isRouterAlive" class="page-content" />
+            </transition>
+        </div>
+        
   </div>
 </template>
 
